@@ -8,7 +8,7 @@
       </view>
       <!-- 顶部装饰区：有图时展示 AI 生成的发髻图，无图时保持渐变+首字占位 -->
       <view v-if="item?.imagePath" class="drawer-deco drawer-deco-img">
-        <image class="drawer-deco-image" :src="item.imagePath" mode="widthFix" />
+        <image class="drawer-deco-image" :class="{ loaded: imgLoaded }" :src="item.imagePath" mode="widthFix" @load="imgLoaded = true" />
       </view>
       <view v-else class="drawer-deco">
         <text class="drawer-deco-char">{{ item?.term?.[0] || '?' }}</text>
@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
   item: { type: Object, default: null },
@@ -67,8 +67,11 @@ const props = defineProps({
 })
 defineEmits(['close'])
 
-// AI 生成参考折叠状态，默认收起
 const showAiInfo = ref(false)
+const imgLoaded = ref(false)
+
+// item 切换时重置图片加载状态
+watch(() => props.item, () => { imgLoaded.value = false })
 
 const hasMeta = computed(() => {
   if (!props.item) return false
@@ -175,7 +178,9 @@ const hasMeta = computed(() => {
 /* 图片保持原始比例，不超过 280px，居中 */
 .drawer-deco-image {
   width: 100%; max-width: 280px; height: auto; display: block; margin: 0 auto;
+  opacity: 0; transition: opacity 0.4s ease;
 }
+.drawer-deco-image.loaded { opacity: 1; }
 
 /* AI 生成参考折叠/展开切换条 */
 .drawer-ai-toggle {
