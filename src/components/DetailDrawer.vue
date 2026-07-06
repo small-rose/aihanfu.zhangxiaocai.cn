@@ -8,6 +8,7 @@
       </view>
       <!-- 顶部装饰区：有图时展示 AI 生成的发髻图，无图时保持渐变+首字占位 -->
       <view v-if="item?.imagePath" class="drawer-deco drawer-deco-img">
+        <view v-show="!imgLoaded" class="drawer-img-placeholder"></view>
         <image class="drawer-deco-image" :class="{ loaded: imgLoaded }" :src="item.imagePath" mode="widthFix" @load="imgLoaded = true" />
       </view>
       <view v-else class="drawer-deco">
@@ -70,8 +71,10 @@ defineEmits(['close'])
 const showAiInfo = ref(false)
 const imgLoaded = ref(false)
 
-// item 切换时重置图片加载状态
-watch(() => props.item, () => { imgLoaded.value = false })
+// item 切换时重置加载状态，等 DOM 更新后再开始动画
+watch(() => props.item, () => {
+  imgLoaded.value = false
+})
 
 const hasMeta = computed(() => {
   if (!props.item) return false
@@ -172,13 +175,24 @@ const hasMeta = computed(() => {
 /* 图片版装饰区：替换渐变背景，padding 与内容区对齐 */
 .drawer-deco-img {
   display: block; height: auto; background: $theme-bg; line-height: 0;
-  padding: 0 24px;
+  padding: 0 24px; position: relative; min-height: 120px;
   &::after { display: none; }
 }
-/* 图片保持原始比例，不超过 280px，居中 */
+/* 图片加载前的骨架占位，闪烁动画 */
+.drawer-img-placeholder {
+  width: 100%; max-width: 280px; margin: 0 auto; padding-bottom: 75%;
+  background: linear-gradient(110deg, $theme-bg 30%, #e8e0d8 50%, $theme-bg 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+/* 图片保持原始比例，不超过 280px，居中，加载后淡入 */
 .drawer-deco-image {
   width: 100%; max-width: 280px; height: auto; display: block; margin: 0 auto;
-  opacity: 0; transition: opacity 0.4s ease;
+  opacity: 0; transition: opacity 0.5s ease;
 }
 .drawer-deco-image.loaded { opacity: 1; }
 
