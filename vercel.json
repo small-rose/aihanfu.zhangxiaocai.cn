@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npx uni build",
+  "buildCommand": "npm install --legacy-peer-deps && npx uni build",
   "outputDirectory": "dist/build/h5",
   "devCommand": "npx uni serve",
   "framework": null,
-  "installCommand": "npm install"
+  "installCommand": "npm install --legacy-peer-deps"
 }
