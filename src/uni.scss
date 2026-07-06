@@ -1,0 +1,92 @@
+// ===== Theme Colors =====
+// Background
+$theme-bg: #F5F0E8;
+$theme-cream: #FAF6F0;
+
+// Primary
+$theme-red: #C41E3A;
+$theme-gold: #D4A84B;
+
+// Text
+$theme-ink: #2C2C2C;
+$theme-text-secondary: #666;
+$theme-text-body: #444;
+$theme-placeholder: #ccc;
+
+// UI
+$theme-white: #FFFFFF;
+$theme-gray: #999;
+$theme-light-gray: #E8E0D5;
+$theme-border: #D4C9B8;
+$theme-input-bg: #FAFAFA;
+
+// States
+$theme-red-hover: #A81830;
+$theme-red-active: #8C1428;
+
+// Dark
+$theme-dark-bg: #2C1810;
+$theme-dark-text: #F5F0E8;
+
+// Fonts
+$font-cn: 'Noto Serif SC', 'Source Han Serif SC', serif;
+$font-en: 'Inter', 'Segoe UI', sans-serif;
+
+// Typography - Sizes
+$font-size-hero: clamp(32px, 4.5vw, 54px);
+$font-size-dynasty-title: 42px;
+$font-size-page-title: 28px;
+$font-size-page-title-sub: 24px;
+$font-size-brand: 18px;
+$font-size-section-title: 18px;
+$font-size-section-title-sub: 16px;
+$font-size-subtitle: 16px;
+$font-size-body: 14px;
+$font-size-body-sub: 13px;
+$font-size-small: 13px;
+$font-size-small-sub: 12px;
+$font-size-xs: 12px;
+$font-size-xs-sub: 11px;
+$font-size-xxs: 11px;
+$font-size-xxxs: 10px;
+
+// Typography - Weights
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-medium: 500;
+$font-weight-regular: 400;
+
+// Typography - Letter Spacing
+$letter-spacing-wide: 6px;
+$letter-spacing-medium: 4px;
+$letter-spacing-normal: 2px;
+$letter-spacing-tight: 1px;
+
+// Typography - Line Height
+$line-height-loose: 1.8;
+$line-height-relaxed: 1.7;
+$line-height-normal: 1.6;
+$line-height-compact: 1.5;
+$line-height-tight: 1.2;
+
+
+// ===== CSS Custom Properties (for dynamic / inline use) =====
+:root {
+  --theme-bg: #F5F0E8;
+  --theme-cream: #FAF6F0;
+  --theme-red: #C41E3A;
+  --theme-gold: #D4A84B;
+  --theme-ink: #2C2C2C;
+  --theme-text-secondary: #666;
+  --theme-text-body: #444;
+  --theme-placeholder: #ccc;
+  --theme-white: #FFFFFF;
+  --theme-gray: #999;
+  --theme-light-gray: #E8E0D5;
+  --theme-border: #D4C9B8;
+  --theme-input-bg: #FAFAFA;
+  --theme-dark-bg: #2C1810;
+  --theme-dark-text: #F5F0E8;
+}
+
+

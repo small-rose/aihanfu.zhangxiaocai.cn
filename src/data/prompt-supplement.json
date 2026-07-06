@@ -1,0 +1,232 @@
+{
+  "categories": [
+    {
+      "key": "pose", "icon": "🧘", "label": "姿势",
+      "items": [
+        { "term": "站立", "en": "standing" },
+        { "term": "端坐", "en": "sitting upright" },
+        { "term": "跪坐", "en": "kneeling" },
+        { "term": "侧卧", "en": "lying on side" },
+        { "term": "倚靠", "en": "leaning" },
+        { "term": "回眸", "en": "looking back over shoulder" },
+        { "term": "低眉", "en": "eyes lowered" },
+        { "term": "仰望", "en": "looking up" },
+        { "term": "俯身", "en": "bending forward" },
+        { "term": "抚琴", "en": "playing guqin" },
+        { "term": "执扇", "en": "holding a fan" },
+        { "term": "舞动", "en": "dancing" },
+        { "term": "漫步", "en": "strolling" },
+        { "term": "凭栏", "en": "leaning on railing" },
+        { "term": "拈花", "en": "holding a flower" },
+        { "term": "梳妆", "en": "doing makeup" },
+        { "term": "阅读", "en": "reading" },
+        { "term": "品茶", "en": "sipping tea" },
+        { "term": "执剑", "en": "holding a sword" },
+        { "term": "吹笛", "en": "playing a flute" },
+        { "term": "下棋", "en": "playing chess" },
+        { "term": "垂钓", "en": "fishing" },
+        { "term": "荡秋千", "en": "swinging" },
+        { "term": "祭拜", "en": "praying" },
+        { "term": "骑行", "en": "riding a horse" }
+      ]
+    },
+    {
+      "key": "angle", "icon": "🎥", "label": "拍摄角度",
+      "items": [
+        { "term": "平视", "en": "eye-level shot" },
+        { "term": "俯拍", "en": "high angle, looking down" },
+        { "term": "仰拍", "en": "low angle, looking up" },
+        { "term": "鸟瞰", "en": "bird's eye view" },
+        { "term": "虫瞰", "en": "worm's eye view" },
+        { "term": "斜角", "en": "dutch angle, canted angle" },
+        { "term": "正面", "en": "front view" },
+        { "term": "侧面", "en": "side profile view" },
+        { "term": "四分之三", "en": "three-quarter view" },
+        { "term": "背面", "en": "back view" },
+        { "term": "过头俯拍", "en": "overhead shot" },
+        { "term": "第一人称", "en": "first-person perspective" }
+      ]
+    },
+    {
+      "key": "shot", "icon": "📐", "label": "景别",
+      "items": [
+        { "term": "特写", "en": "close-up shot" },
+        { "term": "面部特写", "en": "extreme close-up, face" },
+        { "term": "近景", "en": "medium close-up" },
+        { "term": "中景", "en": "medium shot" },
+        { "term": "中全景", "en": "medium full shot" },
+        { "term": "全景", "en": "full body shot" },
+        { "term": "远景", "en": "wide shot, long shot" },
+        { "term": "大远景", "en": "extreme wide shot" },
+        { "term": "上半身", "en": "waist-up shot" },
+        { "term": "七分身", "en": "three-quarter length shot" },
+        { "term": "半身", "en": "half body shot" },
+        { "term": "局部特写", "en": "detail shot" }
+      ]
+    },
+    {
+      "key": "composition", "icon": "🖼️", "label": "构图",
+      "items": [
+        { "term": "居中构图", "en": "centered composition" },
+        { "term": "三分法则", "en": "rule of thirds" },
+        { "term": "对称构图", "en": "symmetrical composition" },
+        { "term": "对角线构图", "en": "diagonal composition" },
+        { "term": "框架构图", "en": "framing composition" },
+        { "term": "引导线", "en": "leading lines" },
+        { "term": "留白构图", "en": "negative space composition" },
+        { "term": "黄金螺线", "en": "golden spiral composition" },
+        { "term": "三角构图", "en": "triangular composition" },
+        { "term": "圆形构图", "en": "circular composition" },
+        { "term": "层次构图", "en": "layered composition" },
+        { "term": "密集构图", "en": "fill the frame" }
+      ]
+    },
+    {
+      "key": "lens", "icon": "📷", "label": "相机镜头",
+      "items": [
+        { "term": "85mm 镜头", "en": "85mm lens" },
+        { "term": "50mm 镜头", "en": "50mm standard lens" },
+        { "term": "35mm 镜头", "en": "35mm wide lens" },
+        { "term": "24-70mm 变焦", "en": "24-70mm zoom lens" },
+        { "term": "70-200mm 长焦", "en": "70-200mm telephoto lens" },
+        { "term": "广角镜头", "en": "wide-angle lens" },
+        { "term": "超广角", "en": "ultra wide-angle lens" },
+        { "term": "鱼眼镜头", "en": "fisheye lens" },
+        { "term": "微距镜头", "en": "macro lens" },
+        { "term": "移轴镜头", "en": "tilt-shift lens" },
+        { "term": "大光圈", "en": "large aperture, shallow depth of field" },
+        { "term": "小光圈", "en": "small aperture, deep depth of field" }
+      ]
+    },
+    {
+      "key": "lighting", "icon": "💡", "label": "光影",
+      "items": [
+        { "term": "黄金时刻", "en": "golden hour lighting" },
+        { "term": "蓝色时刻", "en": "blue hour lighting" },
+        { "term": "柔光", "en": "soft diffused light" },
+        { "term": "硬光", "en": "hard light, harsh shadows" },
+        { "term": "侧光", "en": "side lighting" },
+        { "term": "逆光", "en": "backlighting, rim lighting" },
+        { "term": "顶光", "en": "overhead lighting" },
+        { "term": "底光", "en": "underlighting" },
+        { "term": "伦勃朗光", "en": "Rembrandt lighting" },
+        { "term": "蝴蝶光", "en": "butterfly lighting" },
+        { "term": "月光", "en": "moonlight" },
+        { "term": "烛光", "en": "candlelight" },
+        { "term": "灯笼光", "en": "lantern light" },
+        { "term": "晨光", "en": "morning light, dawn" },
+        { "term": "夕阳", "en": "sunset glow" },
+        { "term": "窗光", "en": "window light" },
+        { "term": "聚光", "en": "spotlight" },
+        { "term": "霓虹光", "en": "neon lighting" }
+      ]
+    },
+    {
+      "key": "quality", "icon": "✨", "label": "画质",
+      "items": [
+        { "term": "8K 超清", "en": "8K ultra high resolution" },
+        { "term": "4K 高清", "en": "4K high resolution" },
+        { "term": "超高细节", "en": "ultra detailed" },
+        { "term": "极致清晰", "en": "razor sharp focus" },
+        { "term": "浅景深", "en": "shallow depth of field, bokeh" },
+        { "term": "深景深", "en": "deep depth of field" },
+        { "term": "电影质感", "en": "cinematic quality" },
+        { "term": "商业摄影", "en": "commercial photography" },
+        { "term": "影棚品质", "en": "studio quality" },
+        { "term": "专业级", "en": "professional grade" },
+        { "term": "照片级真实", "en": "photorealistic" },
+        { "term": "高对比度", "en": "high contrast" },
+        { "term": "柔色调", "en": "soft tones" },
+        { "term": "低饱和", "en": "desaturated, muted colors" },
+        { "term": "高饱和", "en": "vibrant colors, high saturation" }
+      ]
+    },
+    {
+      "key": "atmosphere", "icon": "🌫️", "label": "氛围",
+      "items": [
+        { "term": "梦幻", "en": "dreamy, ethereal" },
+        { "term": "神秘", "en": "mysterious atmosphere" },
+        { "term": "浪漫", "en": "romantic ambiance" },
+        { "term": "静谧", "en": "peaceful, serene" },
+        { "term": "萧瑟", "en": "bleak, desolate" },
+        { "term": "热烈", "en": "passionate, vibrant" },
+        { "term": "清冷", "en": "cool, crisp atmosphere" },
+        { "term": "温暖", "en": "warm, cozy atmosphere" },
+        { "term": "雾气", "en": "misty, foggy" },
+        { "term": "烟雨", "en": "misty rain" },
+        { "term": "雪景", "en": "snowy scene" },
+        { "term": "月华", "en": "moonlit glow" },
+        { "term": "霞光", "en": "glowing sunset clouds" }
+      ]
+    },
+    {
+      "key": "texture", "icon": "🖌️", "label": "质感纹理",
+      "items": [
+        { "term": "丝绸光泽", "en": "silky luster" },
+        { "term": "缎面光泽", "en": "satin sheen" },
+        { "term": "纱质通透", "en": "sheer, translucent" },
+        { "term": "刺绣肌理", "en": "embroidery texture" },
+        { "term": "织金闪耀", "en": "gold-woven shimmer" },
+        { "term": "珠光", "en": "pearlescent, mother-of-pearl" },
+        { "term": "哑光", "en": "matte finish" },
+        { "term": "磨砂质感", "en": "matte texture" },
+        { "term": "木质", "en": "wood texture" },
+        { "term": "玉质", "en": "jade-like texture" },
+        { "term": "陶瓷质感", "en": "porcelain texture" },
+        { "term": "纸本", "en": "paper texture" },
+        { "term": "画布纹理", "en": "canvas texture" },
+        { "term": "金属光泽", "en": "metallic sheen" },
+        { "term": "水墨晕染", "en": "ink wash bleeding texture" }
+      ]
+    },
+    {
+      "key": "render", "icon": "🖥️", "label": "渲染技术",
+      "items": [
+        { "term": "Octane 渲染", "en": "Octane render" },
+        { "term": "V-Ray 渲染", "en": "V-Ray render" },
+        { "term": "Unreal Engine 5", "en": "Unreal Engine 5" },
+        { "term": "Blender Cycles", "en": "Blender Cycles" },
+        { "term": "Cinema 4D", "en": "Cinema 4D" },
+        { "term": "光线追踪", "en": "ray tracing" },
+        { "term": "全局照明", "en": "global illumination" },
+        { "term": "次表面散射", "en": "subsurface scattering" },
+        { "term": "体积光", "en": "volumetric lighting" },
+        { "term": "HDR", "en": "HDR rendering" },
+        { "term": "3D 渲染", "en": "3D render" },
+        { "term": "数字绘画", "en": "digital painting" }
+      ]
+    },
+    {
+      "key": "post", "icon": "🎞️", "label": "后期效果",
+      "items": [
+        { "term": "胶片颗粒", "en": "film grain texture" },
+        { "term": "暗角", "en": "vignette" },
+        { "term": "镜头光晕", "en": "lens flare" },
+        { "term": "色差", "en": "chromatic aberration" },
+        { "term": "色彩分级", "en": "color graded" },
+        { "term": "暖色调", "en": "warm color grade" },
+        { "term": "冷色调", "en": "cool color grade" },
+        { "term": "复古色调", "en": "vintage color tone" },
+        { "term": "漂白效果", "en": "bleach bypass" },
+        { "term": "柔光滤镜", "en": "soft glow filter" },
+        { "term": "晕影", "en": "halation" },
+        { "term": "光泄漏", "en": "light leak" }
+      ]
+    },
+    {
+      "key": "modifier", "icon": "🎯", "label": "修饰限定",
+      "items": [
+        { "term": "无文字", "en": "no text, no watermark" },
+        { "term": "无招牌", "en": "no signage" },
+        { "term": "无水印", "en": "no watermark" },
+        { "term": "无多余人物", "en": "no other people" },
+        { "term": "纯色背景", "en": "solid color background" },
+        { "term": "简洁背景", "en": "clean background" },
+        { "term": "自然光线", "en": "natural lighting only" },
+        { "term": "无闪光灯", "en": "no flash" },
+        { "term": "全身完整", "en": "full body visible" },
+        { "term": "无裁剪", "en": "uncropped" }
+      ]
+    }
+  ]
+}

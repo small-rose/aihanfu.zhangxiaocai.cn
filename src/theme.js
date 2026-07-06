@@ -1,0 +1,17 @@
+export const theme = {
+  bg: '#F5F0E8',
+  cream: '#FAF6F0',
+  red: '#C41E3A',
+  gold: '#D4A84B',
+  ink: '#2C2C2C',
+  textSecondary: '#666',
+  textBody: '#444',
+  placeholder: '#ccc',
+  white: '#FFFFFF',
+  gray: '#999',
+  lightGray: '#E8E0D5',
+  border: '#D4C9B8',
+  inputBg: '#FAFAFA',
+  darkBg: '#2C1810',
+  darkText: '#F5F0E8',
+}

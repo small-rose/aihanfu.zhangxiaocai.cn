@@ -1,0 +1,17 @@
+{
+  "pages": [
+    {"path": "pages/home", "style": {"navigationBarTitleText": "汉服图鉴"}},
+    {"path": "pages/lexicon", "style": {"navigationBarTitleText": "词库浏览"}},
+    {"path": "pages/prompter", "style": {"navigationBarTitleText": "提示词组合器"}},
+    {"path": "pages/dynasty", "style": {"navigationBarTitleText": "朝代博物馆"}},
+    {"path": "pages/gallery", "style": {"navigationBarTitleText": "图库"}},
+    {"path": "pages/detail", "style": {"navigationBarTitleText": "图片详情"}},
+    {"path": "pages/color", "style": {"navigationBarTitleText": "传统色彩"}}
+  ],
+  "globalStyle": {
+    "navigationBarBackgroundColor": "#F5F0E8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F0E8",
+    "navigationStyle": "custom"
+  }
+}
