@@ -16,25 +16,34 @@
         <text class="drawer-deco-label">{{ item?.sub || categoryLabel }}</text>
       </view>
       <view class="drawer-content">
+      <view class="dc-group">
       <text class="drawer-term">{{ item?.term }}<text v-if="item?.pinyin" class="drawer-pinyin">（{{ item.pinyin }}）</text></text>
+      </view>
+      <view class="dc-group">
       <view class="drawer-meaning-block">
         <text class="drawer-meaning-label">释义</text>
         <text class="drawer-meaning">{{ item?.meaning }}</text>
       </view>
-      <view v-if="item?.detail" class="drawer-detail-block">
+      </view>
+      <view v-if="item?.detail" class="dc-group">
+      <view class="drawer-detail-block">
         <text class="drawer-detail-label">详细</text>
         <text class="drawer-detail">{{ item.detail }}</text>
       </view>
+      </view>
       <!-- 朝代/身份/子类标签 -->
-      <view v-if="hasMeta" class="drawer-meta">
+      <view v-if="hasMeta" class="dc-group">
+      <view class="drawer-meta">
         <text v-if="item?.dynasty && item.dynasty !== '通用'" class="drawer-tag">{{ item.dynasty }}</text>
         <text v-if="item?.dynasties" v-for="d in item.dynasties" :key="d" class="drawer-tag">{{ d }}</text>
         <text v-if="item?.identity" class="drawer-tag id-tag">{{ item.identity }}</text>
         <text v-if="item?.gender" class="drawer-tag gender-tag">{{ item.gender }}</text>
         <text v-if="item?.sub" class="drawer-tag sub-tag">{{ item.sub }}</text>
       </view>
+      </view>
       <!-- AI 生成参考：默认折叠，点击展开 -->
-      <view v-if="item?.aiPrompt || item?.cnPrompt" class="drawer-ai-toggle" @tap="showAiInfo = !showAiInfo">
+      <view v-if="item?.aiPrompt || item?.cnPrompt" class="dc-group">
+      <view class="drawer-ai-toggle" @tap="showAiInfo = !showAiInfo">
         <text class="drawer-ai-toggle-label">AI 生成参考</text>
         <text class="drawer-ai-toggle-arrow">{{ showAiInfo ? '▾' : '▸' }}</text>
       </view>
@@ -54,6 +63,7 @@
           </view>
         </view>
       </template>
+      </view>
     </view>
     </view>
   </view>
@@ -135,6 +145,19 @@ const hasMeta = computed(() => {
 }
 
 .drawer-content { padding: 20px 24px 32px; flex: 1; }
+
+/* 内容块因 v-if 使 nth-child 不可靠，用相邻兄弟选择器确定顺序 */
+.dc-group,
+.dc-group ~ .dc-group ~ .dc-group { transition: opacity 0.3s ease, transform 0.3s ease; }
+.detail-drawer:not(.open) .dc-group {
+  opacity: 0; transform: translateY(8px);
+}
+/* 用递增 delay 实现逐条入场，v-if 移除的组自动跳过 */
+.detail-drawer.open .dc-group { transition-delay: 0s; }
+.detail-drawer.open .dc-group ~ .dc-group { transition-delay: 0.06s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.12s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.18s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.24s; }
 
 .drawer-term {
   font-size: 22px; font-weight: $font-weight-bold; color: $theme-ink; display: block;
