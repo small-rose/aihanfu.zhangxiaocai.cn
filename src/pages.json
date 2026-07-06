@@ -6,7 +6,8 @@
     {"path": "pages/dynasty", "style": {"navigationBarTitleText": "朝代博物馆"}},
     {"path": "pages/gallery", "style": {"navigationBarTitleText": "图库"}},
     {"path": "pages/detail", "style": {"navigationBarTitleText": "图片详情"}},
-    {"path": "pages/color", "style": {"navigationBarTitleText": "传统色彩"}}
+    {"path": "pages/color", "style": {"navigationBarTitleText": "传统色彩"}},
+    {"path": "pages/search", "style": {"navigationBarTitleText": "全局搜索"}}
   ],
   "globalStyle": {
     "navigationBarBackgroundColor": "#F5F0E8",

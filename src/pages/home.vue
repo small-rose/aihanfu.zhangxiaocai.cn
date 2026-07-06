@@ -107,7 +107,7 @@ import { dynasties } from '../data/hanfu-data.js'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 
-const selectedDynasty = ref('tang')
+const selectedDynasty = ref('sui')
 
 const currentDynasty = computed(() =>
   dynasties.find(d => d.id === selectedDynasty.value) || null

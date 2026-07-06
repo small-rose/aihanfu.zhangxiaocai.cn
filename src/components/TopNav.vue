@@ -1,7 +1,7 @@
 <template>
   <view class="topnav">
     <view class="topnav-inner">
-      <view class="topnav-brand" @tap="navTo('index')">
+      <view class="topnav-brand" @tap="goHome">
         <view class="brand-logo">汉</view>
         <view class="brand-texts">
           <text class="topnav-brand-cn">汉服图鉴</text>
@@ -22,8 +22,8 @@
       </view>
 
       <view class="topnav-search">
-        <text class="search-icon">🔍</text>
-        <input class="search-input" placeholder="搜索服饰、朝代、词条..." />
+        <text class="search-icon" @tap="doSearch">🔍</text>
+        <input class="search-input" placeholder="搜索服饰、朝代、词条..." v-model="searchKeyword" />
       </view>
 
       <view class="topnav-lang">
@@ -36,9 +36,13 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   current: { type: String, default: 'index' }
 })
+
+const searchKeyword = ref('')
 
 const navItems = [
   { key: 'lexicon', label: '词库', labelEn: 'Lexicon' },
@@ -50,6 +54,17 @@ const navItems = [
 function navTo(key) {
   if (key === props.current) return
   uni.navigateTo({ url: `/pages/${key}` })
+}
+
+function goHome() {
+  uni.reLaunch({ url: '/pages/home' })
+}
+
+function doSearch() {
+  const input = document.querySelector('.uni-input-input')
+  const q = input ? input.value.trim() : searchKeyword.value.trim()
+  if (!q) return
+  uni.navigateTo({ url: '/pages/search?q=' + encodeURIComponent(q) })
 }
 </script>
 
@@ -146,7 +161,7 @@ function navTo(key) {
   height: 36px;
 }
 
-.search-icon { font-size: $font-size-body; margin-right: 8px; }
+.search-icon { font-size: $font-size-body; margin-right: 8px; cursor: pointer; }
 
 .search-input {
   flex: 1;

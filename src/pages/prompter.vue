@@ -106,6 +106,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import Button from '../components/Button.vue'
@@ -113,6 +114,10 @@ import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import supplementData from '../data/prompt-supplement.json'
 
 const keyword = ref('')
+
+onLoad((query) => {
+  if (query.q) keyword.value = query.q
+})
 const gender = ref('female')
 const platform = ref('agnes')
 const selectedItems = ref([])

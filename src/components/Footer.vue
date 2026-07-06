@@ -1,8 +1,14 @@
+<script setup>
+function goHome() {
+  uni.reLaunch({ url: '/pages/home' })
+}
+</script>
+
 <template>
   <view class="footer">
     <view class="footer-decoration"></view>
     <view class="footer-inner">
-      <view class="footer-brand">
+      <view class="footer-brand" @tap="goHome">
         <view class="footer-logo">汉</view>
         <view class="footer-brand-texts">
           <text class="footer-brand-cn">汉服图鉴</text>

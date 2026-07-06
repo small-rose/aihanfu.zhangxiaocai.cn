@@ -4,6 +4,7 @@
     <view class="content">
       <view class="page-header">
         <text class="page-title">灵感图库</text>
+        <input class="search-input" placeholder="搜索图片..." v-model="searchKeyword" />
         <view class="filter-group">
           <view
             v-for="f in filters" :key="f.key"
@@ -40,12 +41,18 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import Button from '../components/Button.vue'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
 
 const activeFilter = ref('all')
+const searchKeyword = ref('')
+
+onLoad((query) => {
+  if (query.q) searchKeyword.value = query.q
+})
 
 const filters = computed(() => {
   const counts = {}
@@ -60,8 +67,20 @@ const filters = computed(() => {
 })
 
 const filtered = computed(() => {
-  if (activeFilter.value === 'all') return galleryData
-  return galleryData.filter(img => img.dynasty === activeFilter.value)
+  let list = galleryData
+  if (activeFilter.value !== 'all') {
+    list = list.filter(img => img.dynasty === activeFilter.value)
+  }
+  if (searchKeyword.value) {
+    const kw = searchKeyword.value.toLowerCase()
+    list = list.filter(img => {
+      if (img.title.toLowerCase().includes(kw)) return true
+      if (img.dynasty.toLowerCase().includes(kw)) return true
+      if (img.tags.some(t => t.toLowerCase().includes(kw))) return true
+      return false
+    })
+  }
+  return list
 })
 
 function goPrompter() {
@@ -81,6 +100,13 @@ function openDetail(img) {
 .page-header { display: flex; align-items: center; gap: 32px; margin-bottom: 24px; }
 .page-title { font-size: $font-size-page-title-sub; font-weight: $font-weight-bold; color: $theme-ink; white-space: nowrap; }
 .page-divider { width: 60px; height: 3px; background: $theme-red; margin-bottom: 28px; border-radius: 2px; }
+
+.search-input {
+  flex: 1; max-width: 320px; height: 38px; background: $theme-white; border-radius: 10px;
+  padding: 0 14px; font-size: $font-size-body-sub; color: $theme-ink;
+  border: 1px solid $theme-light-gray; outline: none;
+  &:focus { border-color: $theme-red; }
+}
 
 .filter-group { display: flex; gap: 8px; }
 

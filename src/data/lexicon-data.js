@@ -609,7 +609,17 @@ export function filterItems(opts = {}) {
   }
   if (opts.keyword) {
     const kw = opts.keyword.toLowerCase()
-    list = list.filter(i => i.term.includes(kw) || i.meaning.includes(kw))
+    list = list.filter(i => {
+      if (i.term.toLowerCase().includes(kw)) return true
+      if (i.meaning.toLowerCase().includes(kw)) return true
+      if (i.pinyin && i.pinyin.toLowerCase().includes(kw)) return true
+      if (i.en && i.en.toLowerCase().includes(kw)) return true
+      if (i.tags && i.tags.some(t => t.toLowerCase().includes(kw))) return true
+      if (i.dynasty && i.dynasty.toLowerCase().includes(kw)) return true
+      if (i.detail && i.detail.toLowerCase().includes(kw)) return true
+      if (i.identity && i.identity.toLowerCase().includes(kw)) return true
+      return false
+    })
   }
   return list
 }

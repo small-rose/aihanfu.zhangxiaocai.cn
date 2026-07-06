@@ -112,12 +112,19 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import DetailDrawer from '../components/DetailDrawer.vue'
 
 const keyword = ref('')
+
+onLoad((query) => {
+  if (query.q) {
+    keyword.value = query.q
+  }
+})
 const activeCat = ref('garment')
 const activeSub = ref('all')
 const selectedGenders = ref([])
