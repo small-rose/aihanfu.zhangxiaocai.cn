@@ -16,12 +16,40 @@ function goHome() {
         </view>
       </view>
       <text class="footer-desc">循衣冠之脉 · 览千年华章 — 汉服知识参考与 AI 提示词工具</text>
-      <view class="footer-links">
-        <text class="footer-link">故宫博物院</text>
-        <text class="footer-dot">·</text>
-        <text class="footer-link">中国丝绸博物馆</text>
-        <text class="footer-dot">·</text>
-        <text class="footer-link">国家博物馆</text>
+      <view class="footer-refs">
+        <view class="footer-ref-group">
+          <text class="footer-ref-cat">典籍文献</text>
+          <view class="footer-ref-items">
+            <text class="footer-ref">《中华古今注》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《妆台记》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《髻鬟品》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《后汉书》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《宋史》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《晋书》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《诗经》</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">《礼记》</text>
+          </view>
+        </view>
+        <view class="footer-ref-group">
+          <text class="footer-ref-cat">学术机构</text>
+          <view class="footer-ref-items">
+            <text class="footer-ref">中国社会科学院考古研究所</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">故宫博物院</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">中国丝绸博物馆</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">敦煌研究院</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">国家博物馆</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">陕西历史博物馆</text>
+          </view>
+        </view>
+        <view class="footer-ref-group">
+          <text class="footer-ref-cat">媒体与平台</text>
+          <view class="footer-ref-items">
+            <text class="footer-ref">国家人文历史</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">中国文物网</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">百度百科</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">Navos AI</text>
+          </view>
+        </view>
       </view>
       <view class="footer-meta">
         <text class="footer-copy">© 2026 汉服图鉴 · 仅供学习参考</text>
@@ -126,6 +154,22 @@ function goHome() {
   font-size: $font-size-xs;
   color: $theme-border;
   margin: 0 8px;
+}
+
+.footer-refs {
+  margin-bottom: 24px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.footer-ref-group { margin-bottom: 10px; display: flex; gap: 8px; align-items: baseline; }
+.footer-ref-cat {
+  font-size: 10px; font-weight: $font-weight-semibold; color: $theme-placeholder;
+  text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; min-width: 64px;
+}
+.footer-ref-items { display: flex; flex-wrap: wrap; align-items: center; gap: 0; }
+.footer-ref {
+  font-size: 11px; color: $theme-text-secondary; white-space: nowrap;
+}
+.footer-ref-dot {
+  font-size: 10px; color: $theme-border; margin: 0 5px;
 }
 
 .footer-meta {
