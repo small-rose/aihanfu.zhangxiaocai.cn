@@ -52,7 +52,10 @@ const navItems = [
 ]
 
 function navTo(key) {
-  if (key === props.current) return
+  // 当前页面路由与目标一致时跳过，否则允许导航（detail 页 current=gallery 但不拦截图库跳转）
+  const pages = getCurrentPages()
+  const route = pages[pages.length - 1]?.route || ''
+  if (route === `pages/${key}`) return
   uni.navigateTo({ url: `/pages/${key}` })
 }
 
