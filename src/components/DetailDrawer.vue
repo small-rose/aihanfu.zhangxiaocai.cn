@@ -103,7 +103,7 @@ const hasMeta = computed(() => {
   position: fixed; top: 0; right: 0; bottom: 0;
   width: 33.33%; max-width: 500px; min-width: 300px;
   background: $theme-white; z-index: 201;
-  transform: translateX(100%); transition: transform 0.35s ease;
+  transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex; flex-direction: column; overflow-y: auto;
   box-shadow: -4px 0 20px rgba(0,0,0,0.1);
 }
@@ -155,10 +155,10 @@ const hasMeta = computed(() => {
 }
 /* 用递增 delay 实现逐条入场，v-if 移除的组自动跳过 */
 .detail-drawer.open .dc-group { transition-delay: 0s; }
-.detail-drawer.open .dc-group ~ .dc-group { transition-delay: 0.06s; }
-.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.12s; }
-.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.18s; }
-.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.24s; }
+.detail-drawer.open .dc-group ~ .dc-group { transition-delay: 0.08s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.16s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.24s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.32s; }
 
 .drawer-term {
   font-size: 22px; font-weight: $font-weight-bold; color: $theme-ink; display: block;
