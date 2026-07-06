@@ -7,11 +7,12 @@
         <text class="drawer-close-btn" @tap="$emit('close')">✕</text>
       </view>
       <!-- 顶部装饰区：有图时展示 AI 生成的发髻图，无图时保持渐变+首字占位 -->
-      <view v-if="item?.imagePath" class="drawer-deco drawer-deco-img">
+      <!-- 用 v-show 保持 DOM 不销毁，避免抽屉关闭再打开时图片重新加载 -->
+      <view v-show="item?.imagePath" class="drawer-deco drawer-deco-img">
         <view v-show="!imgLoaded" class="drawer-img-placeholder"></view>
         <image class="drawer-deco-image" :class="{ loaded: imgLoaded }" :src="item.imagePath" mode="widthFix" @load="imgLoaded = true" />
       </view>
-      <view v-else class="drawer-deco">
+      <view v-show="item && !item?.imagePath" class="drawer-deco">
         <text class="drawer-deco-char">{{ item?.term?.[0] || '?' }}</text>
         <text class="drawer-deco-label">{{ item?.sub || categoryLabel }}</text>
       </view>
@@ -81,9 +82,9 @@ defineEmits(['close'])
 const showAiInfo = ref(false)
 const imgLoaded = ref(false)
 
-// item 切换时重置加载状态，等 DOM 更新后再开始动画
-watch(() => props.item, () => {
-  imgLoaded.value = false
+// item 切换到新词条时重置图片加载状态（关闭 drawer 置 null 时不重置，保留缓存）
+watch(() => props.item, (val) => {
+  if (val) imgLoaded.value = false
 })
 
 const hasMeta = computed(() => {
