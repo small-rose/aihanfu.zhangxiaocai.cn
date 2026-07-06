@@ -1,10 +1,10 @@
 <template>
   <view>
-    <view v-if="item" class="drawer-overlay" @tap="$emit('close')"></view>
-    <view class="detail-drawer" :class="{ open: !!item }">
+    <view v-show="item" class="drawer-overlay" :class="{ fade: !closing }" @tap="startClose"></view>
+    <view class="detail-drawer" :class="{ open: !!item && !closing }">
       <view class="drawer-header">
         <text class="drawer-title">{{ categoryLabel }}详情</text>
-        <text class="drawer-close-btn" @tap="$emit('close')">✕</text>
+        <text class="drawer-close-btn" @tap="startClose">✕</text>
       </view>
       <!-- 顶部装饰区：有图时展示 AI 生成的发髻图，无图时保持渐变+首字占位 -->
       <!-- 用 v-show 保持 DOM 不销毁，避免抽屉关闭再打开时图片重新加载 -->
@@ -77,15 +77,21 @@ const props = defineProps({
   item: { type: Object, default: null },
   categoryLabel: { type: String, default: '词条' }
 })
-defineEmits(['close'])
+const emit = defineEmits(['close'])
 
 const showAiInfo = ref(false)
 const imgLoaded = ref(false)
+const closing = ref(false)
 
 // item 切换到新词条时重置图片加载状态（关闭 drawer 置 null 时不重置，保留缓存）
 watch(() => props.item, (val) => {
-  if (val) imgLoaded.value = false
+  if (val) { imgLoaded.value = false; closing.value = false }
 })
+
+function startClose() {
+  closing.value = true
+  setTimeout(() => { closing.value = false; emit('close') }, 500)
+}
 
 const hasMeta = computed(() => {
   if (!props.item) return false
@@ -97,7 +103,9 @@ const hasMeta = computed(() => {
 <style lang="scss" scoped>
 .drawer-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200;
+  opacity: 0; transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+.drawer-overlay.fade { opacity: 1; }
 
 .detail-drawer {
   position: fixed; top: 0; right: 0; bottom: 0;
