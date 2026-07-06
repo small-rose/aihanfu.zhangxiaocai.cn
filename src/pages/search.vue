@@ -50,11 +50,12 @@
         <view v-if="colorResults.length" class="result-group">
           <text class="group-title">🎨 色彩 ({{ colorResults.length }})</text>
           <view class="result-list">
-            <view v-for="c in colorResults" :key="'c'+c.name" class="result-card" @tap="goColor">
+            <view v-for="c in colorResults" :key="'c'+c.name" class="result-card" @tap="goColor(c.name)">
               <view class="color-row">
                 <view class="color-dot" :style="{ backgroundColor: c.hex }"></view>
                 <text class="result-term">{{ c.name }}</text>
                 <text class="color-hex">{{ c.hex }}</text>
+                <text v-if="c.dynasty" class="meta-tag">{{ c.dynasty }}</text>
               </view>
             </view>
           </view>
@@ -93,15 +94,10 @@ import { filterItems, categoryMeta } from '../data/lexicon-data.js'
 import { galleryData } from '../data/gallery-data.js'
 import { dynasties } from '../data/hanfu-data.js'
 import supplementData from '../data/prompt-supplement.json'
+import allColors from '../data/color-data.js'
 
 const keyword = ref('')
 const searched = ref(false)
-
-const fullColors = [
-  { name: '赤', hex: '#C41E3A' }, { name: '玄', hex: '#2C2C2C' }, { name: '青', hex: '#1B5583' },
-  { name: '白', hex: '#FAFAFA' }, { name: '黄', hex: '#D4A84B' }, { name: '绯', hex: '#C4444C' },
-  { name: '黛', hex: '#4A5568' }, { name: '藕荷', hex: '#C9A9B0' }
-]
 
 const kw = computed(() => keyword.value.toLowerCase().trim())
 
@@ -144,7 +140,7 @@ const dynastyResults = computed(() => {
 const colorResults = computed(() => {
   if (!kw.value) return []
   const k = kw.value
-  return fullColors.filter(c => c.name.includes(k) || c.hex.toLowerCase().includes(k))
+  return allColors.filter(c => c.name.includes(k) || c.hex.toLowerCase().includes(k) || (c.tags && c.tags.some(t => t.includes(k))) || (c.dynasty && c.dynasty.includes(k)))
 })
 
 const supplementResults = computed(() => {
@@ -179,8 +175,8 @@ function goDynasty() {
   uni.navigateTo({ url: '/pages/dynasty' })
 }
 
-function goColor() {
-  uni.navigateTo({ url: '/pages/color' })
+function goColor(name) {
+  uni.navigateTo({ url: '/pages/color?q=' + encodeURIComponent(name) })
 }
 
 function goPrompter(q) {

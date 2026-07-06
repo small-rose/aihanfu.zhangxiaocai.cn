@@ -44,7 +44,7 @@
             <view v-for="(group, gi) in grouped" :key="gi" class="sub-section">
               <text v-if="group.catLabel" class="sub-heading">{{ group.catLabel }}</text>
               <text v-if="group.sub && !keyword" class="sub-heading">{{ group.sub }}</text>
-              <view class="lexicon-grid">
+              <view class="lexicon-grid" :class="{ 'grid-4col': activeCat === 'color' }">
                 <view v-for="item in group.items" :key="item.id" class="lexicon-card" @tap="openDrawer(item)">
                   <view v-if="item.hex" class="color-swatch" :style="{ backgroundColor: item.hex }">
                     <text class="color-hex">{{ item.hex }}</text>
@@ -259,6 +259,7 @@ const drawerCategoryLabel = computed(() => {
 }
 
 .lexicon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.grid-4col { grid-template-columns: repeat(4, 1fr); }
 
 .lexicon-card {
   background: $theme-white; border-radius: 10px; padding: 16px;

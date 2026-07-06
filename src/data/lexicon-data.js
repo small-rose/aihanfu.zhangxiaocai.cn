@@ -1,3 +1,19 @@
+import allColors from './color-data.js'
+
+const colorItems = allColors.map(c => ({
+  term: c.name,
+  en: '',
+  meaning: c.meaning,
+  category: 'color',
+  sub: ({ '红':'红色系','黄':'黄色系','绿':'绿色系','蓝紫':'蓝紫色系','褐':'褐色系','黑白':'素色系' })[c.category] || c.category,
+  hex: c.hex,
+  tags: c.tags,
+  dynasty: c.dynasty,
+  dynasties: c.dynasties,
+  detail: c.description + (c.origin ? '\n【来源】' + c.origin : '') + (c.story ? '\n【典故】' + c.story : ''),
+  identity: c.ai ? 'AI友好' : undefined
+}))
+
 export const categories = [
   { key: 'style', icon: '🎨', label: '风格', filename: '风格' },
   { key: 'scene', icon: '🏞️', label: '场景', filename: '场景' },
@@ -251,7 +267,8 @@ const items = [
   { term: '披发', pinyin: 'pī fà', detail: "披发是上古先民最原始的发式状态，也是发髻文化的起点。在生产力极为低下的原始社会，先民尚无梳理头发的工具与意识，头发自然披散。进入文明社会后，披发逐渐被视为\"未开化\"的象征，转为未成年人的发式或特定礼仪场合的装束。《礼记·王制》载\"东方曰夷，被发文身\"，即描述周边民族披发的习俗。在华夏礼制确立后，成年人蓄发束髻成为正统，披发渐退出主流。", meaning: '头发自然披散不加约束，最原始的发式', category: 'hairstyle', sub: '通用', identity: '原始先民、儿童', tags: [] },
   { term: '辫发', pinyin: 'biàn fà', detail: "编发是新石器时代晚期就已成熟的发式技艺。1976年殷墟妇好墓出土的圆雕玉人，头顶编一长辫，辫根在右耳后侧，上盘头顶，下绕经左耳后，辫梢回接辫根——这是迄今最直观的商代编发形象。辫发是华夏先民从披发向发髻演进的关键过渡形态。周代以后，辫发在中原成人中逐渐让位于盘髻，但在边疆民族中长期延续。值得注意的是，商周时期已有将辫发盘绕成髻的做法，即\"辫发为髻\"——考古人员曾在湖北江陵九店东周墓中解开女性死者发髻，发现是将头发分成数股编好后盘绕成形。", meaning: '将头发编成辫子垂于脑后或盘绕成髻', category: 'hairstyle', sub: '通用', dynasty: '商周', identity: '各阶层', tags: [] },
   { term: '椎髻', pinyin: 'chuí jì', detail: "（同原第3条/第7条）椎髻是中国最古老且延续时间最长的发式之一，男女通用。战国至秦汉男性普遍梳此发式。《汉书·陆贾传》载\"尉佗魋结\"（魋结即椎髻），\"今兵士椎头髻也\"，说明秦汉兵士亦梳椎髻。已录入本词库古代女子发髻部分。", meaning: '将头发盘卷成椎形垂于脑后，男女通用，最古老发髻之一', category: 'hairstyle', sub: '结椎式', dynasty: '先秦', identity: '各阶层', tags: ['汉'] },
-  { term: '堕马髻', pinyin: 'duò mǎ jì', detail: "堕马髻是中国古代极负盛名的一款发髻，由东汉梁冀妻孙寿所创。《后汉书·梁冀传》载：\"寿色美而善为妖态，作愁眉、啼妆、堕马髻。\"《后汉书·五行志》亦载：\"桓帝元嘉中，京都妇女作愁眉、啼妆、堕马髻……始自大将军梁冀家所为，京都歙然，诸夏皆仿效。\"其梳编法是：由正中开缝，分发双颞（两侧鬓发），至颈后集为一股挽成大椎，在髻中分出一绺头发朝一侧垂下——此绺垂发即\"垂髾\"。整体呈现一种娇弱无力、慵懒妩媚之态。东汉以后此髻渐少，至魏晋绝迹。唐代复现的\"倭堕髻\"实为名同形异的新发式。", meaning: '发髻偏垂一侧如堕马之态，东汉梁冀妻孙寿所创', category: 'hairstyle', sub: '结椎式', dynasty: '东汉', identity: '贵族女性', tags: ['汉'] },
+  // 发髻图片条目——AI 生成测试记录导入，含 imagePath/提示词/风格/布局
+  { term: '堕马髻', pinyin: 'duò mǎ jì', detail: "堕马髻是中国古代极负盛名的一款发髻，由东汉梁冀妻孙寿所创。《后汉书·梁冀传》载：\"寿色美而善为妖态，作愁眉、啼妆、堕马髻。\"《后汉书·五行志》亦载：\"桓帝元嘉中，京都妇女作愁眉、啼妆、堕马髻……始自大将军梁冀家所为，京都歙然，诸夏皆仿效。\"其梳编法是：由正中开缝，分发双颞（两侧鬓发），至颈后集为一股挽成大椎，在髻中分出一绺头发朝一侧垂下——此绺垂发即\"垂髾\"。整体呈现一种娇弱无力、慵懒妩媚之态。东汉以后此髻渐少，至魏晋绝迹。唐代复现的\"倭堕髻\"实为名同形异的新发式。", meaning: '发髻偏垂一侧如堕马之态，东汉梁冀妻孙寿所创', category: 'hairstyle', sub: '结椎式', dynasty: '东汉', identity: '贵族女性', tags: ['汉'], imagePath: '/static/lexicon/faji/duomaji.png', aiPrompt: "Chinese ancient style watercolor illustration, close-up portrait of a woman with falling horse bun hairstyle, hair falling to one side, adorned with silk flowers and pearl hairpins, side view, showing elegant neck and shoulder line, fine wispy baby hairs, ink black hair with subtle blue shine, soft watercolor texture, fine line art, cream paper background with subtle texture, muted elegant color palette, traditional Chinese painting style, gongbi light color technique", cnPrompt: '中国古风插画水彩风格，堕马髻女性特写肖像，头发偏垂一侧，饰绢花与珍珠发簪，侧面视角，展现优雅颈肩线条，细碎胎发，墨黑发丝带微蓝光泽，柔和水彩质感，精细线描，米色纸面纹理背景，雅致配色，传统国画风格，工笔淡彩技法', aiStyle: '中国古风工笔淡彩插画，柔和水彩质感，精细线描，米白色纸面纹理背景，雅致配色', aiLayout: '女性侧面特写，堕马髻局部，展现优雅颈肩线条' },
   { term: '奉圣髻', pinyin: 'fèng shèng jì', detail: "据《中华古今注》载：\"至汉高祖，又令宫人梳奉圣髻。\"这是汉代第一个以皇帝诏令推行的发髻形式。奉圣髻体现了汉初宫廷崇尚庄重肃穆之风，髻形较高，造型端严，多用于朝会、祭祀等正式场合。", meaning: '汉高祖诏令宫人所梳高髻，形制端严', category: 'hairstyle', sub: '盘叠式', dynasty: '西汉', identity: '宫人', tags: ['汉'] },
   { term: '十二鬟髻', pinyin: 'shí èr huán jì', detail: "《中华古今注》载\"武帝又令梳十二鬟髻\"。十二鬟髻以十二为极数，象征尊贵完美。从\"九鬟\"\"十二鬟\"的命名规律可看出汉代宫廷女子以鬟环数量多为美的审美取向，这对后世\"高鬟\"\"叠鬟\"风气影响深远。汉武帝时西王母降临传说盛行，此发式与仙道信仰密切相关。", meaning: '将头发梳成十二个鬟环，武帝时宫廷流行', category: 'hairstyle', sub: '结鬟式', dynasty: '西汉', identity: '宫人', tags: ['汉'] },
   { term: '瑶台髻', pinyin: 'yáo tái jì', detail: "《中华古今注》载\"（汉）灵帝又令梳瑶台髻\"。瑶台为神话中仙人居所（李白诗\"遥见仙人彩云里，手把芙蓉朝玉京\"即指瑶台），此髻以瑶台为名，髻形高耸巍峨。灵帝时期宫廷风气奢靡，发髻不断向高大方向发展，瑶台髻正是此风产物。", meaning: '高髻如瑶台高耸，灵帝时宫人发式', category: 'hairstyle', sub: '盘叠式', dynasty: '东汉', identity: '宫人', tags: ['汉'] },
@@ -296,8 +313,10 @@ const items = [
   { term: '双螺髻', pinyin: 'shuāng luó jì', detail: "双螺髻在明代江南地区极为流行，其形类似春秋战国时期的螺髻，时称\"把子\"。梳编时将头发分为两大股，各盘成螺壳状，分置头顶两侧。螺髻清晰秀雅，简便大方，是江南女子尤其是丫环侍女喜爱的发式。", meaning: '双螺形发髻江南称把子，未婚女子常见', category: 'hairstyle', sub: '盘叠式', dynasty: '明', identity: '未婚女子', tags: ['明'] },
   { term: '一窝丝', pinyin: 'yī wō sī', meaning: '以网罩束起的发髻', category: 'hairstyle', sub: '通用', dynasty: '明', identity: '各阶层女性', tags: ['明'], detail: '一窝丝是明代中后期妇女的简便发式，以丝网罩住全部发髻而得名。先将头发盘成发髻，再以黑色丝网罩住收束。' },
   { term: '松鬓扁髻', pinyin: 'sōng bìn biǎn jì', meaning: '鬓发蓬松发髻扁塌，明代后期流行', category: 'hairstyle', sub: '通用', dynasty: '明', identity: '各阶层女性', tags: ['明'], detail: '松鬓扁髻是明代后期妇女流行的发式，以鬓发蓬松、发髻呈扁圆形为特征。与明代前期高髻形成鲜明对比。' },
-  { term: '双丫髻', pinyin: 'shuāng yā jì', meaning: '头顶左右各一髻如丫角，未婚少女通用', category: 'hairstyle', sub: '双挂式', dynasty: '通用', identity: '侍女少女', tags: [], detail: '双丫髻是双挂式中最常见的发式，将头发平分为两侧梳结成髻置头顶两侧，髻形小巧如丫角。从秦代延续至近代。' },
-  { term: '丱发', pinyin: 'guàn fà', meaning: '发平分两股对称系结成大椎分置头顶两侧', category: 'hairstyle', sub: '双挂式', dynasty: '通用', identity: '儿童少女', tags: [], detail: '丱发是古代儿童及未婚少女的经典发式。将发平分两股系结成大椎分置头顶两侧。《诗经》"总角丱兮"即指此发。' },
+  // 发髻图片条目——双丫髻工笔水彩三角度 AI 测试图
+  { term: '双丫髻', pinyin: 'shuāng yā jì', meaning: '头顶左右各一髻如丫角，未婚少女通用', category: 'hairstyle', sub: '双挂式', dynasty: '通用', identity: '侍女少女', tags: [], detail: '双丫髻是双挂式中最常见的发式，将头发平分为两侧梳结成髻置头顶两侧，髻形小巧如丫角。从秦代延续至近代。', imagePath: '/static/lexicon/faji/shuangyaji.png', aiPrompt: "Chinese ancient style gongbi watercolor illustration, three studies of a young maiden's shuangyaji double-bun hairstyle on cream paper, generous white space, no borders. Left main: half body front view, hair divided into two equal parts, each tied into a small round bun on top of each side of the head like two丫shapes, front bangs above eyebrows, young girl oval face. Upper right: side view showing the two small buns on top of head. Lower right: back view showing the two buns symmetrically placed. ink black hair, fine gongbi line art, soft watercolor wash, cream paper texture, muted elegant colors, traditional Chinese painting style", cnPrompt: '中国古风工笔水彩插画，少女双丫髻发式三角度研究图，米白色纸面，留白宽松，无边框。左侧主图：上半身正面，头发平分为两股，各在头顶两侧扎成圆形小髻，形如丫字，前额有刘海，少女鹅蛋脸。右上：侧面视角，显示头顶两侧的小髻。右下：背面视角，显示两个发髻对称排列。墨黑头发，精细工笔线描，柔和水彩晕染，米色纸面纹理，雅致配色，传统国画风格', aiStyle: '中国古风工笔淡彩插画，柔和水彩质感，精细线描，米白色纸面纹理背景，雅致配色', aiLayout: '左侧上半身正面→右上侧面→右下背面（三图一格，留白宽松，无边框）' },
+  // 发髻图片条目——丱发工笔水彩三角度 AI 测试图
+  { term: '丱发', pinyin: 'guàn fà', meaning: '发平分两股对称系结成大椎分置头顶两侧', category: 'hairstyle', sub: '双挂式', dynasty: '通用', identity: '儿童少女', tags: [], detail: '丱发是古代儿童及未婚少女的经典发式。将发平分两股系结成大椎分置头顶两侧。《诗经》"总角丱兮"即指此发。', imagePath: '/static/lexicon/faji/guanji.png', aiPrompt: "Chinese ancient style gongbi watercolor illustration, three studies of a young child's guanfa hairstyle on cream paper, generous white space, no borders. Left main: half body front view, a young child wearing traditional Hanfu crossed-collar robe (交领右衽), hair center-parted and divided into two symmetrical sections, each section tied into a large cone-shaped bundle on each side of the top of the head, each bundle has exactly ONE small lock of hair extending and hanging down naturally. Upper right: side view showing the cone bundle on one side with exactly one trailing lock. Lower right: back view showing the two cone bundles symmetrically placed, each with exactly one lock of hair hanging down from each bundle. ink black hair, fine gongbi line art, soft watercolor wash, cream paper texture, muted elegant colors, traditional Chinese painting style", cnPrompt: '中国古风工笔水彩插画，儿童丱发发式三角度研究图，米白色纸面，留白宽松，无边框。左侧主图：上半身正面，幼童身穿传统交领右衽汉服，头发中分，平分两股，各在头顶两侧扎成一个大椎形发束，每椎中各引出一小绺头发自然垂下。右上：侧面视角，显示一侧的大椎及一缕垂下。右下：背面视角，显示两侧大椎对称排列，各有一缕垂发。墨黑头发，精细工笔线描，柔和水彩晕染，米色纸面纹理，雅致配色，传统国画风格', aiStyle: '中国古风工笔淡彩插画，柔和水彩质感，精细线描，米白色纸面纹理背景，雅致配色', aiLayout: '左侧上半身正面→右上侧面→右下背面（三图一格，留白宽松，无边框）' },
   { term: '垂挂髻', pinyin: 'chuí guà jì', meaning: '发顶平分两大股梳成对称环髻垂挂两侧', category: 'hairstyle', sub: '双挂式', dynasty: '通用', identity: '未婚少女', tags: [], detail: '垂挂髻是双挂式发髻的一种，将发顶平分两大股梳结成环状髻垂于两侧。唐代《纨扇仕女图》中可见此发式。' },
   { term: '双平髻', pinyin: 'shuāng píng jì', meaning: '发顶平分两大股梳成对称髻平垂挂两侧', category: 'hairstyle', sub: '双挂式', dynasty: '通用', identity: '侍女少女', tags: [], detail: '双平髻是双挂式的典型形式，将发顶平分两大股梳结成对称髻平垂挂于两侧。敦煌壁画中大量出现。' },
   { term: '飞仙髻', pinyin: 'fēi xiān jì', detail: "飞仙髻与飞天髻同属仙女发式但形态不同。《炙毂子》载：\"汉武帝时，王母降，诸仙髻皆异人间，帝令宫中效之，号飞仙髻。\"其梳编法是两侧各结一个高鬟，耸立头侧，有凌空飞升之姿。此发式多用于仙女形象描绘，后世古风插画亦沿用此形制。", meaning: '两侧结高鬟有凌空飞升之势', category: 'hairstyle', sub: '结鬟式', dynasty: '汉', identity: '仙女', tags: ['唐'] },
@@ -425,18 +444,7 @@ const items = [
   { term: '亮光', en: "glossy", meaning: '面料表面有光泽，华丽闪耀', category: 'fabric', sub: '触感', tags: [] },
 
   // ===== 09 色彩 =====
-  { term: '赤', en: "vermilion", meaning: '中国传统正红色，五行属火，象征喜庆', category: 'color', sub: '红色系', hex: '#C41E3A', tags: [] },
-  { term: '玄', en: "profound black", meaning: '中国传统正黑色，五行属水，象征天', category: 'color', sub: '黑色系', hex: '#2C2C2C', tags: [] },
-  { term: '青', en: "cerulean blue", meaning: '中国传统正蓝色，五行属木', category: 'color', sub: '蓝色系', hex: '#1B5583', tags: [] },
-  { term: '白', en: "pure white", meaning: '中国传统正白色，五行属金', category: 'color', sub: '白色系', hex: '#FAFAFA', tags: [] },
-  { term: '黄', en: "imperial yellow", meaning: '中国传统正黄色，五行属土，帝王之色', category: 'color', sub: '黄色系', hex: '#D4A84B', tags: [] },
-  { term: '绯', en: "crimson", meaning: '浅红色，唐代官服用色', category: 'color', sub: '红色系', hex: '#C4444C', tags: [] },
-  { term: '黛', en: "dark blue-black", meaning: '青黑色，常用于画眉', category: 'color', sub: '青黛系', hex: '#4A5568', tags: [] },
-  { term: '藕荷', en: "lotus root pink", meaning: '淡紫粉色，宋代流行色', category: 'color', sub: '紫色系', hex: '#C9A9B0', tags: [] },
-  { term: '素', en: "pale blue-white", meaning: '青白色，如薄雾', category: 'color', sub: '青黛系', hex: '#B5D5D0', tags: [] },
-  { term: '檀', en: "sandalwood brown", meaning: '浅绛色，红褐色', category: 'color', sub: '褐色系', hex: '#A0524A', tags: [] },
-  { term: '缃', en: "light yellow-red", meaning: '浅红色，礼服常用', category: 'color', sub: '红色系', hex: '#E06040', tags: [] },
-  { term: '皂', en: "soap black", meaning: '黑色，指黑色布料', category: 'color', sub: '黑色系', hex: '#333333', tags: [] },
+  ...colorItems,
 
   // ===== 10 纹样 =====
   { term: '云纹', en: "cloud motif", meaning: '祥云之形，秦汉已有，最经典古风纹样', category: 'pattern', sub: '几何纹', tags: [] },
