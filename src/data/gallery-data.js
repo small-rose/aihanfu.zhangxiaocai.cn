@@ -3261,7 +3261,7 @@ export const galleryData = [
     "retries": ["/static/gallery/ming/agnes_20260704_014634.png"],
     "tags": ["天青","手抚披帛","海棠花林"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"一字眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["天青"],"pose":"手抚披帛","scene":["海棠花林"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["狄髻"],"tips":["竖领长袄适合端庄场合，搭配马面裙显身段修长"]}
+    "analysis": {"faceShape":"面如满月","eyeType":"丹凤眼","browType":"一字眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["天青"],"pose":"手抚披帛","scene":["海棠花林"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["狄髻"],"tips":["竖领长袄适合端庄场合，搭配马面裙显身段修长"]}
   },
   {
     "id": "agnes_20260704_014708",
