@@ -3257,11 +3257,11 @@ export const galleryData = [
     "dynasty": "明",
     "filename": "agnes_20260704_014600.png",
     "src": "/static/gallery/ming/agnes_20260704_014600.png",
-    "prompt": "明代宫廷女子立于海棠花林中，面如满月，一字眉，丹凤眼，鼻若悬胆，绛唇，粉妆玉琢，自然浅笑。头梳狄髻，戴珍珠头面。身穿天青色竖领长袄，下着鹅黄色马面裙，脚穿云头履。手抚披帛，手指轻绕。全身构图，从头到脚完整入镜。50mm镜头，平视角度。海棠花林背景。商业摄影级画质，8K超高清",
+    "prompt": "明代宫廷女子立于海棠花林中，鹅蛋脸，一字眉，丹凤眼，鼻若悬胆，绛唇，粉妆玉琢，自然浅笑。头梳狄髻，戴珍珠头面。身穿天青色竖领长袄，下着鹅黄色马面裙，脚穿云头履。手抚披帛，手指轻绕。全身构图，从头到脚完整入镜。50mm镜头，平视角度。海棠花林背景。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_014634.png"],
-    "tags": ["天青","手抚披帛","海棠花林"],
+    "tags": ["天青","鹅黄","手抚披帛","海棠花林"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"面如满月","eyeType":"丹凤眼","browType":"一字眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["天青"],"pose":"手抚披帛","scene":["海棠花林"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["狄髻"],"tips":["竖领长袄适合端庄场合，搭配马面裙显身段修长"]}
+    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"一字眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["天青","鹅黄"],"pose":"手抚披帛","scene":["海棠花林"],"clothing":["竖领长袄","马面裙","云头履"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["狄髻"],"tips":["竖领长袄适合端庄场合，搭配马面裙显身段修长"]}
   },
   {
     "id": "agnes_20260704_014708",
@@ -3271,9 +3271,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_014708.png",
     "prompt": "明代宫廷女子立于明式楼阁凭栏处，椭圆脸，远山眉，秋水明眸，鼻梁秀挺，檀口，冰肌玉骨，自然浅笑。头梳三绺头，插玉簪。身穿墨绿色竖领长袄，下着月白马面裙，脚穿绣花鞋。凭栏远眺，扶栏望远。全身构图，从头到脚完整入镜。50mm镜头，平视角度。明式楼阁背景，飞檐翘角。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_014712.png"],
-    "tags": ["墨绿","凭栏远眺","明式楼阁"],
+    "tags": ["墨绿","月白","凭栏远眺","明式楼阁"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"椭圆脸","eyeType":"秋水明眸","browType":"远山眉","lipType":"檀口","skinType":"冰肌玉骨","hairstyle":"三绺头","hairAccessory":"玉簪","fabric":["提花绸"],"colors":["墨绿"],"pose":"凭栏远眺","scene":["明式楼阁"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["三绺头"],"tips":["墨绿色沉稳大气，适合秋冬场景"]}
+    "analysis": {"faceShape":"椭圆脸","eyeType":"秋水明眸","browType":"远山眉","lipType":"檀口","skinType":"冰肌玉骨","hairstyle":"三绺头","hairAccessory":"玉簪","fabric":["提花绸"],"colors":["墨绿","月白"],"pose":"凭栏远眺","scene":["明式楼阁"],"clothing":["竖领长袄","马面裙","绣花鞋"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["三绺头"],"tips":["墨绿色沉稳大气，适合秋冬场景"]}
   },
   {
     "id": "agnes_20260704_014738",
@@ -3283,9 +3283,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_014738.png",
     "prompt": "明代宫廷女子立于牡丹花丛中，心形脸，黛眉，杏眼，山根高挺，绛唇，面若芙蓉，自然浅笑。头梳包髻，戴花冠。身穿鹅黄色竖领短袄，下着浅紫色马面裙，脚穿绣花弓鞋。拈花微笑，指尖拈一朵牡丹花。全身构图，从头到脚完整入镜。50mm镜头，平视角度。牡丹花丛背景，国色天香。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_014741.png"],
-    "tags": ["鹅黄","拈花微笑","牡丹花丛"],
+    "tags": ["鹅黄","浅紫","拈花微笑","牡丹花丛"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"心形脸","eyeType":"杏眼","browType":"黛眉","lipType":"绛唇","skinType":"面若芙蓉","hairstyle":"包髻","hairAccessory":"花冠","fabric":["提花绸"],"colors":["鹅黄"],"pose":"拈花微笑","scene":["牡丹花丛"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","灵动活泼"],"suggestedFaceShape":["心形脸"],"suggestedHairstyle":["包髻"],"tips":["竖领短袄搭配马面裙层次丰富，鹅黄色明亮活泼"]}
+    "analysis": {"faceShape":"心形脸","eyeType":"杏眼","browType":"黛眉","lipType":"绛唇","skinType":"面若芙蓉","hairstyle":"包髻","hairAccessory":"花冠","fabric":["提花绸"],"colors":["鹅黄","浅紫"],"pose":"拈花微笑","scene":["牡丹花丛"],"clothing":["竖领短袄","马面裙","绣花弓鞋"],"suggestedTemperament":["温婉恬静","灵动活泼"],"suggestedFaceShape":["心形脸"],"suggestedHairstyle":["包髻"],"tips":["竖领短袄搭配马面裙层次丰富，鹅黄色明亮活泼"]}
   },
   {
     "id": "agnes_20260704_014810",
@@ -3295,9 +3295,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_014810.png",
     "prompt": "明代宫廷女子立于明式回廊中，瓜子脸，柳叶眉，桃花眼，鼻梁秀气，檀口，珠辉玉丽，自然浅笑。头梳狄髻，插金簪。身穿藕荷色竖领长袄，下着秋香色马面裙，脚穿云头履。执扇轻摇，手中握团扇轻轻摆动。全身构图，从头到脚完整入镜。50mm镜头，平视角度。明式回廊背景，朱柱彩绘。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_014814.png"],
-    "tags": ["藕荷","执扇轻摇","明式回廊"],
+    "tags": ["藕荷","秋香","执扇轻摇","明式回廊"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"瓜子脸","eyeType":"桃花眼","browType":"柳叶眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"金簪","fabric":["提花绸"],"colors":["藕荷"],"pose":"执扇轻摇","scene":["明式回廊"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["狄髻"],"tips":["团扇能增加画面动感和含蓄美感"]}
+    "analysis": {"faceShape":"瓜子脸","eyeType":"桃花眼","browType":"柳叶眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"金簪","fabric":["提花绸"],"colors":["藕荷","秋香"],"pose":"执扇轻摇","scene":["明式回廊"],"clothing":["竖领长袄","马面裙","云头履"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["狄髻"],"tips":["团扇能增加画面动感和含蓄美感"]}
   },
   {
     "id": "agnes_20260704_014835",
@@ -3307,9 +3307,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_014835.png",
     "prompt": "明代宫廷女子立于荷塘水边，鹅蛋脸，一字眉，丹凤眼，鼻若悬胆，绛唇，面若芙蓉，自然浅笑。头梳挑心髻，插金挑心。身穿水绿色竖领短袄，下着月白马面裙，脚穿绣花鞋。临水照影，弯腰看水中倒影。全身构图，从头到脚完整入镜。50mm镜头，平视角度。荷塘水边背景，莲叶田田。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_014841.png"],
-    "tags": ["水绿","临水照影","荷塘水边"],
+    "tags": ["水绿","月白","临水照影","荷塘水边"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"一字眉","lipType":"绛唇","skinType":"面若芙蓉","hairstyle":"挑心髻","hairAccessory":"金挑心","fabric":["提花绸"],"colors":["水绿"],"pose":"临水照影","scene":["荷塘水边"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["挑心髻"],"tips":["水绿色清雅宜人，适合春夏水边场景"]}
+    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"一字眉","lipType":"绛唇","skinType":"面若芙蓉","hairstyle":"挑心髻","hairAccessory":"金挑心","fabric":["提花绸"],"colors":["水绿","月白"],"pose":"临水照影","scene":["荷塘水边"],"clothing":["竖领短袄","马面裙","绣花鞋"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["挑心髻"],"tips":["水绿色清雅宜人，适合春夏水边场景"]}
   },
   {
     "id": "agnes_20260704_014904",
@@ -3321,7 +3321,7 @@ export const galleryData = [
     "retries": ["/static/gallery/ming/agnes_20260704_014906.png"],
     "tags": ["大红","金红","起舞瞬间","枫叶林"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"面如满月","eyeType":"桃花眼","browType":"蛾眉","lipType":"朱砂唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"金头面","fabric":["织金"],"colors":["大红","金红"],"pose":"起舞瞬间","scene":["枫叶林"],"clothing":["披风","竖领短袄","马面裙"],"suggestedTemperament":["明艳动人","英姿飒爽"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["狄髻"],"tips":["披风+织金马面裙华贵隆重，适合大场面"]}
+    "analysis": {"faceShape":"面如满月","eyeType":"桃花眼含情","browType":"蛾眉","lipType":"朱砂唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"全套金头面","fabric":["织金"],"colors":["大红","金红"],"pose":"起舞瞬间","scene":["枫叶林"],"clothing":["披风","竖领短袄","马面裙","绣花高底鞋"],"suggestedTemperament":["明艳动人","英姿飒爽"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["狄髻"],"tips":["披风+织金马面裙华贵隆重，适合大场面"]}
   },
   {
     "id": "agnes_20260704_014930",
@@ -3331,9 +3331,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_014930.png",
     "prompt": "明代宫廷女子立于菊花园中，椭圆脸，远山眉，秋水明眸，山根高挺，檀口，珠辉玉丽，自然浅笑。头梳三绺头，插银簪。身穿宝蓝色竖领短袄，下着浅杏色马面裙，脚穿绣花弓鞋。低头理裙，俯身整理裙摆。全身构图，从头到脚完整入镜。50mm镜头，平视角度。菊花园背景，秋色满园。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_014932.png"],
-    "tags": ["宝蓝","低头理裙","菊花园"],
+    "tags": ["宝蓝","浅杏","低头理裙","菊花园"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"椭圆脸","eyeType":"秋水明眸","browType":"远山眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"三绺头","hairAccessory":"银簪","fabric":["提花绸"],"colors":["宝蓝"],"pose":"低头理裙","scene":["菊花园"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","婉约"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["三绺头"],"tips":["低头姿态突出发髻和头面细节"]}
+    "analysis": {"faceShape":"椭圆脸","eyeType":"秋水明眸","browType":"远山眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"三绺头","hairAccessory":"银簪","fabric":["提花绸"],"colors":["宝蓝","浅杏"],"pose":"低头理裙","scene":["菊花园"],"clothing":["竖领短袄","马面裙","绣花弓鞋"],"suggestedTemperament":["温婉恬静","婉约"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["三绺头"],"tips":["低头姿态突出发髻和头面细节"]}
   },
   {
     "id": "agnes_20260704_014959",
@@ -3345,7 +3345,7 @@ export const galleryData = [
     "retries": ["/static/gallery/ming/agnes_20260704_015000.png"],
     "tags": ["月白","浅碧","舒展双臂","明宫殿"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"瓜子脸","eyeType":"杏眼","browType":"一字眉","lipType":"绛唇","skinType":"珠辉玉丽","hairstyle":"牡丹头","hairAccessory":"花冠","fabric":["提花绸"],"colors":["月白","浅碧"],"pose":"舒展双臂","scene":["明宫殿"],"clothing":["方领半袖比甲","竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["牡丹头"],"tips":["方领半袖比甲叠穿层次感强，明代特色"]}
+    "analysis": {"faceShape":"瓜子脸","eyeType":"杏眼","browType":"一字眉","lipType":"绛唇","skinType":"珠辉玉丽","hairstyle":"牡丹头","hairAccessory":"花冠","fabric":["提花绸"],"colors":["月白","浅碧"],"pose":"舒展双臂","scene":["明宫殿"],"clothing":["方领半袖比甲","竖领短袄","马面裙","云头履"],"suggestedTemperament":["温婉恬静","端庄典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["牡丹头"],"tips":["方领半袖比甲叠穿层次感强，明代特色"]}
   },
   {
     "id": "agnes_20260704_015028",
@@ -3355,9 +3355,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015028.png",
     "prompt": "明代宫廷女子立于雕花月洞门前，鹅蛋脸，黛眉，丹凤眼，鼻若悬胆，檀口，冰肌玉骨，自然浅笑。头梳狄髻，戴珍珠头面。身穿丁香色竖领长袄，下着月白马面裙，脚穿绣花鞋。回身搭带，转身手搭系带。全身构图，从头到脚完整入镜。50mm镜头，平视角度。雕花月洞门背景，园林景致。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_015032.png"],
-    "tags": ["丁香","回身搭带","雕花月洞门"],
+    "tags": ["丁香","月白","回身搭带","雕花月洞门"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"黛眉","lipType":"檀口","skinType":"冰肌玉骨","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["丁香"],"pose":"回身搭带","scene":["雕花月洞门"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["狄髻"],"tips":["丁香色温婉，适合园林景致"]}
+    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"黛眉","lipType":"檀口","skinType":"冰肌玉骨","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["丁香","月白"],"pose":"回身搭带","scene":["雕花月洞门"],"clothing":["竖领长袄","马面裙","绣花鞋"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["狄髻"],"tips":["丁香色温婉，适合园林景致"]}
   },
   {
     "id": "agnes_20260704_015051",
@@ -3367,9 +3367,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015051.png",
     "prompt": "明代宫廷女子坐在假山凉亭石凳上，面如满月，柳叶眉，杏眼清澈，鼻梁圆润，绛唇，粉妆玉琢，自然浅笑。头梳三绺头，插白玉簪。身穿竹青色竖领短袄，下着藕荷色马面裙，脚穿绣花弓鞋。侧坐石凳，姿势优雅。全身构图，从头到脚完整入镜。50mm镜头，平视角度。假山凉亭背景，太湖石错落。商业摄影级画质，8K超高清",
     "retries": ["/static/gallery/ming/agnes_20260704_015101.png"],
-    "tags": ["竹青","侧坐石凳","假山凉亭"],
+    "tags": ["竹青","藕荷","侧坐石凳","假山凉亭"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"面如满月","eyeType":"杏眼","browType":"柳叶眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"三绺头","hairAccessory":"白玉簪","fabric":["提花绸"],"colors":["竹青"],"pose":"侧坐石凳","scene":["假山凉亭"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","婉约"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["三绺头"],"tips":["竹青色清雅，假山场景带文人气息"]}
+    "analysis": {"faceShape":"面如满月","eyeType":"杏眼清澈","browType":"柳叶眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"三绺头","hairAccessory":"白玉簪","fabric":["提花绸"],"colors":["竹青","藕荷"],"pose":"侧坐石凳","scene":["假山凉亭"],"clothing":["竖领短袄","马面裙","绣花弓鞋"],"suggestedTemperament":["温婉恬静","婉约"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["三绺头"],"tips":["竹青色清雅，假山场景带文人气息"]}
   },
   {
     "id": "agnes_20260704_015127",
@@ -3379,9 +3379,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015127.png",
     "prompt": "明代宫廷女子小步疾行于杏花林中，心形脸，远山眉，桃花眼，山根高挺，檀口，珠辉玉丽，自然浅笑。头梳挑心髻，插金挑心。身穿绯色竖领短袄，下着月白马面裙，脚穿绣花高底鞋。小步疾行，衣带飘动。全身构图，从头到脚完整入镜。50mm镜头，平视角度。杏花林背景，花瓣纷飞。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["绯色","小步疾行","杏花林"],
+    "tags": ["绯色","月白","小步疾行","杏花林"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"心形脸","eyeType":"桃花眼","browType":"远山眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"挑心髻","hairAccessory":"金挑心","fabric":["提花绸"],"colors":["绯色"],"pose":"小步疾行","scene":["杏花林"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["灵动活泼","明艳动人"],"suggestedFaceShape":["心形脸"],"suggestedHairstyle":["挑心髻"],"tips":["小步疾行姿态灵动，衣带飘动增强动感"]}
+    "analysis": {"faceShape":"心形脸","eyeType":"桃花眼","browType":"远山眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"挑心髻","hairAccessory":"金挑心","fabric":["提花绸"],"colors":["绯色","月白"],"pose":"小步疾行","scene":["杏花林"],"clothing":["竖领短袄","马面裙","绣花高底鞋"],"suggestedTemperament":["灵动活泼","明艳动人"],"suggestedFaceShape":["心形脸"],"suggestedHairstyle":["挑心髻"],"tips":["小步疾行姿态灵动，衣带飘动增强动感"]}
   },
   {
     "id": "agnes_20260704_015129",
@@ -3391,9 +3391,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015129.png",
     "prompt": "明代宫廷女子立于古槐树下，瓜子脸，蛾眉，秋水明眸，鼻梁秀气，绛唇，珠辉玉丽，自然浅笑。头梳狄髻，戴银头面。身穿雪青色竖领长袄，下着浅粉色马面裙，脚穿云头履。扶树侧立，一手扶古槐。全身构图，从头到脚完整入镜。50mm镜头，平视角度。古槐树下背景，枝叶繁茂。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["雪青","扶树侧立","古槐树"],
+    "tags": ["雪青","浅粉","扶树侧立","古槐树"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"瓜子脸","eyeType":"秋水明眸","browType":"蛾眉","lipType":"绛唇","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"银头面","fabric":["提花绸"],"colors":["雪青"],"pose":"扶树侧立","scene":["古槐树"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["清冷出尘","端庄典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["狄髻"],"tips":["雪青色冷淡高贵，古槐树增添古朴气息"]}
+    "analysis": {"faceShape":"瓜子脸","eyeType":"秋水明眸","browType":"蛾眉","lipType":"绛唇","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"银头面","fabric":["提花绸"],"colors":["雪青","浅粉"],"pose":"扶树侧立","scene":["古槐树"],"clothing":["竖领长袄","马面裙","云头履"],"suggestedTemperament":["清冷出尘","端庄典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["狄髻"],"tips":["雪青色冷淡高贵，古槐树增添古朴气息"]}
   },
   {
     "id": "agnes_20260704_015155",
@@ -3403,9 +3403,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015155.png",
     "prompt": "明代宫廷女子立于明式长廊中，鹅蛋脸，一字眉，杏眼，鼻若悬胆，檀口，面若芙蓉，自然浅笑。头梳包髻，插金簪。身穿琥珀色竖领短袄，下着杏黄色马面裙，脚穿绣花弓鞋。低首抚胸，手轻抚胸口。全身构图，从头到脚完整入镜。50mm镜头，平视角度。明式长廊背景，朱柱彩绘。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["琥珀","低首抚胸","明式长廊"],
+    "tags": ["琥珀","杏黄","低首抚胸","明式长廊"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"鹅蛋脸","eyeType":"杏眼","browType":"一字眉","lipType":"檀口","skinType":"面若芙蓉","hairstyle":"包髻","hairAccessory":"金簪","fabric":["提花绸"],"colors":["琥珀"],"pose":"低首抚胸","scene":["明式长廊"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","含蓄柔美"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["包髻"],"tips":["低首抚胸姿态含蓄柔美"]}
+    "analysis": {"faceShape":"鹅蛋脸","eyeType":"杏眼","browType":"一字眉","lipType":"檀口","skinType":"面若芙蓉","hairstyle":"包髻","hairAccessory":"金簪","fabric":["提花绸"],"colors":["琥珀","杏黄"],"pose":"低首抚胸","scene":["明式长廊"],"clothing":["竖领短袄","马面裙","绣花弓鞋"],"suggestedTemperament":["温婉恬静","含蓄柔美"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["包髻"],"tips":["低首抚胸姿态含蓄柔美"]}
   },
   {
     "id": "agnes_20260704_015157",
@@ -3415,9 +3415,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015157.png",
     "prompt": "明代宫廷女子立于白玉栏杆桥边，面如满月，远山眉，丹凤眼，鼻梁圆润，绛唇，粉妆玉琢，自然浅笑。头梳狄髻，戴金头面。身穿石青色圆领袍，下着月白马面裙，脚穿云头履。叉腰侧立，一手叉腰。全身构图，从头到脚完整入镜。50mm镜头，平视角度。白玉栏杆桥边背景。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["石青","叉腰侧立","白玉栏杆桥边"],
+    "tags": ["石青","月白","叉腰侧立","白玉栏杆桥边"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"面如满月","eyeType":"丹凤眼","browType":"远山眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"金头面","fabric":["提花绸"],"colors":["石青"],"pose":"叉腰侧立","scene":["白玉栏杆桥边"],"clothing":["圆领袍","马面裙"],"suggestedTemperament":["英姿飒爽","干练"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["狄髻"],"tips":["石青色圆领袍英气干练"]}
+    "analysis": {"faceShape":"面如满月","eyeType":"丹凤眼","browType":"远山眉","lipType":"绛唇","skinType":"粉妆玉琢","hairstyle":"狄髻","hairAccessory":"金头面","fabric":["提花绸"],"colors":["石青","月白"],"pose":"叉腰侧立","scene":["白玉栏杆桥边"],"clothing":["圆领袍","马面裙","云头履"],"suggestedTemperament":["英姿飒爽","干练"],"suggestedFaceShape":["面如满月"],"suggestedHairstyle":["狄髻"],"tips":["石青色圆领袍英气干练"]}
   },
   {
     "id": "agnes_20260704_015251",
@@ -3427,9 +3427,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015251.png",
     "prompt": "明代宫廷女子立于翠竹林中，椭圆脸，蛾眉，桃花眼含情，鼻梁秀挺，檀口，珠辉玉丽，自然浅笑。头梳三绺头，插白玉簪。身穿浅藕色圆领袍，下着月白马面裙，脚穿绣花鞋。持箫而立，手握洞箫。全身构图，从头到脚完整入镜。50mm镜头，平视角度。翠竹林中背景，绿影婆娑。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["浅藕","持箫而立","翠竹林"],
+    "tags": ["浅藕","月白","持箫而立","翠竹林"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"椭圆脸","eyeType":"桃花眼","browType":"蛾眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"三绺头","hairAccessory":"白玉簪","fabric":["提花绸"],"colors":["浅藕"],"pose":"持箫而立","scene":["翠竹林"],"clothing":["圆领袍","马面裙"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["三绺头"],"tips":["持箫姿态文艺雅致，适合文人题材"]}
+    "analysis": {"faceShape":"椭圆脸","eyeType":"桃花眼含情","browType":"蛾眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"三绺头","hairAccessory":"白玉簪","fabric":["提花绸"],"colors":["浅藕","月白"],"pose":"持箫而立","scene":["翠竹林"],"clothing":["圆领袍","马面裙","绣花鞋"],"suggestedTemperament":["温婉恬静","清冷出尘"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["三绺头"],"tips":["持箫姿态文艺雅致，适合文人题材"]}
   },
   {
     "id": "agnes_20260704_015252",
@@ -3439,9 +3439,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015252.png",
     "prompt": "明代宫廷女子立于抄手游廊中，瓜子脸，柳叶眉，秋水明眸，山根高挺，绛唇，面若芙蓉，自然浅笑。头梳挑心髻，戴珍珠头面。身穿胭脂色竖领长袄，下着鸦青色马面裙，脚穿云头履。凭栏俯身，双肘搭栏半俯。全身构图，从头到脚完整入镜。50mm镜头，平视角度。抄手游廊背景，朱栏碧瓦。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["胭脂","凭栏俯身","抄手游廊"],
+    "tags": ["胭脂","鸦青","凭栏俯身","抄手游廊"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"瓜子脸","eyeType":"秋水明眸","browType":"柳叶眉","lipType":"绛唇","skinType":"面若芙蓉","hairstyle":"挑心髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["胭脂"],"pose":"凭栏俯身","scene":["抄手游廊"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","柔美"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["挑心髻"],"tips":["凭栏俯身姿态柔美，抄手游廊空间层次感强"]}
+    "analysis": {"faceShape":"瓜子脸","eyeType":"秋水明眸","browType":"柳叶眉","lipType":"绛唇","skinType":"面若芙蓉","hairstyle":"挑心髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["胭脂","鸦青"],"pose":"凭栏俯身","scene":["抄手游廊"],"clothing":["竖领长袄","马面裙","云头履"],"suggestedTemperament":["温婉恬静","柔美"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["挑心髻"],"tips":["凭栏俯身姿态柔美，抄手游廊空间层次感强"]}
   },
   {
     "id": "agnes_20260704_015324",
@@ -3453,7 +3453,7 @@ export const galleryData = [
     "retries": [],
     "tags": ["大红","雪青","踏雪而行","梅花园雪景"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"心形脸","eyeType":"杏眼","browType":"一字眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"金头面","fabric":["织金"],"colors":["大红","雪青"],"pose":"踏雪而行","scene":["梅花园雪景"],"clothing":["披风","竖领短袄","马面裙"],"suggestedTemperament":["明艳动人","英姿飒爽"],"suggestedFaceShape":["心形脸"],"suggestedHairstyle":["狄髻"],"tips":["踏雪而行画面感强，红梅白雪对比鲜明"]}
+    "analysis": {"faceShape":"心形脸","eyeType":"杏眼","browType":"一字眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"金头面","fabric":["织金"],"colors":["大红","雪青"],"pose":"踏雪而行","scene":["梅花园雪景"],"clothing":["披风","竖领短袄","马面裙","云头履"],"suggestedTemperament":["明艳动人","英姿飒爽"],"suggestedFaceShape":["心形脸"],"suggestedHairstyle":["狄髻"],"tips":["踏雪而行画面感强，红梅白雪对比鲜明"]}
   },
   {
     "id": "agnes_20260704_015325",
@@ -3463,9 +3463,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015325.png",
     "prompt": "明代宫廷女子立于明式庭院中，鹅蛋脸，黛眉，丹凤眼，鼻若悬胆，绛唇，冰肌玉骨，自然浅笑。头梳牡丹头，戴花冠。身穿秋香色竖领长袄，下着浅豆绿马面裙，脚穿绣花弓鞋。抬手理鬓，手抬至鬓边整理发髻。全身构图，从头到脚完整入镜。50mm镜头，平视角度。明式庭院背景，青砖灰瓦。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["秋香","抬手理鬓","明式庭院"],
+    "tags": ["秋香","浅豆绿","抬手理鬓","明式庭院"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"黛眉","lipType":"绛唇","skinType":"冰肌玉骨","hairstyle":"牡丹头","hairAccessory":"花冠","fabric":["提花绸"],"colors":["秋香"],"pose":"抬手理鬓","scene":["明式庭院"],"clothing":["竖领长袄","马面裙"],"suggestedTemperament":["温婉恬静","典雅"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["牡丹头"],"tips":["秋香色典雅，抬手理鬓日常生活感"]}
+    "analysis": {"faceShape":"鹅蛋脸","eyeType":"丹凤眼","browType":"黛眉","lipType":"绛唇","skinType":"冰肌玉骨","hairstyle":"牡丹头","hairAccessory":"花冠","fabric":["提花绸"],"colors":["秋香","浅豆绿"],"pose":"抬手理鬓","scene":["明式庭院"],"clothing":["竖领长袄","马面裙","绣花弓鞋"],"suggestedTemperament":["温婉恬静","典雅"],"suggestedFaceShape":["鹅蛋脸"],"suggestedHairstyle":["牡丹头"],"tips":["秋香色典雅，抬手理鬓日常生活感"]}
   },
   {
     "id": "agnes_20260704_015352",
@@ -3475,9 +3475,9 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015352.png",
     "prompt": "明代宫廷女子立于石桥流水旁，椭圆脸，远山眉，秋水明眸，山根高挺，檀口，珠辉玉丽，自然浅笑。头梳狄髻，戴珍珠头面。身穿十样锦竖领短袄，下着浅紫马面裙，脚穿绣花鞋。倚桥侧身，半倚石桥栏。全身构图，从头到脚完整入镜。50mm镜头，平视角度。石桥流水背景，小桥流水。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["十样锦","倚桥侧身","石桥流水"],
+    "tags": ["十样锦","浅紫","倚桥侧身","石桥流水"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"椭圆脸","eyeType":"秋水明眸","browType":"远山眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["十样锦"],"pose":"倚桥侧身","scene":["石桥流水"],"clothing":["竖领短袄","马面裙"],"suggestedTemperament":["温婉恬静","悠闲"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["狄髻"],"tips":["十样锦色彩丰富，倚桥侧身姿态悠闲"]}
+    "analysis": {"faceShape":"椭圆脸","eyeType":"秋水明眸","browType":"远山眉","lipType":"檀口","skinType":"珠辉玉丽","hairstyle":"狄髻","hairAccessory":"珍珠头面","fabric":["提花绸"],"colors":["十样锦","浅紫"],"pose":"倚桥侧身","scene":["石桥流水"],"clothing":["竖领短袄","马面裙","绣花鞋"],"suggestedTemperament":["温婉恬静","悠闲"],"suggestedFaceShape":["椭圆脸"],"suggestedHairstyle":["狄髻"],"tips":["十样锦色彩丰富，倚桥侧身姿态悠闲"]}
   },
   {
     "id": "agnes_20260704_015357",
@@ -3487,8 +3487,8 @@ export const galleryData = [
     "src": "/static/gallery/ming/agnes_20260704_015357.png",
     "prompt": "明代宫廷女子立于明式庭院开阔处，瓜子脸，柳叶眉，杏眼，鼻梁秀气，绛唇，冰肌玉骨，自然浅笑。头梳狄髻，戴全套金头面。身穿紫色圆领袍，下着月白马面裙，脚穿云头履。正身肃立，双手交叠腹前。全身构图，从头到脚完整入镜。50mm镜头，平视角度。明式庭院开阔处背景，朱门石阶。商业摄影级画质，8K超高清",
     "retries": [],
-    "tags": ["紫色","正身肃立","明式庭院开阔处"],
+    "tags": ["紫色","月白","正身肃立","明式庭院开阔处"],
     "model": "agnes-image-2.1-flash","size": "768×1024","date": "2026-07-04",
-    "analysis": {"faceShape":"瓜子脸","eyeType":"杏眼","browType":"柳叶眉","lipType":"绛唇","skinType":"冰肌玉骨","hairstyle":"狄髻","hairAccessory":"金头面","fabric":["提花绸"],"colors":["紫色"],"pose":"正身肃立","scene":["明式庭院开阔处"],"clothing":["圆领袍","马面裙"],"suggestedTemperament":["端庄大气","典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["狄髻"],"tips":["正身肃立端庄大气，适合正式场合"]}
+    "analysis": {"faceShape":"瓜子脸","eyeType":"杏眼","browType":"柳叶眉","lipType":"绛唇","skinType":"冰肌玉骨","hairstyle":"狄髻","hairAccessory":"全套金头面","fabric":["提花绸"],"colors":["紫色","月白"],"pose":"正身肃立","scene":["明式庭院开阔处"],"clothing":["圆领袍","马面裙","云头履"],"suggestedTemperament":["端庄大气","典雅"],"suggestedFaceShape":["瓜子脸"],"suggestedHairstyle":["狄髻"],"tips":["正身肃立端庄大气，适合正式场合"]}
   }
 ]
