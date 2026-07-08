@@ -117,6 +117,7 @@ const data = computed(() => dynasties[current.value])
 
 .dynasty-img { width: 100%; border-radius: 12px; margin-top: 20px; }
 
+/* 移动端：朝代标签横滚 + 详情 1 列 */
 @media (max-width: 768px) {
   .dynasty-tabs { overflow-x: auto; gap: 4px; padding: 6px; }
   .dynasty-tabs::-webkit-scrollbar { display: none; }

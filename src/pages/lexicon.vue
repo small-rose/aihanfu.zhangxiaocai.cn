@@ -322,6 +322,7 @@ const drawerCategoryLabel = computed(() => {
 
 .filter-clear { font-size: 11px; color: $theme-red; cursor: pointer; margin-top: 12px; display: block; }
 
+/* 移动端：侧栏变顶部横滚 + 2 列卡片 */
 @media (max-width: 768px) {
   .lexicon-body { flex-direction: column; }
   .cat-sidebar { display: flex; overflow-x: auto; gap: 4px; min-width: 0; width: 100%; padding-bottom: 8px; }

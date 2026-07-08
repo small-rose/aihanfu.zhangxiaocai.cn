@@ -120,7 +120,7 @@ const keyword = ref('')
 onLoad((query) => {
   if (query.q) keyword.value = query.q
 })
-const gender = ref('')
+const gender = ref('')  // ''=全部展示，'male'/'female' 过滤；点击可取消
 const platform = ref('agnes')
 const selectedItems = ref([])
 const selectedDynasties = ref([])
@@ -539,12 +539,10 @@ function resetAll() {
 .prompter-body { display: flex; gap: 32px; align-items: flex-start; }
 .prompter-left { flex: 1; min-width: 0; }
 
+/* 性别标签：与朝代标签同款尺寸 */
 .gender-row { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
-
 .gender-label { font-size: $font-size-small-sub; color: $theme-gray; white-space: nowrap; }
-
 .gender-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-
 .gender-tag {
   padding: 6px 16px; border-radius: 6px; font-size: $font-size-body-sub; cursor: pointer;
   background: $theme-white; color: $theme-gray; border: 1px solid $theme-border;
@@ -644,6 +642,7 @@ function resetAll() {
 .action-row { display: flex; gap: 8px; margin-bottom: 20px; }
 .action-row .btn { flex: 1; }
 
+/* 移动端：提示词页左右堆叠 + 按钮换行 */
 @media (max-width: 768px) {
   .prompter-body { flex-direction: column; }
   .prompter-right { width: 100%; position: static; }

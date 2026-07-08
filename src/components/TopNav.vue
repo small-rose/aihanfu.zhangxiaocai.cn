@@ -236,6 +236,7 @@ function doSearch() {
 }
 .hamburger { border: 1px solid $theme-border; border-radius: 6px; }
 
+/* — 遮罩层 — */
 .mobile-backdrop {
   display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(44, 24, 16, 0.45); z-index: 100; opacity: 0;
@@ -245,6 +246,7 @@ function doSearch() {
   display: block; opacity: 1;
 }
 
+/* — 左侧抽屉导航：210px，顶部金色→胭脂渐变装饰条 — */
 .mobile-drawer {
   position: fixed; top: 0; left: 0; bottom: 0; width: 210px;
   background: $theme-cream; z-index: 101;
@@ -259,12 +261,12 @@ function doSearch() {
   flex: none;
 }
 
+/* — 品牌区：汉 logo + 汉服图鉴 / Hanfu Reference — */
 .mobile-drawer-header {
   padding: 28px clamp(16px, 4vw, 48px) 20px;
   border-bottom: 1px solid $theme-border;
   flex: none;
 }
-
 .drawer-brand { display: flex; align-items: center; gap: 10px; }
 .drawer-logo {
   width: 34px; height: 34px; background: $theme-red; border-radius: 5px;
@@ -281,8 +283,8 @@ function doSearch() {
   letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;
 }
 
+/* — 导航项：图标 + 中英文，激活态左侧金色竖条 — */
 .drawer-nav { flex: 1; padding: 8px 0; overflow-y: auto; }
-
 .mobile-nav-link {
   display: flex; align-items: center; gap: 10px;
   padding: 14px clamp(16px, 4vw, 48px); cursor: pointer;
@@ -312,6 +314,7 @@ function doSearch() {
   margin-top: 0;
 }
 
+/* 移动端：导航链接/搜索隐藏 → 汉堡 + 抽屉 */
 @media (max-width: 768px) {
   .topnav-links { display: none; }
   .topnav-search { display: none; }

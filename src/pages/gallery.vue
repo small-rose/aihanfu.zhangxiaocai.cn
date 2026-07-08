@@ -24,8 +24,8 @@
 
       <!-- ===== GRID ===== -->
       <view v-show="layoutMode === 'grid'" v-if="filtered.length" class="gallery-grid">
-        <view v-for="(img, i) in filtered" :key="img.id" class="gallery-item" @tap="openDetail(img)">
-          <image class="gallery-img" :src="img.src" mode="aspectFill" />
+        <view v-for="(img, i) in filtered" :key="img.id" class="gallery-item" :class="{ skeleton: !loadedImgs.has(img.id) }" @tap="openDetail(img)">
+          <image class="gallery-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="img.src" mode="aspectFill" @load="onImgLoad(img.id)" />
           <view class="gallery-overlay">
             <view class="overlay-badges"><text class="badge dynasty-tag">{{ img.dynasty }}</text></view>
             <text class="overlay-title">{{ img.title }}</text>
@@ -61,8 +61,8 @@
               <view v-for="img in getDynastyImages(d.key)" :key="img.id"
                 class="scroll-card" @click="openDetail(img)">
                 <view class="scroll-card-inner">
-                  <view class="card-img-frame">
-                    <image class="card-img" :src="img.src" mode="aspectFill" />
+                  <view class="card-img-frame" :class="{ skeleton: !loadedImgs.has(img.id) }">
+                    <image class="card-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="img.src" mode="aspectFill" @load="onImgLoad(img.id)" />
                   </view>
                   <view class="card-caption">
                     <view class="caption-inner">
@@ -103,8 +103,8 @@
                     <view v-else class="page-img-wrap">
                       <text class="page-watermark">{{ currentLeft.item.dynasty }}</text>
                       <view class="mounting-frame">
-                        <view class="mounting-inner">
-                          <image class="page-img" :src="currentLeft.item.src" mode="aspectFill" />
+                        <view class="mounting-inner" :class="{ skeleton: !loadedImgs.has(currentLeft.item.id) }">
+                          <image class="page-img" :class="{ 'img-loaded': loadedImgs.has(currentLeft.item.id) }" :src="currentLeft.item.src" mode="aspectFill" @load="onImgLoad(currentLeft.item.id)" />
                         </view>
                         <view class="mounting-bottom">
                           <view class="mb-row">
@@ -135,8 +135,8 @@
                     <view v-else class="page-img-wrap">
                       <text class="page-watermark">{{ prevRight.item.dynasty }}</text>
                       <view class="mounting-frame">
-                        <view class="mounting-inner">
-                          <image class="page-img" :src="prevRight.item.src" mode="aspectFill" />
+                        <view class="mounting-inner" :class="{ skeleton: !loadedImgs.has(prevRight.item.id) }">
+                          <image class="page-img" :class="{ 'img-loaded': loadedImgs.has(prevRight.item.id) }" :src="prevRight.item.src" mode="aspectFill" @load="onImgLoad(prevRight.item.id)" />
                         </view>
                         <view class="mounting-bottom">
                           <view class="mb-row">
@@ -180,8 +180,8 @@
                     <view v-else class="page-img-wrap">
                       <text class="page-watermark">{{ currentRight.item.dynasty }}</text>
                       <view class="mounting-frame">
-                        <view class="mounting-inner">
-                          <image class="page-img" :src="currentRight.item.src" mode="aspectFill" />
+                        <view class="mounting-inner" :class="{ skeleton: !loadedImgs.has(currentRight.item.id) }">
+                          <image class="page-img" :class="{ 'img-loaded': loadedImgs.has(currentRight.item.id) }" :src="currentRight.item.src" mode="aspectFill" @load="onImgLoad(currentRight.item.id)" />
                         </view>
                         <view class="mounting-bottom">
                           <view class="mb-row">
@@ -212,8 +212,8 @@
                     <view v-else class="page-img-wrap">
                       <text class="page-watermark">{{ nextLeft.item.dynasty }}</text>
                       <view class="mounting-frame">
-                        <view class="mounting-inner">
-                          <image class="page-img" :src="nextLeft.item.src" mode="aspectFill" />
+                        <view class="mounting-inner" :class="{ skeleton: !loadedImgs.has(nextLeft.item.id) }">
+                          <image class="page-img" :class="{ 'img-loaded': loadedImgs.has(nextLeft.item.id) }" :src="nextLeft.item.src" mode="aspectFill" @load="onImgLoad(nextLeft.item.id)" />
                         </view>
                         <view class="mounting-bottom">
                           <view class="mb-row">
@@ -249,10 +249,11 @@
         <view class="stack-scene" id="stack-scene">
           <view v-for="(img, i) in filtered" :key="img.id"
             class="stack-card"
+            :class="{ skeleton: !loadedImgs.has(img.id) }"
             :style="stackStyle(i)" @tap="openCard(i)"
             :id="'stack-card-' + i"
           >
-            <image class="stack-img" :src="img.src" mode="aspectFill" />
+            <image class="stack-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="img.src" mode="aspectFill" @load="onImgLoad(img.id)" />
           </view>
         </view>
         <view class="stack-bar">
@@ -263,7 +264,7 @@
 
       <view v-if="stackModal !== null" class="stack-modal-overlay" @tap="closeCard">
           <view class="stack-modal" :style="cardFrameStyle(filtered[stackModal].dynasty)" @tap.stop>
-          <image class="stack-modal-img" :src="filtered[stackModal].src" mode="widthFix" />
+          <image class="stack-modal-img" :class="{ skeleton: !loadedImgs.has(filtered[stackModal].id), 'img-loaded': loadedImgs.has(filtered[stackModal].id) }" :src="filtered[stackModal].src" mode="widthFix" @load="onImgLoad(filtered[stackModal].id)" />
           <view class="stack-modal-info">
             <text class="stack-modal-dynasty">{{ filtered[stackModal].dynasty }}</text>
             <text class="stack-modal-title">{{ filtered[stackModal].title }}</text>
@@ -285,12 +286,16 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted, reactive } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import Button from '../components/Button.vue'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
+
+// 图片骨架屏：loadedImgs 记录已加载完成的图片 id，驱动 skeleton / img-loaded 类切换
+const loadedImgs = reactive(new Set())
+function onImgLoad(id) { loadedImgs.add(id) }
 
 const layoutMode = ref('scroll')
 const activeFilter = ref('all')
@@ -673,6 +678,26 @@ function topBottom(item) {
 </script>
 
 <style lang="scss" scoped>
+/* ===== 骨架屏 & 图片淡入 ===== */
+/* 未加载时父容器 skeleton shimmer 动画，加载后图片 opacity 渐变为 1 */
+@keyframes skeleton-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: #e8e0d5;
+  background-image: linear-gradient(90deg, #e8e0d5 25%, #f0eae0 50%, #e8e0d5 75%);
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+/* 图片默认透明（露出父容器骨架），加载后淡入覆盖 */
+.gallery-img, .card-img, .page-img, .stack-img, .stack-modal-img {
+  opacity: 0; transition: opacity 0.35s ease;
+  position: relative; z-index: 1;
+}
+.img-loaded { opacity: 1; }
+
 .page-layout { min-height: 100vh; background: $theme-bg; }
 .content { padding: clamp(20px, 3vw, 32px) clamp(16px, 4vw, 48px); }
 @media (min-width: 1200px) { .content { width: 80%; margin: 0 auto; } }
@@ -1283,8 +1308,9 @@ $seal-color: #B8442A;
   .empty-text { font-size: $font-size-subtitle; color: $theme-gray; display: block; margin-bottom: 24px; }
 }
 
-/* ===== MOBILE ===== */
+/* ===== 移动端全模式适配 ===== */
 @media (max-width: 768px) {
+  /* --- Grid（网格）：双栏 3:4 等比例 --- */
   .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .gallery-item { height: auto; aspect-ratio: 3/4; border-radius: 8px; }
   .gallery-item .gallery-img { object-fit: cover; }
@@ -1295,11 +1321,13 @@ $seal-color: #B8442A;
   .gallery-item::after { display: none; }
   .gallery-item:hover { transform: none; box-shadow: none; }
 
+  /* --- Scroll（手卷）：卡片缩小 + 印章恢复显示 --- */
   .scroll-card { margin: 0 8px; }
   .card-img { width: min(220px, 55vw); height: auto; aspect-ratio: 290/440; }
   .title-frame { width: min(220px, 55vw); height: auto; aspect-ratio: 290/446; }
   .card-caption { width: 40px; }
 
+  /* --- Album（册页）：高度压缩 + 图片等比例缩小 + 标题紧凑 --- */
   .album-book { height: 50vh; min-height: 300px; max-width: 100vw; width: 100%; }
   .title-paper { padding: 30px 20px; gap: 10px; }
   .title-chinese { font-size: 36px; }
@@ -1309,9 +1337,11 @@ $seal-color: #B8442A;
   .mounting-bottom .label-clothing { font-size: 11px; }
   .mounting-bottom .label-fabric { font-size: 11px; }
 
+  /* --- Stack（层叠）--- */
   .stack-card { width: 130px; height: 182px; }
   .stack-modal { width: 92vw; }
 
+  /* --- 手卷木轴：调窄 / 缩短 / 轴头外露 --- */
   .scroll-hdr { gap: 8px; }
   .scroll-hdr .roller { width: 16px; height: 16px; }
   .scroll-dynasty-title { font-size: 18px; letter-spacing: 4px; padding: 2px 12px; }
@@ -1322,6 +1352,7 @@ $seal-color: #B8442A;
   .roller-knob.bottom { margin-bottom: -8px; }
   .wooden-roller .roller-shaft { width: 14px; min-height: 220px; }
 
+  /* --- 工具栏堆叠 --- */
   .toolbar { flex-direction: column; align-items: stretch; }
   .layout-group { align-self: flex-start; }
   .filter-chip, .layout-chip { font-size: 11px; padding: 4px 10px; }

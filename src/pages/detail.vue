@@ -176,9 +176,10 @@ export default {
 
 .empty-state { text-align: center; padding: 100px 0; .empty-text { font-size: 16px; color: $theme-gray; } }
 
+/* 移动端：详情页堆叠 + 图片撑满宽度 */
 @media (max-width: 768px) {
   .detail-body { flex-direction: column; }
-  .detail-left { position: static; }
+  .detail-left { position: static; flex: none; width: 100%; }
   .detail-right { width: 100%; }
   .dc-title { font-size: 20px; }
 }

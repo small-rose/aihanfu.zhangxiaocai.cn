@@ -113,6 +113,7 @@ import Footer from '../components/Footer.vue'
 
 const selectedDynasty = ref('sui')
 
+  /* 移动端（≤768px）默认选中"汉"，PC 保持"隋" */
 onMounted(() => {
   const sys = uni.getSystemInfoSync()
   if (sys.windowWidth <= 768) selectedDynasty.value = 'han'
@@ -164,6 +165,7 @@ function showToast() {
     font-size: $font-size-hero; font-weight: $font-weight-bold; color: $theme-ink;
     letter-spacing: $letter-spacing-wide; display: block;
   }
+  /* PC 显示含中点单行，移动端显示两行无中点（由 media query 切换） */
   .hero-title-pc { display: block; }
   .hero-title-mb { display: none; }
 
@@ -172,6 +174,7 @@ function showToast() {
     margin-top: 16px; letter-spacing: 3px; display: block;
   }
 
+  /* 移动端：标题分两行，去掉中点"·" */
   @media (max-width: 768px) {
     .hero-title-pc { display: none; }
     .hero-title-mb {
