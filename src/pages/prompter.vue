@@ -9,30 +9,47 @@
       <view class="page-divider"></view>
 
       <view class="prompter-body">
-        <view class="prompter-left">
-          <view class="gender-row">
-            <text class="gender-label">性别</text>
-            <view class="gender-tags">
-              <view class="gender-tag" :class="{ active: gender === 'male' }" @tap="gender = gender === 'male' ? '' : 'male'">男性</view>
-              <view class="gender-tag" :class="{ active: gender === 'female' }" @tap="gender = gender === 'female' ? '' : 'female'">女性</view>
-            </view>
-          </view>
+          <view class="prompter-left">
+            <!-- 筛选区：性别 + 朝代 + 维度快速定位 -->
+            <view class="filter-area">
+              <view class="gender-row">
+                <text class="gender-label">性别</text>
+                <view class="gender-tags">
+                  <view class="gender-tag" :class="{ active: gender === 'male' }" @tap="gender = gender === 'male' ? '' : 'male'">男性</view>
+                  <view class="gender-tag" :class="{ active: gender === 'female' }" @tap="gender = gender === 'female' ? '' : 'female'">女性</view>
+                </view>
+              </view>
 
-          <view class="dynasty-row">
-            <text class="dynasty-label">朝代</text>
-            <view class="dynasty-tags">
-              <view
-                v-for="d in dynastyOptions"
-                :key="d"
-                class="dynasty-tag"
-                :class="{ active: selectedDynasties.includes(d) }"
-                @tap="toggleDynasty(d)"
-              >{{ d }}</view>
-            </view>
-          </view>
+              <view class="dynasty-row">
+                <text class="dynasty-label">朝代</text>
+                <view class="dynasty-tags">
+                  <view
+                    v-for="d in dynastyOptions"
+                    :key="d"
+                    class="dynasty-tag"
+                    :class="{ active: selectedDynasties.includes(d) }"
+                    @tap="toggleDynasty(d)"
+                  >{{ d }}</view>
+                </view>
+              </view>
 
+              <!-- 维度快速定位：点击跳转到对应分类区块 -->
+              <view class="dimension-row">
+                <text class="dimension-label">维度</text>
+                <view class="dimension-tags">
+                  <view
+                    v-for="cat in availableCategories"
+                    :key="cat.key"
+                    class="dimension-tag"
+                    @tap="scrollToCat(cat.key)"
+                  >{{ cat.icon }} {{ cat.label }}</view>
+                </view>
+              </view>
+            </view>
+
+          <!-- 分类标签列表：每个分类区块绑定 id 供 scrollToCat 定位 -->
           <view class="cat-list">
-            <view v-for="cat in availableCategories" :key="cat.key" class="cat-section">
+            <view v-for="cat in availableCategories" :key="cat.key" :id="'cat-'+cat.key" class="cat-section">
               <text class="cat-title">{{ cat.icon }} {{ cat.label }}</text>
               <view v-for="(group, gi) in cat.groups" :key="gi">
                 <text v-if="group.sub" class="cat-sub">{{ group.sub }}</text>
@@ -216,6 +233,13 @@ function isSingleSub(item) {
   if (singleSuppCats.has(item.category)) return true
   if (item.sub && singleSubs.has(item.category + '::' + item.sub)) return true
   return false
+}
+
+// 点击维度标签：平滑滚动到对应分类区块
+function scrollToCat(key) {
+  const el = document.getElementById('cat-' + key)
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function toggleTag(item) {
@@ -569,12 +593,27 @@ function resetAll() {
   &.active { background: $theme-ink; color: $theme-white; border-color: $theme-ink; }
 }
 
-.cat-section { margin-bottom: 20px; }
+// 维度快速定位行：列出所有分类供点击跳转
+.dimension-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+.dimension-label { font-size: $font-size-small-sub; color: $theme-gray; white-space: nowrap; }
+.dimension-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.dimension-tag {
+  padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;
+  background: $theme-white; color: $theme-gray; border: 1px solid $theme-border;
+  transition: all 0.15s;
+  &:hover { border-color: $theme-red; color: $theme-red; }
+}
 
+// 筛选区容器：包裹性别/朝代/维度，非吸顶
+.filter-area {
+  background: $theme-bg;
+  padding: 6px 0 18px;
+}
+// scroll-margin-top 补偿固定 TopNav 高度，确保 scrollIntoView 锚点不被遮挡
+.cat-section { margin-bottom: 20px; scroll-margin-top: 60px; }
 .cat-sub {
   font-size: 11px; color: $theme-text-secondary; display: block; margin: 8px 0 4px 4px;
 }
-
 .cat-title {
   font-size: $font-size-body; font-weight: $font-weight-semibold; color: $theme-ink;
   display: block; margin-bottom: 8px; padding-bottom: 4px;
@@ -650,12 +689,35 @@ function resetAll() {
 .action-row { display: flex; gap: 8px; margin-bottom: 20px; }
 .action-row .btn { flex: 1; }
 
-/* 移动端：提示词页左右堆叠 + 按钮换行 */
+/* 移动端适配：仅调整间距/布局，不改字号 */
 @media (max-width: 768px) {
-  .prompter-body { flex-direction: column; }
-  .prompter-right { width: 100%; position: static; }
-  .action-row { flex-wrap: wrap; }
-  .action-row .btn { flex: 1 0 calc(50% - 4px); min-width: 0; }
-  .gender-tag { padding: 6px 14px; font-size: 12px; }
+  .page-layout { overflow-x: hidden; }                      // 防止水平溢出
+  .content { padding: 16px 12px; }                          // 缩小内容边距
+  .page-header { flex-wrap: wrap; gap: 10px; margin-bottom: 12px; } // 标题搜索换行
+  .page-divider { margin-bottom: 16px; }
+  .search-wrap { max-width: 100%; }                         // 搜索框占满行宽
+
+  .prompter-body { flex-direction: column; gap: 16px; }
+  .prompter-left { width: 100%; }
+  .prompter-right { width: 100%; position: static; }        // 取消吸顶随内容滚动
+
+  .filter-area { padding: 4px 0 10px; }                     // 缩小筛选区纵向间距
+  .gender-row { margin-bottom: 8px; gap: 4px; }
+  .gender-tag { padding: 4px 12px; }
+  .dynasty-row { margin-bottom: 8px; gap: 4px; }
+  .dynasty-tag { padding: 4px 10px; }
+  .dimension-row { margin-bottom: 6px; gap: 4px; }
+  .dimension-tags { overflow-x: auto; flex-wrap: nowrap; gap: 4px; padding-bottom: 4px; } // 水平滚动
+  .dimension-tag { flex-shrink: 0; padding: 4px 10px; }
+
+  .cat-section { margin-bottom: 14px; scroll-margin-top: 52px; } // 移动端 TopNav 高度对应
+  .cat-sub { margin: 4px 0 2px 2px; }
+  .tag-grid { gap: 4px; }
+  .tag-btn { padding: 4px 10px; }
+
+  .action-row { flex-wrap: wrap; gap: 4px; }
+  .action-row .btn { flex: 1 0 calc(50% - 2px); min-width: 0; }
+  .panel-section { padding: 10px; }
+  .preview-text { min-height: 180px; padding: 8px 8px 28px; }
 }
 </style>

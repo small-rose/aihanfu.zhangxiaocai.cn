@@ -111,7 +111,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'  // nextTick 用于 DOM 更新后滚动
 import { onLoad } from '@dcloudio/uni-app'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
@@ -126,6 +126,15 @@ onLoad((query) => {
   }
 })
 const activeCat = ref('garment')
+// 切换大类时平滑滚动到内容区顶部（-90px 补偿固定 TopNav）
+watch(activeCat, () => {
+  nextTick(() => {
+    const el = document.querySelector('.lexicon-body')
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 90
+    window.scrollTo({ top, behavior: 'smooth' })
+  })
+})
 const activeSub = ref('all')
 const selectedGenders = ref([])
 const selectedDynasties = ref([])
@@ -241,7 +250,8 @@ const drawerCategoryLabel = computed(() => {
 
 .lexicon-body { display: flex; gap: 32px; }
 
-.cat-sidebar { width: auto; min-width: 72px; flex-shrink: 0; }
+// 词库分类侧栏：吸顶固定在 TopNav 下方，+20px 留出间距
+.cat-sidebar { width: auto; min-width: 72px; flex-shrink: 0; position: sticky; top: calc(clamp(48px, 7vw, 64px) + 20px); align-self: flex-start; }
 
 .cat-item {
   display: flex; align-items: center; padding: 6px 8px; margin-bottom: 1px;
@@ -333,7 +343,7 @@ const drawerCategoryLabel = computed(() => {
 /* 移动端：侧栏变顶部横滚 + 2 列卡片 */
 @media (max-width: 768px) {
   .lexicon-body { flex-direction: column; }
-  .cat-sidebar { display: flex; overflow-x: auto; gap: 4px; min-width: 0; width: 100%; padding-bottom: 8px; }
+  .cat-sidebar { display: flex; overflow-x: auto; gap: 4px; min-width: 0; width: 100%; padding-bottom: 8px; position: static; } // 移动端取消吸顶，变水平滚动
   .cat-sidebar::-webkit-scrollbar { display: none; }
   .cat-item { flex-shrink: 0; padding: 6px 14px; white-space: nowrap; }
   .cat-item .cat-label { font-size: 12px; }
