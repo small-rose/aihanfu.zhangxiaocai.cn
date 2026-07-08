@@ -564,7 +564,7 @@ function startAutoScroll(key) {
     if (!e || layoutMode.value !== 'scroll' || autoScrollDisabled[key]) { stopAutoScroll(key); return }
     const max = e.scrollWidth - e.clientWidth
     if (max <= 0) { stopAutoScroll(key); return }
-    if (e.scrollLeft >= max) { e.scrollLeft = 0 }  // 滚到末端跳回开头循环
+    if (e.scrollLeft >= max) { stopAutoScroll(key); e.scrollTo({ left: 0, behavior: 'smooth' }); setTimeout(() => { if (!autoScrollDisabled[key]) startAutoScroll(key) }, 700); return }
     e.scrollLeft += speed
     autoScrollRAF[key] = requestAnimationFrame(step)
   }
