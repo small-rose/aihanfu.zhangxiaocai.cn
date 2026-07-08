@@ -433,7 +433,6 @@ function cleanupWheelListeners(key) {
     delete scrollRaf[key]
   }
   delete scrollVelocity[key]
-  restoreScrollContent(key)
 }
 
 const filters = computed(() => {
@@ -502,7 +501,7 @@ watch(filtered, () => {
   observeVisible()
   if (layoutMode.value === 'scroll') {
     autoScrollDisabled = {}
-    setTimeout(() => dynasties.forEach(d => { restoreScrollContent(d.key); setupWheelListeners(d.key); startAutoScroll(d.key) }), 200)
+    setTimeout(() => dynasties.forEach(d => { setupWheelListeners(d.key); startAutoScroll(d.key) }), 200)
   }
 })
 
@@ -549,40 +548,13 @@ function goDynasty(key) {
   document.getElementById('sec-' + key)?.scrollIntoView({ behavior: 'smooth' })
 }
 
-function duplicateScrollContent(key) {
-  const el = document.getElementById('paper-' + key)
-  if (!el || el.dataset.looped) return
-  const clones = Array.from(el.children).map(c => c.cloneNode(true))
-  // 克隆图片从数据源取 src，浏览器读 HTTP 缓存无网络请求
-  clones.forEach(clone => {
-    const id = clone.dataset.imgId
-    if (!id) return
-    const src = filtered.value.find(i => i.id === id)?.src
-    if (src) {
-      const img = clone.querySelector('image, img')
-      if (img) img.setAttribute('src', src)
-    }
-  })
-  clones.forEach(c => el.appendChild(c))
-  el.dataset.looped = 'true'
-}
-function restoreScrollContent(key) {
-  const el = document.getElementById('paper-' + key)
-  if (!el || !el.dataset.looped) return
-  const half = el.children.length / 2
-  for (let i = el.children.length - 1; i >= half; i--) el.removeChild(el.children[i])
-  delete el.dataset.looped
-  el.scrollLeft = 0
-}
-
 function startAutoScroll(key) {
   if (autoScrollDisabled[key]) return
   stopAutoScroll(key)
   const el = document.getElementById('paper-' + key)
   if (!el) return
-  duplicateScrollContent(key)
-  const pivot = el.scrollWidth / 2  // 两份内容的分界点，此处左边缘看到的是第二份开头，与位置0画面相同
-  if (pivot <= el.clientWidth) {
+  const maxScroll = el.scrollWidth - el.clientWidth
+  if (maxScroll <= 0) {
     if (!autoScrollDisabled[key]) setTimeout(() => startAutoScroll(key), 500)
     return
   }
@@ -590,8 +562,9 @@ function startAutoScroll(key) {
   function step() {
     const e = document.getElementById('paper-' + key)
     if (!e || layoutMode.value !== 'scroll' || autoScrollDisabled[key]) { stopAutoScroll(key); return }
-    if (e.scrollLeft >= e.scrollWidth / 2) { e.scrollLeft = 0 }
-    if (e.scrollLeft >= max) { e.scrollLeft = 0 }
+    const max = e.scrollWidth - e.clientWidth
+    if (max <= 0) { stopAutoScroll(key); return }
+    if (e.scrollLeft >= max) { stopAutoScroll(key); return }
     e.scrollLeft += speed
     autoScrollRAF[key] = requestAnimationFrame(step)
   }
