@@ -10,10 +10,12 @@
 
       <view class="prompter-body">
         <view class="prompter-left">
-          <view class="gender-tabs">
-            <view class="gender-btn" :class="{ active: gender === 'female' }" @tap="gender = 'female'">女性</view>
-            <view class="gender-btn" :class="{ active: gender === 'male' }" @tap="gender = 'male'">男性</view>
-            <view class="gender-btn" :class="{ active: gender === 'all' }" @tap="gender = 'all'">通用</view>
+          <view class="gender-row">
+            <text class="gender-label">性别</text>
+            <view class="gender-tags">
+              <view class="gender-tag" :class="{ active: gender === 'male' }" @tap="gender = gender === 'male' ? '' : 'male'">男性</view>
+              <view class="gender-tag" :class="{ active: gender === 'female' }" @tap="gender = gender === 'female' ? '' : 'female'">女性</view>
+            </view>
           </view>
 
           <view class="dynasty-row">
@@ -118,7 +120,7 @@ const keyword = ref('')
 onLoad((query) => {
   if (query.q) keyword.value = query.q
 })
-const gender = ref('female')
+const gender = ref('')
 const platform = ref('agnes')
 const selectedItems = ref([])
 const selectedDynasties = ref([])
@@ -151,7 +153,7 @@ const availableCategories = computed(() => {
     const opts = { category: catKey }
     if (selectedDynasties.value.length) opts.dynasty = selectedDynasties.value
     const items = filterItems(opts).filter(item => {
-      if (gender.value === 'all') return true
+      if (!gender.value) return true
       if (!item.gender) return true
       if (item.gender === '通用') return true
       return item.gender === gender.value
@@ -251,7 +253,7 @@ function randomPick() {
     const opts = { category: cat }
     if (selectedDynasties.value.length) opts.dynasty = selectedDynasties.value
     return filterItems(opts).filter(item => {
-      if (gender.value === 'all') return true
+      if (!gender.value) return true
       if (!item.gender) return true
       if (item.gender === '通用') return true
       return item.gender === gender.value
@@ -537,12 +539,15 @@ function resetAll() {
 .prompter-body { display: flex; gap: 32px; align-items: flex-start; }
 .prompter-left { flex: 1; min-width: 0; }
 
-.gender-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+.gender-row { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
 
-.gender-btn {
-  padding: 8px 24px; border-radius: 8px; font-size: $font-size-body;
+.gender-label { font-size: $font-size-small-sub; color: $theme-gray; white-space: nowrap; }
+
+.gender-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+
+.gender-tag {
+  padding: 6px 16px; border-radius: 6px; font-size: $font-size-body-sub; cursor: pointer;
   background: $theme-white; color: $theme-gray; border: 1px solid $theme-border;
-  cursor: pointer;
   &.active { background: $theme-red; color: $theme-white; border-color: $theme-red; }
 }
 
@@ -638,4 +643,12 @@ function resetAll() {
 
 .action-row { display: flex; gap: 8px; margin-bottom: 20px; }
 .action-row .btn { flex: 1; }
+
+@media (max-width: 768px) {
+  .prompter-body { flex-direction: column; }
+  .prompter-right { width: 100%; position: static; }
+  .action-row { flex-wrap: wrap; }
+  .action-row .btn { flex: 1 0 calc(50% - 4px); min-width: 0; }
+  .gender-tag { padding: 6px 14px; font-size: 12px; }
+}
 </style>

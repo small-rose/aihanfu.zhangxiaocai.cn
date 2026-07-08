@@ -116,4 +116,14 @@ const data = computed(() => dynasties[current.value])
 .garment-chip:hover { border-color: $theme-red; color: $theme-red; }
 
 .dynasty-img { width: 100%; border-radius: 12px; margin-top: 20px; }
+
+@media (max-width: 768px) {
+  .dynasty-tabs { overflow-x: auto; gap: 4px; padding: 6px; }
+  .dynasty-tabs::-webkit-scrollbar { display: none; }
+  .dtabs-item { flex: none; width: 100px; padding: 10px 8px; }
+  .dtabs-item .dtabs-name { font-size: 14px; }
+  .dtabs-item .dtabs-period { font-size: 10px; }
+  .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+  .dynasty-title { font-size: 32px; }
+}
 </style>

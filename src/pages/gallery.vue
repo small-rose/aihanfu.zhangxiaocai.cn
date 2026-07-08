@@ -1282,4 +1282,48 @@ $seal-color: #B8442A;
   .empty-icon { font-size: 64px; display: block; margin-bottom: 20px; opacity: 0.6; }
   .empty-text { font-size: $font-size-subtitle; color: $theme-gray; display: block; margin-bottom: 24px; }
 }
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gallery-item { height: auto; aspect-ratio: 3/4; border-radius: 8px; }
+  .gallery-item .gallery-img { object-fit: cover; }
+  .gallery-item .gallery-overlay { opacity: 0.85; background: linear-gradient(transparent 40%, rgba(0,0,0,0.7)); padding: 12px; }
+  .gallery-item:hover .gallery-overlay { opacity: 0.85; }
+  .gallery-item .overlay-title { font-size: 13px; }
+  .gallery-item .gallery-tags { font-size: 11px; }
+  .gallery-item::after { display: none; }
+  .gallery-item:hover { transform: none; box-shadow: none; }
+
+  .scroll-card { margin: 0 8px; }
+  .card-img { width: min(220px, 55vw); height: auto; aspect-ratio: 290/440; }
+  .title-frame { width: min(220px, 55vw); height: auto; aspect-ratio: 290/446; }
+  .card-caption { width: 40px; }
+
+  .album-book { height: 50vh; min-height: 300px; max-width: 100vw; width: 100%; }
+  .title-paper { padding: 30px 20px; gap: 10px; }
+  .title-chinese { font-size: 36px; }
+  .album-title-seal { width: 44px; height: 44px; font-size: 26px; margin-top: -6px; }
+  .page-img { width: min(130px, 38vw); height: auto; aspect-ratio: 340/460; }
+  .page-watermark { font-size: 50px; }
+  .mounting-bottom .label-clothing { font-size: 11px; }
+  .mounting-bottom .label-fabric { font-size: 11px; }
+
+  .stack-card { width: 130px; height: 182px; }
+  .stack-modal { width: 92vw; }
+
+  .scroll-hdr { gap: 8px; }
+  .scroll-hdr .roller { width: 16px; height: 16px; }
+  .scroll-dynasty-title { font-size: 18px; letter-spacing: 4px; padding: 2px 12px; }
+  .scroll-track-wrap { min-height: 340px; overflow: visible; }
+  .wooden-roller { width: 20px; }
+  .wooden-roller .roller-knob { width: 24px; height: 12px; }
+  .roller-knob.top { margin-top: -8px; }
+  .roller-knob.bottom { margin-bottom: -8px; }
+  .wooden-roller .roller-shaft { width: 14px; min-height: 220px; }
+
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .layout-group { align-self: flex-start; }
+  .filter-chip, .layout-chip { font-size: 11px; padding: 4px 10px; }
+}
 </style>

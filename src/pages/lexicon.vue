@@ -322,4 +322,19 @@ const drawerCategoryLabel = computed(() => {
 
 .filter-clear { font-size: 11px; color: $theme-red; cursor: pointer; margin-top: 12px; display: block; }
 
+@media (max-width: 768px) {
+  .lexicon-body { flex-direction: column; }
+  .cat-sidebar { display: flex; overflow-x: auto; gap: 4px; min-width: 0; width: 100%; padding-bottom: 8px; }
+  .cat-sidebar::-webkit-scrollbar { display: none; }
+  .cat-item { flex-shrink: 0; padding: 6px 14px; white-space: nowrap; }
+  .cat-item .cat-label { font-size: 12px; }
+  .cat-item .cat-count { display: none; }
+  .cat-item .cat-icon { margin-right: 6px; }
+  .lexicon-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-4col { grid-template-columns: repeat(3, 1fr); }
+  .filter-panel { width: 100%; position: static; margin-top: 12px; }
+  .filter-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .filter-tags .filter-tag { flex-shrink: 0; }
+}
+
 </style>

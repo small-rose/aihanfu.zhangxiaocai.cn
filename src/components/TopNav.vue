@@ -31,6 +31,37 @@
         <text class="lang-split">|</text>
         <text class="lang-btn">EN</text>
       </view>
+      <view class="hamburger" @tap="toggleMenu">
+        <text class="hamburger-icon">{{ menuOpen ? '✕' : '☰' }}</text>
+      </view>
+    </view>
+    <view class="mobile-backdrop" :class="{ open: menuOpen }" @tap="toggleMenu"></view>
+    <view class="mobile-drawer" :class="{ open: menuOpen }">
+      <view class="drawer-accent"></view>
+      <view class="mobile-drawer-header">
+        <view class="drawer-brand">
+          <view class="drawer-logo">汉</view>
+          <view class="drawer-texts">
+            <text class="drawer-title-cn">汉服图鉴</text>
+            <text class="drawer-title-en">Hanfu Reference</text>
+          </view>
+        </view>
+      </view>
+      <view class="drawer-nav">
+        <view
+          v-for="(item, i) in navItems"
+          :key="item.key"
+          class="mobile-nav-link"
+          :class="{ active: current === item.key }"
+          @tap="navToMobile(item.key)"
+        >
+          <text class="nav-link-icon">{{ ['📖','✍️','🏛️','🖼️'][i] }}</text>
+          <view class="nav-link-texts">
+            <text class="mobile-nav-label">{{ item.label }}</text>
+            <text class="mobile-nav-label-en">{{ item.labelEn }}</text>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -43,6 +74,16 @@ const props = defineProps({
 })
 
 const searchKeyword = ref('')
+const menuOpen = ref(false)
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+}
+
+function navToMobile(key) {
+  menuOpen.value = false
+  navTo(key)
+}
 
 const navItems = [
   { key: 'lexicon', label: '词库', labelEn: 'Lexicon' },
@@ -78,7 +119,7 @@ function doSearch() {
   border-bottom: 1px solid $theme-light-gray;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 102;
 }
 
 .topnav-inner {
@@ -188,4 +229,96 @@ function doSearch() {
 }
 
 .lang-split { color: $theme-border; font-size: $font-size-xs; }
+
+.hamburger {
+  display: none; margin-left: 12px; cursor: pointer;
+  width: 36px; height: 36px; align-items: center; justify-content: center;
+}
+.hamburger { border: 1px solid $theme-border; border-radius: 6px; }
+
+.mobile-backdrop {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44, 24, 16, 0.45); z-index: 100; opacity: 0;
+  transition: opacity 0.3s;
+}
+.mobile-backdrop.open {
+  display: block; opacity: 1;
+}
+
+.mobile-drawer {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 210px;
+  background: $theme-cream; z-index: 101;
+  transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column;
+  box-shadow: 3px 0 24px rgba(44, 24, 16, 0.12);
+}
+.mobile-drawer.open { transform: translateX(0); }
+
+.drawer-accent {
+  height: 3px; background: linear-gradient(90deg, $theme-gold, $theme-red);
+  flex: none;
+}
+
+.mobile-drawer-header {
+  padding: 28px clamp(16px, 4vw, 48px) 20px;
+  border-bottom: 1px solid $theme-border;
+  flex: none;
+}
+
+.drawer-brand { display: flex; align-items: center; gap: 10px; }
+.drawer-logo {
+  width: 34px; height: 34px; background: $theme-red; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: $font-cn; font-size: 17px; color: $theme-cream; font-weight: $font-weight-bold;
+}
+.drawer-texts { display: flex; flex-direction: column; }
+.drawer-title-cn {
+  font-family: $font-cn; font-size: 16px; color: $theme-ink;
+  font-weight: $font-weight-bold; letter-spacing: 2px;
+}
+.drawer-title-en {
+  font-family: $font-en; font-size: 10px; color: $theme-gray;
+  letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;
+}
+
+.drawer-nav { flex: 1; padding: 8px 0; overflow-y: auto; }
+
+.mobile-nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px clamp(16px, 4vw, 48px); cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+  &:active { background: #E8E0D5; }
+  &.active {
+    color: $theme-red;
+    border-left-color: $theme-gold;
+    background: linear-gradient(90deg, rgba(212, 168, 75, 0.1), transparent);
+  }
+}
+.nav-link-icon { font-size: 16px; width: 22px; text-align: center; flex: none; }
+.nav-link-texts { display: flex; flex-direction: column; }
+.mobile-nav-label {
+  font-family: $font-cn; font-size: $font-size-body; color: inherit;
+  font-weight: $font-weight-medium; letter-spacing: 1.5px;
+}
+.mobile-nav-label-en {
+  font-family: $font-en; font-size: 10px; color: $theme-gray;
+  letter-spacing: 0.5px; margin-top: 1px;
+}
+.mobile-nav-link.active .mobile-nav-label-en { color: $theme-red; }
+
+.mobile-nav-link + .mobile-nav-link {
+  border-top: 1px solid #E8E0D5;
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .topnav-links { display: none; }
+  .topnav-search { display: none; }
+  .topnav-lang { margin-left: auto; }
+  .hamburger { display: flex; }
+  .topnav-brand-cn { font-size: 16px; }
+  .brand-logo { width: 30px; height: 30px; font-size: 16px; }
+  .topnav-brand-en { display: none; }
+}
 </style>

@@ -70,6 +70,12 @@ $line-height-compact: 1.5;
 $line-height-tight: 1.2;
 
 
+// ===== Responsive Breakpoints =====
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1200px;
+
 // ===== CSS Custom Properties (for dynamic / inline use) =====
 :root {
   --theme-bg: #F5F0E8;

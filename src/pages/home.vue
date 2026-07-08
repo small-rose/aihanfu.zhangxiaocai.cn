@@ -5,7 +5,11 @@
       <view class="hero-inner">
         <text class="brand">朝代脉络</text>
         <text class="brand-en">Dynasty Lineage</text>
-        <text class="hero-title">循衣冠之脉 · 览千年华章</text>
+        <text class="hero-title hero-title-pc">循衣冠之脉 · 览千年华章</text>
+        <view class="hero-title hero-title-mb">
+          <text>循衣冠之脉</text>
+          <text>览千年华章</text>
+        </view>
         <text class="hero-subtitle">从先秦到明末，一览千年服章之美</text>
       </view>
     </view>
@@ -102,12 +106,17 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { dynasties } from '../data/hanfu-data.js'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 
 const selectedDynasty = ref('sui')
+
+onMounted(() => {
+  const sys = uni.getSystemInfoSync()
+  if (sys.windowWidth <= 768) selectedDynasty.value = 'han'
+})
 
 const currentDynasty = computed(() =>
   dynasties.find(d => d.id === selectedDynasty.value) || null
@@ -155,10 +164,20 @@ function showToast() {
     font-size: $font-size-hero; font-weight: $font-weight-bold; color: $theme-ink;
     letter-spacing: $letter-spacing-wide; display: block;
   }
+  .hero-title-pc { display: block; }
+  .hero-title-mb { display: none; }
 
   .hero-subtitle {
     font-size: $font-size-subtitle; color: $theme-gray;
     margin-top: 16px; letter-spacing: 3px; display: block;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title-pc { display: none; }
+    .hero-title-mb {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px;
+    }
   }
 }
 
@@ -363,5 +382,26 @@ function showToast() {
   .feature-icon { font-size: $font-size-page-title; display: block; margin-bottom: 12px; }
   .feature-title { font-size: $font-size-section-title; font-weight: $font-weight-semibold; color: $theme-red; display: block; margin-bottom: 8px; }
   .feature-desc { font-size: $font-size-body; color: $theme-gray; line-height: $line-height-normal; }
+}
+
+@media (max-width: 768px) {
+  .tl-row {
+    grid-template-columns: none;
+    display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px;
+    -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;
+    &::after { content: ''; flex-shrink: 0; width: 8px; }
+  }
+  .tl-line { display: none; }
+  .tl-node { flex-shrink: 0; width: 100px; scroll-snap-align: start; }
+  .tl-dot { width: 72px; height: 72px; }
+  .tl-img { width: 60px; height: 60px; }
+  .tl-period { font-size: 10px; }
+  .features-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .feature-card { padding: 20px 16px; }
+  .feature-card .feature-icon { font-size: 22px; }
+  .feature-card .feature-title { font-size: 15px; }
+  .feature-card .feature-desc { font-size: 12px; }
+  .tl-desc-card { padding: 20px 16px; }
+  .section-label { font-size: 22px; }
 }
 </style>

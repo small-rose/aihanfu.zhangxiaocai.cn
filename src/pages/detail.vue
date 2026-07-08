@@ -175,4 +175,11 @@ export default {
 .dc-meta { font-size: 12px; color: $theme-placeholder; display: block; margin-top: 24px; text-align: center; }
 
 .empty-state { text-align: center; padding: 100px 0; .empty-text { font-size: 16px; color: $theme-gray; } }
+
+@media (max-width: 768px) {
+  .detail-body { flex-direction: column; }
+  .detail-left { position: static; }
+  .detail-right { width: 100%; }
+  .dc-title { font-size: 20px; }
+}
 </style>
