@@ -105,8 +105,7 @@ function goHome() {
 }
 
 function doSearch() {
-  const input = document.querySelector('.uni-input-input')
-  const q = input ? input.value.trim() : searchKeyword.value.trim()
+  const q = searchKeyword.value.trim()
   if (!q) return
   uni.navigateTo({ url: '/pages/search?q=' + encodeURIComponent(q) })
 }

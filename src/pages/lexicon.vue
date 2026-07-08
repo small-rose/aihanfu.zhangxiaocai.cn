@@ -150,16 +150,16 @@ const currentSubs = computed(() => currentMeta.value?.subcategories || [])
 const filtered = computed(() => {
   const opts = { keyword: keyword.value }
   if (keyword.value) {
-    // 全局搜索：忽略分类和子类，但保留性别/朝代筛选
-    if (selectedGenders.value.length) opts.gender = selectedGenders.value
+    // 全局搜索：忽略分类和子类，gender/identity 仅关联分类时生效
+    if (activeCat.value === 'garment' && selectedGenders.value.length) opts.gender = selectedGenders.value
     if (selectedDynasties.value.length) opts.dynasty = selectedDynasties.value
   } else {
     // 分类浏览：按当前选中分类 + 子类 + 性别/朝代筛选
     opts.category = activeCat.value
     if (activeSub.value !== 'all') opts.sub = activeSub.value
-    if (selectedGenders.value.length) opts.gender = selectedGenders.value
+    if (activeCat.value === 'garment' && selectedGenders.value.length) opts.gender = selectedGenders.value
     if (selectedDynasties.value.length) opts.dynasty = selectedDynasties.value
-    if (selectedIdentities.value.length) opts.identity = selectedIdentities.value
+    if (activeCat.value === 'hairstyle' && selectedIdentities.value.length) opts.identity = selectedIdentities.value
   }
   return filterItems(opts)
 })

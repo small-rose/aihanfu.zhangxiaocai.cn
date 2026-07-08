@@ -70,8 +70,8 @@
         <view class="prompter-right">
           <view class="panel-section">
             <text class="panel-title">已选标签</text>
-            <view v-if="selectedList.length" class="selected-list">
-              <text v-for="(item, i) in selectedList" :key="i" class="selected-tag" @tap="removeTag(i)">{{ item.term }} ×</text>
+            <view v-if="selectedItems.length" class="selected-list">
+              <text v-for="(item, i) in selectedItems" :key="i" class="selected-tag" @tap="removeTag(i)">{{ item.term }} ×</text>
             </view>
             <text v-else class="placeholder-text">点击左侧标签开始构建</text>
           </view>
@@ -133,9 +133,15 @@ import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import supplementData from '../data/prompt-supplement.json'
 
 const keyword = ref('')
+const keywordDebounced = ref('')
+let searchTimer = null
+watch(keyword, (val) => {
+  clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => { keywordDebounced.value = val }, 300)
+})
 
 onLoad((query) => {
-  if (query.q) keyword.value = query.q
+  if (query.q) { keyword.value = query.q; keywordDebounced.value = query.q }
 })
 const gender = ref('')  // ''=全部展示，'male'/'female' 过滤；点击可取消
 const platform = ref('agnes')
@@ -180,8 +186,8 @@ const availableCategories = computed(() => {
       if (item.gender === '通用') return true
       return item.gender === gender.value
     }).filter(item => {
-      if (!keyword.value) return true
-      const kw = keyword.value.toLowerCase()
+      if (!keywordDebounced.value) return true
+      const kw = keywordDebounced.value.toLowerCase()
       return item.term.includes(kw) || item.meaning.includes(kw)
     })
     const groups = []
@@ -196,8 +202,8 @@ const availableCategories = computed(() => {
 
   // 2. Supplement categories (pose, angle, shot, lighting, etc.)
   const supplement = supplementData.categories.filter(cat => {
-    if (!keyword.value) return true
-    const kw = keyword.value.toLowerCase()
+    if (!keywordDebounced.value) return true
+    const kw = keywordDebounced.value.toLowerCase()
     return cat.items.some(i => i.term.includes(kw) || i.en.includes(kw))
   }).map(cat => ({
     key: cat.key,
@@ -215,17 +221,14 @@ function toggleDynasty(d) {
   i >= 0 ? selectedDynasties.value.splice(i, 1) : selectedDynasties.value.push(d)
 }
 
-const selectedList = computed(() => selectedItems.value)
-
 function isSelected(item) {
   return selectedItems.value.some(s => s.id === item.id)
 }
 
-// 二级分类单选：同子类下只能选一个
+// 二级分类单选：同子类下只能选一个（whole-category 单选如 hairstyle 由 singleCats 管理）
 const singleSubs = new Set([
   'face::脸型', 'face::眼型', 'face::鼻型', 'face::唇型', 'face::肤色',
   'makeup::眉妆', 'makeup::唇妆', 'makeup::底妆', 'makeup::妆面风格',
-  'temperament::女子气质', 'temperament::男子气质', 'temperament::中性仙气', 'temperament::动态气质', 'temperament::氛围气质',
   'style::朝代风格',
   'garment::袖型',
   'footwear::古鞋', 'footwear::袜'
