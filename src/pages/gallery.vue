@@ -553,6 +553,16 @@ function duplicateScrollContent(key) {
   const el = document.getElementById('paper-' + key)
   if (!el || el.dataset.looped) return
   const clones = Array.from(el.children).map(c => c.cloneNode(true))
+  // 克隆图片从数据源取 src，浏览器读 HTTP 缓存无网络请求
+  clones.forEach(clone => {
+    const id = clone.dataset.imgId
+    if (!id) return
+    const src = filtered.value.find(i => i.id === id)?.src
+    if (src) {
+      const img = clone.querySelector('image, img')
+      if (img) img.setAttribute('src', src)
+    }
+  })
   clones.forEach(c => el.appendChild(c))
   el.dataset.looped = 'true'
 }
