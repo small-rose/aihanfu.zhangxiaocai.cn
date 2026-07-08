@@ -124,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
@@ -158,6 +158,11 @@ const sizeMap = {
 
 const selectedSize = ref('768×1024')
 const currentSizes = computed(() => sizeMap[platform.value] || sizeMap.agnes)
+// 切换平台时重置尺寸到该平台的第一个选项
+watch(platform, () => {
+  const sizes = sizeMap[platform.value] || sizeMap.agnes
+  selectedSize.value = sizes[0]
+})
 
 // Which lexicon categories to show as prompt tag groups
 const promptCategories = ['face', 'temperament', 'makeup', 'hairstyle', 'garment', 'fabric', 'color', 'pattern', 'accessory', 'footwear', 'style', 'scene']
@@ -213,7 +218,7 @@ function toggleDynasty(d) {
 const selectedList = computed(() => selectedItems.value)
 
 function isSelected(item) {
-  return selectedItems.value.some(s => s.term === item.term)
+  return selectedItems.value.some(s => s.id === item.id)
 }
 
 // 二级分类单选：同子类下只能选一个
@@ -243,16 +248,18 @@ function scrollToCat(key) {
 }
 
 function toggleTag(item) {
-  const idx = selectedItems.value.findIndex(s => s.term === item.term)
+  const idx = selectedItems.value.findIndex(s => s.id === item.id)
   if (idx >= 0) {
     selectedItems.value.splice(idx, 1)
   } else {
     if (isSingleSub(item)) {
-      const others = selectedItems.value.filter(s => s.category === item.category)
-      others.forEach(o => {
-        const oi = selectedItems.value.indexOf(o)
-        if (oi >= 0) selectedItems.value.splice(oi, 1)
-      })
+      if (singleCats.has(item.category) || singleSuppCats.has(item.category)) {
+        // 整个分类只能选一个（如发型、姿势）
+        selectedItems.value = selectedItems.value.filter(s => s.category !== item.category)
+      } else {
+        // 同子类下只能选一个（如五官中的脸型、眼型互斥）
+        selectedItems.value = selectedItems.value.filter(s => !(s.category === item.category && s.sub === item.sub))
+      }
     }
     selectedItems.value.push(item)
   }
@@ -269,7 +276,7 @@ function pickN(arr, min, max) {
 }
 
 function randomPick() {
-  selectedItems.value.splice(0)
+  selectedItems.value = []
   const genderItems = filterItems({ category: 'face' })
 
   // Get all items for random selection, respecting current gender/dynasty filters
@@ -361,7 +368,8 @@ function randomPick() {
 
   pickSupp('pose')
   pickSupp('angle')
-  pickN(supplementData.categories.find(c => c.key === 'lighting')?.items || [], 1, 2).forEach(i => selectedItems.value.push({ ...i, category: 'lighting' }))
+  const lightingItems = supplementData.categories.find(c => c.key === 'lighting')?.items || []
+  pickN(lightingItems, 1, 2).forEach(i => selectedItems.value.push({ ...i, category: 'lighting' }))
   pickSupp('shot')
 }
 
@@ -393,7 +401,7 @@ function generatePrompt() {
   if (face.length) subjectParts.push('面容' + face.map(t => t.term).join('、'))
   if (makeup.length) subjectParts.push('妆容' + makeup.map(t => t.term).join('、'))
   if (hair.length) subjectParts.push('发髻' + hair.map(t => t.term).join('、'))
-  const subject = subjectParts.length ? '一位年轻女子，' + subjectParts.join('，') : '一位年轻女子'
+  const subject = subjectParts.length ? subjectLabel + '，' + subjectParts.join('，') : subjectLabel
 
   // Build clothing description
   const clothingParts = []
@@ -411,6 +419,10 @@ function generatePrompt() {
   // Style
   const style = styles.length ? '，' + styles.map(t => t.term).join('、') + '风格' : ''
 
+  const isMale = gender.value === 'male'
+  const subjectLabel = isMale ? '一位年轻男子' : '一位年轻女子'
+  const subjectLabelEN = isMale ? 'A young man' : 'A young woman'
+
   const quality = '，8K超清，细节丰富，画质精美，焦点清晰'
   const negative = '模糊，低质量，变形，畸形，水印，文字，多余肢体，丑陋'
 
@@ -425,7 +437,7 @@ function generatePrompt() {
   if (face.length) subjectPartsEN.push(face.map(en).join(', '))
   if (makeup.length) subjectPartsEN.push(makeup.map(en).join(', '))
   if (hair.length) subjectPartsEN.push(hair.map(en).join(', '))
-  const subjectEN = subjectPartsEN.length ? 'A young woman, ' + subjectPartsEN.join(', ') : 'A young woman'
+  const subjectEN = subjectPartsEN.length ? subjectLabelEN + ', ' + subjectPartsEN.join(', ') : subjectLabelEN
 
   const clothingPartsEN = []
   if (garments.length) clothingPartsEN.push('wearing ' + garments.map(en).join(', '))
