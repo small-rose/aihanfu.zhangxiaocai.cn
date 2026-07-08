@@ -4,7 +4,7 @@
     <view class="content">
       <view class="page-header">
         <text class="page-title">汉服词库</text>
-        <input class="search-input" placeholder="搜索词条..." v-model="keyword" />
+        <view class="search-wrap"><input class="search-input" placeholder="搜索词条..." v-model="keyword" /></view>
       </view>
       <view class="page-divider"></view>
 
@@ -224,12 +224,20 @@ const drawerCategoryLabel = computed(() => {
 
 .page-divider { width: 60px; height: 3px; background: $theme-red; margin-bottom: 28px; border-radius: 2px; }
 
-.search-input {
-  flex: 1; max-width: 400px; height: 42px; background: $theme-white; border-radius: 10px;
-  padding: 0 16px; font-size: $font-size-body-sub; color: $theme-ink;
-  border: 1px solid $theme-light-gray; outline: none;
-  &:focus { border-color: $theme-red; }
+.search-wrap {
+  display: flex; align-items: center;
+  max-width: 400px; height: 34px; flex: 1;
+  background: $theme-white;
+  border: 1px solid $theme-border; border-radius: 4px;
+  padding: 0 12px;
+  transition: border-color 0.25s;
 }
+.search-wrap:focus-within { border-color: $theme-red; }
+.search-input {
+  flex: 1; height: 100%; font-size: 13px; color: $theme-ink;
+  background: transparent; border: none; outline: none;
+}
+.search-input::placeholder { color: $theme-placeholder; font-size: 12px; }
 
 .lexicon-body { display: flex; gap: 32px; }
 

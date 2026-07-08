@@ -4,7 +4,7 @@
     <view class="content">
       <view class="page-header">
         <text class="page-title">灵感图库</text>
-        <input class="search-input" placeholder="搜索图片..." v-model="searchKeyword" />
+        <view class="search-wrap"><input class="search-input" placeholder="搜索图片..." v-model="searchKeyword" /></view>
       </view>
 
       <view class="toolbar">
@@ -738,12 +738,20 @@ function topBottom(item) {
 
 .page-header { display: flex; align-items: center; gap: 32px; margin-bottom: 16px; flex-wrap: wrap; }
 .page-title { font-size: $font-size-page-title-sub; font-weight: $font-weight-bold; color: $theme-ink; white-space: nowrap; }
-.search-input {
-  flex: 1; max-width: 320px; height: 38px; background: $theme-white; border-radius: 10px;
-  padding: 0 14px; font-size: $font-size-body-sub; color: $theme-ink;
-  border: 1px solid $theme-light-gray; outline: none;
-  &:focus { border-color: $theme-red; }
+.search-wrap {
+  display: flex; align-items: center;
+  max-width: 320px; height: 34px; flex: 1;
+  background: $theme-white;
+  border: 1px solid $theme-border; border-radius: 4px;
+  padding: 0 12px;
+  transition: border-color 0.25s;
 }
+.search-wrap:focus-within { border-color: $theme-red; }
+.search-input {
+  flex: 1; height: 100%; font-size: 13px; color: $theme-ink;
+  background: transparent; border: none; outline: none;
+}
+.search-input::placeholder { color: $theme-placeholder; font-size: 12px; }
 
 .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
 .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }

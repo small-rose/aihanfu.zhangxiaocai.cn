@@ -199,22 +199,34 @@ function doSearch() {
   margin-left: auto;
   margin-right: clamp(8px, 2vw, 24px);
   width: clamp(140px, 18vw, 300px);
-  background: $theme-bg;
-  border-radius: 10px;
-  padding: 0 16px;
-  height: 36px;
+  background: $theme-white;
+  border: 1px solid $theme-border;
+  border-radius: 4px;
+  padding: 0 12px;
+  height: 34px;
+  transition: border-color 0.25s;
+}
+.topnav-search:focus-within {
+  border-color: $theme-red;
 }
 
-.search-icon { font-size: $font-size-body; margin-right: 8px; cursor: pointer; }
+.search-icon {
+  font-size: 13px; margin-right: 6px; cursor: pointer;
+  color: $theme-gray; flex-shrink: 0;
+}
 
 .search-input {
   flex: 1;
-  font-size: $font-size-small;
+  font-size: 13px;
   color: $theme-ink;
   background: transparent;
   border: none;
   outline: none;
   height: 100%;
+}
+.search-input::placeholder {
+  color: $theme-placeholder;
+  font-size: 12px;
 }
 
 .topnav-lang {
