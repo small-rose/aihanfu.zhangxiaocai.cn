@@ -581,8 +581,8 @@ function startAutoScroll(key) {
   const el = document.getElementById('paper-' + key)
   if (!el) return
   duplicateScrollContent(key)
-  const maxScroll = (el.scrollWidth / 2) - el.clientWidth
-  if (maxScroll <= 0) {
+  const pivot = el.scrollWidth / 2  // 两份内容的分界点，此处左边缘看到的是第二份开头，与位置0画面相同
+  if (pivot <= el.clientWidth) {
     if (!autoScrollDisabled[key]) setTimeout(() => startAutoScroll(key), 500)
     return
   }
@@ -590,8 +590,7 @@ function startAutoScroll(key) {
   function step() {
     const e = document.getElementById('paper-' + key)
     if (!e || layoutMode.value !== 'scroll' || autoScrollDisabled[key]) { stopAutoScroll(key); return }
-    const max = (e.scrollWidth / 2) - e.clientWidth
-    if (max <= 0) { stopAutoScroll(key); return }
+    if (e.scrollLeft >= e.scrollWidth / 2) { e.scrollLeft = 0 }
     if (e.scrollLeft >= max) { e.scrollLeft = 0 }
     e.scrollLeft += speed
     autoScrollRAF[key] = requestAnimationFrame(step)
