@@ -24,8 +24,8 @@
 
       <!-- ===== GRID ===== -->
       <view v-show="layoutMode === 'grid'" v-if="filtered.length" class="gallery-grid">
-        <view v-for="(img, i) in filtered" :key="img.id" class="gallery-item" :class="{ skeleton: !loadedImgs.has(img.id) }" @tap="openDetail(img)">
-          <image class="gallery-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="img.src" mode="aspectFill" @load="onImgLoad(img.id)" />
+        <view v-for="(img, i) in filtered" :key="img.id" class="gallery-item" :class="{ skeleton: !loadedImgs.has(img.id) }" :data-img-id="img.id" @tap="openDetail(img)">
+          <image class="gallery-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="visibleImgs.has(img.id) ? img.src : ''" mode="aspectFill" @load="onImgLoad(img.id)" />
           <view class="gallery-overlay">
             <view class="overlay-badges"><text class="badge dynasty-tag">{{ img.dynasty }}</text></view>
             <text class="overlay-title">{{ img.title }}</text>
@@ -58,11 +58,11 @@
                   </view>
                 </view>
               </view>
-              <view v-for="img in getDynastyImages(d.key)" :key="img.id"
+              <view v-for="img in getDynastyImages(d.key)" :key="img.id" :data-img-id="img.id"
                 class="scroll-card" @click="openDetail(img)">
                 <view class="scroll-card-inner">
                   <view class="card-img-frame" :class="{ skeleton: !loadedImgs.has(img.id) }">
-                    <image class="card-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="img.src" mode="aspectFill" @load="onImgLoad(img.id)" />
+                    <image class="card-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="visibleImgs.has(img.id) ? img.src : ''" mode="aspectFill" @load="onImgLoad(img.id)" />
                   </view>
                   <view class="card-caption">
                     <view class="caption-inner">
@@ -297,6 +297,31 @@ import { galleryData } from '../data/gallery-data.js'
 const loadedImgs = reactive(new Set())
 function onImgLoad(id) { loadedImgs.add(id) }
 
+// 懒加载：visibleImgs 记录已进入可视区的图片 id，控制 :src 是否绑定真实 URL
+const visibleImgs = reactive(new Set())
+let lazyObserver = null
+
+function initLazyObserver() {
+  if (lazyObserver) lazyObserver.disconnect()
+  lazyObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return
+      if (entry.target.dataset.imgId) visibleImgs.add(entry.target.dataset.imgId)
+    })
+  }, { rootMargin: '200px' })
+}
+
+function observeVisible() {
+  if (!lazyObserver) return
+  nextTick(() => {
+    document.querySelectorAll('[data-img-id]').forEach(el => lazyObserver.observe(el))
+  })
+}
+
+function disconnectObserver() {
+  if (lazyObserver) { lazyObserver.disconnect(); lazyObserver = null }
+}
+
 const layoutMode = ref('scroll')
 const activeFilter = ref('all')
 const searchKeyword = ref('')
@@ -343,6 +368,8 @@ onLoad((query) => {
 })
 
 onMounted(() => {
+  initLazyObserver()
+  observeVisible()
   genStackPositions()
   setTimeout(() => {
     dynasties.forEach(d => setupWheelListeners(d.key))
@@ -470,6 +497,8 @@ watch(filtered, () => {
   spreadIdx.value = 0
   stackModal.value = null
   genStackPositions()
+  // 过滤/切换后重新注册懒加载观察
+  observeVisible()
   if (layoutMode.value === 'scroll') {
     autoScrollDisabled = {}
     setTimeout(() => dynasties.forEach(d => { setupWheelListeners(d.key); startAutoScroll(d.key) }), 200)
@@ -478,6 +507,9 @@ watch(filtered, () => {
 
 function switchLayout(key) {
   layoutMode.value = key
+  // 切换模式后重新注册懒加载（DOM 完全变化）
+  visibleImgs.clear()
+  observeVisible()
   if (key === 'scroll') {
     autoScrollDisabled = {}
     nextTick(() => {
@@ -497,6 +529,7 @@ function switchLayout(key) {
 function getDynastyImages(key) {
   return filtered.value.filter(img => img.dynasty === key)
 }
+
 
 function onFilter(key) {
   if (layoutMode.value === 'scroll') {
@@ -546,6 +579,7 @@ function stopAutoScroll(key) {
 }
 
 onUnmounted(() => {
+  disconnectObserver()
   dynasties.forEach(d => { stopAutoScroll(d.key); cleanupWheelListeners(d.key) })
   document.removeEventListener('keydown', onAlbumKey)
 })
@@ -1321,10 +1355,10 @@ $seal-color: #B8442A;
   .gallery-item::after { display: none; }
   .gallery-item:hover { transform: none; box-shadow: none; }
 
-  /* --- Scroll（手卷）：卡片缩小 + 印章恢复显示 --- */
+  /* --- Scroll（手卷）：卡片缩小（宽 195px/50vw，原 220px/55vw）+ 印章恢复显示 --- */
   .scroll-card { margin: 0 8px; }
-  .card-img { width: min(220px, 55vw); height: auto; aspect-ratio: 290/440; }
-  .title-frame { width: min(220px, 55vw); height: auto; aspect-ratio: 290/446; }
+  .card-img { width: min(195px, 50vw); height: auto; aspect-ratio: 290/440; }
+  .title-frame { width: min(195px, 50vw); height: auto; aspect-ratio: 290/446; }
   .card-caption { width: 40px; }
 
   /* --- Album（册页）：高度压缩 + 图片等比例缩小 + 标题紧凑 --- */
