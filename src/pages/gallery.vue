@@ -50,31 +50,33 @@
             </view>
             <view class="scroll-paper"
               :id="'paper-'+d.key">
-              <view class="scroll-card scroll-title-card" :class="'seal-' + d.key">
-                <view class="scroll-card-inner">
-                  <view class="card-img-frame title-frame">
-                    <text class="title-text">{{ d.label }}手卷</text>
-                    <text class="scroll-title-seal" :style="sealStyle(d.key)">{{ d.label }}</text>
-                  </view>
-                </view>
-              </view>
-              <view v-for="img in getDynastyImages(d.key)" :key="img.id" :data-img-id="img.id"
-                class="scroll-card" @click="openDetail(img)">
-                <view class="scroll-card-inner">
-                  <view class="card-img-frame" :class="{ skeleton: !loadedImgs.has(img.id) }">
-                    <image class="card-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="visibleImgs.has(img.id) ? img.src : ''" mode="aspectFill" @load="onImgLoad(img.id)" />
-                  </view>
-                  <view class="card-caption">
-                    <view class="caption-inner">
-                      <view class="cap-seg"><text class="cap-dynasty">{{ img.dynasty }}</text></view>
-                      <view class="cap-line"></view>
-                      <view class="cap-seg"><text class="cap-color">{{ img.analysis?.colors?.[0] || '' }}</text></view>
-                      <view class="cap-line"></view>
-                      <view class="cap-seg"><text class="cap-clothing">{{ img.analysis?.clothing?.[0] || '' }}</text></view>
+              <template v-for="copy in copies" :key="copy">
+                <view class="scroll-card scroll-title-card" :class="'seal-' + d.key">
+                  <view class="scroll-card-inner">
+                    <view class="card-img-frame title-frame">
+                      <text class="title-text">{{ d.label }}手卷</text>
+                      <text class="scroll-title-seal" :style="sealStyle(d.key)">{{ d.label }}</text>
                     </view>
                   </view>
                 </view>
-              </view>
+                <view v-for="img in getDynastyImages(d.key)" :key="img.id + '-' + copy" :data-img-id="img.id"
+                  class="scroll-card" @click="openDetail(img)">
+                  <view class="scroll-card-inner">
+                    <view class="card-img-frame" :class="{ skeleton: !loadedImgs.has(img.id) }">
+                      <image class="card-img" :class="{ 'img-loaded': loadedImgs.has(img.id) }" :src="visibleImgs.has(img.id) ? img.src : ''" mode="aspectFill" @load="onImgLoad(img.id)" />
+                    </view>
+                    <view class="card-caption">
+                      <view class="caption-inner">
+                        <view class="cap-seg"><text class="cap-dynasty">{{ img.dynasty }}</text></view>
+                        <view class="cap-line"></view>
+                        <view class="cap-seg"><text class="cap-color">{{ img.analysis?.colors?.[0] || '' }}</text></view>
+                        <view class="cap-line"></view>
+                        <view class="cap-seg"><text class="cap-clothing">{{ img.analysis?.clothing?.[0] || '' }}</text></view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </template>
             </view>
             <view class="wooden-roller right">
               <view class="roller-knob top"></view>
@@ -358,6 +360,8 @@ dynasties.forEach(d => {
     left: 45 + Math.random() * 10,
   }
 })
+// 无缝循环：模板渲染两份内容，滚到交界处跳回（画面一致）
+const copies = [0, 1]
 function sealStyle(key) {
   const p = sealPositions[key]
   return { top: p.top + '%', left: p.left + '%' }
@@ -553,19 +557,19 @@ function startAutoScroll(key) {
   stopAutoScroll(key)
   const el = document.getElementById('paper-' + key)
   if (!el) return
-  const maxScroll = el.scrollWidth - el.clientWidth
-  if (maxScroll <= 0) {
+  const pivot = el.scrollWidth / 2
+  if (pivot <= el.clientWidth) {
     if (!autoScrollDisabled[key]) setTimeout(() => startAutoScroll(key), 500)
     return
   }
+  let pos = el.scrollLeft || 0
   const speed = 0.8
   function step() {
     const e = document.getElementById('paper-' + key)
     if (!e || layoutMode.value !== 'scroll' || autoScrollDisabled[key]) { stopAutoScroll(key); return }
-    const max = e.scrollWidth - e.clientWidth
-    if (max <= 0) { stopAutoScroll(key); return }
-    if (e.scrollLeft >= max) { stopAutoScroll(key); return }
-    e.scrollLeft += speed
+    pos += speed
+    if (pos >= pivot) pos = 0
+    e.scrollLeft = pos
     autoScrollRAF[key] = requestAnimationFrame(step)
   }
   autoScrollRAF[key] = requestAnimationFrame(step)
