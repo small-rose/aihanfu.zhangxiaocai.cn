@@ -20,16 +20,17 @@
       <view class="dc-group">
       <text class="drawer-term">{{ item?.term }}<text v-if="item?.pinyin" class="drawer-pinyin">（{{ item.pinyin }}）</text></text>
       </view>
+      <!-- 释义：ds-title/ds-text 参考 color.vue 色彩详情样式，左侧红竖线+两端对齐 -->
       <view class="dc-group">
-      <view class="drawer-meaning-block">
-        <text class="drawer-meaning-label">释义</text>
-        <text class="drawer-meaning">{{ item?.meaning }}</text>
+      <view class="drawer-section">
+        <text class="ds-title">释义</text>
+        <text class="ds-text">{{ item?.meaning }}</text>
       </view>
       </view>
       <view v-if="item?.detail" class="dc-group">
-      <view class="drawer-detail-block">
-        <text class="drawer-detail-label">详细</text>
-        <text class="drawer-detail">{{ item.detail }}</text>
+      <view class="drawer-section">
+        <text class="ds-title">详细</text>
+        <text class="ds-text">{{ item.detail }}</text>
       </view>
       </view>
       <!-- 朝代/身份/子类标签 -->
@@ -55,12 +56,12 @@
             <text v-if="item?.aiLayout" class="ai-tag layout-tag">{{ item.aiLayout }}</text>
           </view>
           <view v-if="item?.cnPrompt" class="drawer-ai-prompt">
-            <text class="drawer-ai-prompt-label">中文提示词</text>
-            <text class="drawer-ai-prompt-text">{{ item.cnPrompt }}</text>
+            <text class="ds-title">中文提示词</text>
+            <text class="ds-text">{{ item.cnPrompt }}</text>
           </view>
           <view v-if="item?.aiPrompt" class="drawer-ai-prompt">
-            <text class="drawer-ai-prompt-label">English Prompt</text>
-            <text class="drawer-ai-prompt-text">{{ item.aiPrompt }}</text>
+            <text class="ds-title">English Prompt</text>
+            <text class="ds-text">{{ item.aiPrompt }}</text>
           </view>
         </view>
       </template>
@@ -133,6 +134,7 @@ const hasMeta = computed(() => {
   &:hover { background: #e8e0d8; }
 }
 
+/* 无图时的渐变占位 */
 .drawer-deco {
   height: 100px; background: linear-gradient(135deg, $theme-ink, #555);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -142,75 +144,20 @@ const hasMeta = computed(() => {
     background: radial-gradient(circle at 30% 40%, rgba($theme-gold, 0.08), transparent 60%);
   }
 }
-
 .drawer-deco-char {
   font-size: 36px; color: rgba($theme-white, 0.9); font-weight: $font-weight-bold;
   font-family: $font-cn; position: relative; z-index: 1;
 }
-
 .drawer-deco-label {
   font-size: 11px; color: rgba($theme-white, 0.5); margin-top: 4px;
   position: relative; z-index: 1;
 }
 
-.drawer-content { padding: 20px 24px 32px; flex: 1; }
-
-/* 内容块因 v-if 使 nth-child 不可靠，用相邻兄弟选择器确定顺序 */
-.dc-group,
-.dc-group ~ .dc-group ~ .dc-group { transition: opacity 0.3s ease, transform 0.3s ease; }
-.detail-drawer:not(.open) .dc-group {
-  opacity: 0; transform: translateY(8px);
-}
-/* 用递增 delay 实现逐条入场，v-if 移除的组自动跳过 */
-.detail-drawer.open .dc-group { transition-delay: 0s; }
-.detail-drawer.open .dc-group ~ .dc-group { transition-delay: 0.08s; }
-.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.16s; }
-.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.24s; }
-.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.32s; }
-
-.drawer-term {
-  font-size: 22px; font-weight: $font-weight-bold; color: $theme-ink; display: block;
-  line-height: 1.3;
-}
-.drawer-pinyin { font-size: 13px; color: $theme-placeholder; font-weight: $font-weight-regular; margin-left: 6px; }
-
-.drawer-meaning-block { margin-top: 14px; }
-.drawer-meaning-label, .drawer-detail-label {
-  font-size: 11px; font-weight: $font-weight-semibold; color: $theme-placeholder;
-  text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;
-}
-
-.drawer-meaning {
-  font-size: 15px; color: $theme-text-body; line-height: 1.7; display: block;
-}
-
-.drawer-detail-block { margin-top: 18px; }
-
-.drawer-detail {
-  font-size: 13px; color: $theme-text-secondary; display: block;
-  line-height: 1.8; text-align: justify;
-}
-
-.drawer-meta {
-  display: flex; gap: 6px; flex-wrap: wrap;
-  margin-top: 20px; padding-top: 16px; border-top: 1px solid $theme-light-gray;
-}
-
-.drawer-tag {
-  font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500;
-  background: $theme-bg; color: $theme-text-secondary;
-}
-.drawer-tag.id-tag { background: rgba($theme-red, 0.06); color: $theme-red; }
-.drawer-tag.gender-tag { background: rgba($theme-ink, 0.06); color: $theme-ink; }
-.drawer-tag.sub-tag { background: rgba($theme-gold, 0.1); color: #8B6B2A; }
-
-/* 图片版装饰区：替换渐变背景，padding 与内容区对齐 */
 .drawer-deco-img {
   display: block; height: auto; background: $theme-bg; line-height: 0;
   padding: 0 24px; position: relative; min-height: 120px;
   &::after { display: none; }
 }
-/* 图片加载前的骨架占位，闪烁动画 */
 .drawer-img-placeholder {
   width: 100%; max-width: 280px; margin: 0 auto; padding-bottom: 75%;
   background: linear-gradient(110deg, $theme-bg 30%, #e8e0d8 50%, $theme-bg 70%);
@@ -221,50 +168,105 @@ const hasMeta = computed(() => {
   from { background-position: 200% 0; }
   to { background-position: -200% 0; }
 }
-/* 图片保持原始比例，不超过 280px，居中，加载后淡入 */
 .drawer-deco-image {
   width: 100%; max-width: 280px; height: auto; display: block; margin: 0 auto;
   opacity: 0; transition: opacity 0.5s ease;
+  border-radius: 2px;
 }
 .drawer-deco-image.loaded { opacity: 1; }
 
-/* AI 生成参考折叠/展开切换条 */
+.drawer-content { padding: 16px 20px 32px; flex: 1; }
+
+/* 入场动画 */
+.dc-group,
+.dc-group ~ .dc-group ~ .dc-group { transition: opacity 0.3s ease, transform 0.3s ease; }
+.detail-drawer:not(.open) .dc-group {
+  opacity: 0; transform: translateY(8px);
+}
+.detail-drawer.open .dc-group { transition-delay: 0s; }
+.detail-drawer.open .dc-group ~ .dc-group { transition-delay: 0.08s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.16s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.24s; }
+.detail-drawer.open .dc-group ~ .dc-group ~ .dc-group ~ .dc-group ~ .dc-group { transition-delay: 0.32s; }
+
+/* 词条名：大号+底部装饰线 */
+.dc-group:first-child {
+  padding-bottom: 12px; margin-bottom: 12px;
+  border-bottom: 2px solid $theme-red;
+  position: relative;
+  &::after {
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 40px; height: 2px; background: $theme-gold;
+  }
+}
+
+.drawer-term {
+  font-size: 26px; font-weight: $font-weight-bold; color: $theme-ink; display: block;
+  line-height: 1.3; font-family: $font-cn;
+}
+.drawer-pinyin {
+  font-size: 13px; color: $theme-placeholder; font-weight: $font-weight-regular;
+  margin-left: 8px; font-family: $font-en;
+}
+
+.drawer-section { margin-bottom: 16px; }
+.ds-title {
+  font-size: 13px; font-weight: $font-weight-semibold; color: $theme-ink;
+  display: block; margin-bottom: 6px;
+  padding-left: 10px; border-left: 3px solid $theme-red;
+}
+.ds-text {
+  font-size: $font-size-body-sub; color: $theme-text-body;
+  line-height: 1.7; display: block; text-align: justify;
+}
+
+.drawer-meta {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid $theme-light-gray;
+}
+.drawer-tag {
+  font-size: 11px; padding: 2px 10px; border-radius: 3px; font-weight: 500;
+  background: $theme-white; color: $theme-text-secondary;
+  border: 1px solid $theme-border;
+}
+.drawer-tag.id-tag { border-color: rgba($theme-red, 0.25); color: $theme-red; background: rgba($theme-red, 0.04); }
+.drawer-tag.gender-tag { border-color: rgba($theme-ink, 0.15); color: $theme-ink; }
+.drawer-tag.sub-tag { border-color: rgba($theme-gold, 0.25); color: #8B6B2A; background: rgba($theme-gold, 0.06); }
+
+/* AI 生成参考 */
 .drawer-ai-toggle {
   display: flex; align-items: center; justify-content: space-between;
-  margin-top: 20px; padding: 10px 16px;
-  background: rgba($theme-gold, 0.05); border-radius: 8px;
-  border: 1px solid rgba($theme-gold, 0.15); cursor: pointer;
+  margin-top: 16px; padding: 8px 12px;
+  background: rgba($theme-gold, 0.04); border-radius: 6px;
+  border: 1px solid rgba($theme-gold, 0.12); cursor: pointer;
   transition: background 0.2s;
-  &:hover { background: rgba($theme-gold, 0.1); }
+  &:hover { background: rgba($theme-gold, 0.08); }
 }
 .drawer-ai-toggle-label {
   font-size: 11px; font-weight: $font-weight-semibold; color: $theme-placeholder;
-  text-transform: uppercase; letter-spacing: 1px;
+  letter-spacing: 1px;
 }
-.drawer-ai-toggle-arrow { font-size: 12px; color: $theme-placeholder; }
-
+.drawer-ai-toggle-arrow { font-size: 11px; color: $theme-placeholder; }
 .drawer-ai-section {
-  padding: 16px 16px 20px;
-  background: rgba($theme-gold, 0.05); border-radius: 0 0 8px 8px;
-  border-left: 1px solid rgba($theme-gold, 0.15);
-  border-right: 1px solid rgba($theme-gold, 0.15);
-  border-bottom: 1px solid rgba($theme-gold, 0.15);
+  padding: 12px 12px 16px;
+  background: rgba($theme-gold, 0.04);
+  border-radius: 0 0 6px 6px;
+  border-left: 1px solid rgba($theme-gold, 0.12);
+  border-right: 1px solid rgba($theme-gold, 0.12);
+  border-bottom: 1px solid rgba($theme-gold, 0.12);
   border-top: none;
 }
-.drawer-ai-label {
-  font-size: 11px; font-weight: $font-weight-semibold; color: $theme-placeholder;
-  text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 12px;
-}
-.drawer-ai-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.drawer-ai-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 12px; }
 .ai-tag {
-  font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500;
+  font-size: 10px; padding: 2px 8px; border-radius: 3px; font-weight: 500;
 }
-.ai-tag.style-tag { background: rgba($theme-ink, 0.06); color: $theme-ink; }
-.ai-tag.layout-tag { background: rgba($theme-red, 0.06); color: $theme-red; }
-.drawer-ai-prompt { margin-top: 14px; }
+.ai-tag.style-tag { background: rgba($theme-ink, 0.05); color: $theme-ink; }
+.ai-tag.layout-tag { background: rgba($theme-red, 0.05); color: $theme-red; }
+.drawer-ai-prompt { margin-top: 10px; }
 .drawer-ai-prompt-label {
   font-size: 10px; font-weight: 600; color: $theme-placeholder;
-  text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;
+  letter-spacing: 0.5px; display: block; margin-bottom: 4px;
 }
 .drawer-ai-prompt-text {
   font-size: 11px; color: $theme-text-secondary; display: block;

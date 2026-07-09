@@ -562,14 +562,12 @@ function startAutoScroll(key) {
     if (!autoScrollDisabled[key]) setTimeout(() => startAutoScroll(key), 500)
     return
   }
-  let pos = el.scrollLeft || 0
   const speed = 0.8
   function step() {
     const e = document.getElementById('paper-' + key)
     if (!e || layoutMode.value !== 'scroll' || autoScrollDisabled[key]) { stopAutoScroll(key); return }
-    pos += speed
-    if (pos >= pivot) pos = 0
-    e.scrollLeft = pos
+    e.scrollLeft += speed
+    if (e.scrollLeft >= e.scrollWidth / 2) e.scrollLeft = 0
     autoScrollRAF[key] = requestAnimationFrame(step)
   }
   autoScrollRAF[key] = requestAnimationFrame(step)
@@ -859,8 +857,7 @@ function topBottom(item) {
   flex-shrink: 0; cursor: pointer; padding: 0;
   margin: 0 14px;
   position: relative;
-  &:first-child { margin-left: 8px; }
-  &:last-child { margin-right: 8px; }
+  &.scroll-title-card { margin-left: 8px; }
   transition: transform 0.3s ease;
   &:hover { transform: scale(1.02); }
   &::after {
