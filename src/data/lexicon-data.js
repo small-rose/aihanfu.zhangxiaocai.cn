@@ -5,7 +5,7 @@ const colorItems = allColors.map(c => ({
   en: '',
   meaning: c.meaning,
   category: 'color',
-  sub: ({ '红':'红色系','黄':'黄色系','绿':'绿色系','蓝紫':'蓝紫色系','褐':'褐色系','黑白':'素色系' })[c.category] || c.category,
+  sub: ({ '红':'红色系','黄':'黄色系','绿':'绿色系','蓝':'蓝色系','紫':'紫色系','褐':'褐色系','黑白':'素色系' })[c.category] || c.category,
   hex: c.hex,
   tags: c.tags,
   dynasty: c.dynasty,

@@ -4,13 +4,18 @@
     <view class="content">
       <view class="page-header">
         <text class="page-title">传统色彩</text>
-        <text class="page-subtitle">{{ mode === 'full' ? '全色库' : 'AI 友好色' }} · {{ displayColors.length }} 色</text>
+        <text class="page-subtitle">{{ displayColors.length }} 色</text>
       </view>
       <view class="page-divider"></view>
 
       <view class="color-toggle">
-        <view class="t-btn" :class="{ active: mode === 'full' }" @tap="mode = 'full'">全色库</view>
-        <view class="t-btn" :class="{ active: mode === 'ai' }" @tap="mode = 'ai'">AI 友好色</view>
+        <view class="t-btn" :class="{ active: filterBy === 'all' }" @tap="filterBy = 'all'">全色库</view>
+        <view class="t-btn" :class="{ active: filterBy === 'ai' }" @tap="filterBy = 'ai'">AI 友好色</view>
+      </view>
+      <view class="tag-toggle">
+        <view v-for="t in allTags" :key="t" class="t-btn tag-btn"
+          :class="{ active: selectedTags.has(t) }"
+          @tap="toggleTag(t)">{{ t }}</view>
       </view>
 
       <view v-for="grp in colorGroups" :key="grp.label" class="section">
@@ -20,7 +25,11 @@
             <view class="swatch" :style="{ backgroundColor: c.hex }"></view>
             <text class="c-name">{{ c.name }}</text>
             <text class="c-hex">{{ c.hex }}</text>
-            <text v-if="mode === 'full'" class="c-ai-tag" :class="{ ok: c.ai, no: !c.ai }">{{ c.ai ? 'AI' : '—' }}</text>
+            <view class="card-tags">
+              <text v-if="filterBy !== 'ai'" class="c-ai-tag" :class="{ ok: c.ai, no: !c.ai }">{{ c.ai ? 'AI' : '—' }}</text>
+              <text class="c-type-tag" v-if="c.tags?.includes('中国色')">典</text>
+              <text class="c-type-tag wa" v-else-if="c.tags?.includes('和风')">和</text>
+            </view>
           </view>
         </view>
       </view>
@@ -52,7 +61,7 @@
 
         <view class="drawer-tags">
           <text class="tag" :class="{ 'tag-ok': detail.ai, 'tag-no': !detail.ai }">{{ detail.ai ? 'AI友好' : '非AI友好' }}</text>
-          <text class="tag" v-for="t in detail.tags" :key="t">{{ t }}</text>
+          <text class="tag" v-for="t in detail.tags" :key="t" :class="{ 'tag-cn': t==='中国色', 'tag-wa': t==='和风' }">{{ t }}</text>
         </view>
 
         <view v-if="adjacentColors.length" class="drawer-section">
@@ -108,8 +117,17 @@ import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import allColors from '../data/color-data.js'
 
-const mode = ref('full')
+const filterBy = ref('all')
+const selectedTags = ref(new Set())
 const detail = ref(null)
+
+function toggleTag(t) {
+  const set = selectedTags.value
+  if (set.has(t)) set.delete(t)
+  else set.add(t)
+  // trigger reactivity
+  selectedTags.value = new Set(set)
+}
 
 onLoad((query) => {
   if (query.q) {
@@ -118,12 +136,24 @@ onLoad((query) => {
   }
 })
 
-const catOrder = ['红', '黄', '绿', '蓝紫', '褐', '黑白']
-const catLabels = { '红': '红系 · 暖红', '黄': '黄系 · 暖黄', '绿': '绿系 · 冷绿', '蓝紫': '蓝紫系 · 冷蓝紫', '褐': '褐系 · 大地色', '黑白': '素色系 · 黑白' }
+// 从数据中提取所有标签去重后排序
+const allTags = computed(() => {
+  const set = new Set()
+  allColors.forEach(c => (c.tags || []).forEach(t => set.add(t)))
+  return [...set].sort()
+})
 
-const displayColors = computed(() =>
-  mode.value === 'full' ? allColors : allColors.filter(c => c.ai)
-)
+const catOrder = ['红', '黄', '绿', '蓝', '紫', '褐', '黑白']
+const catLabels = { '红': '红系 · 暖红', '黄': '黄系 · 暖黄', '绿': '绿系 · 冷绿', '蓝': '蓝系 · 冷蓝', '紫': '紫系 · 冷紫', '褐': '褐系 · 大地色', '黑白': '素色系 · 黑白' }
+
+const displayColors = computed(() => {
+  let list = filterBy.value === 'ai' ? allColors.filter(c => c.ai) : allColors
+  const tags = [...selectedTags.value]
+  if (tags.length > 0) {
+    list = list.filter(c => tags.some(t => c.tags?.includes(t)))
+  }
+  return list
+})
 
 const colorGroups = computed(() => {
   const map = {}
@@ -154,7 +184,7 @@ function hexForColor(name) {
 }
 
 function pairDesc(main, paired) {
-  const catMap = { '红':'红色', '黄':'黄色', '绿':'绿色', '蓝紫':'蓝紫色', '褐':'褐色', '黑白':'素色' }
+  const catMap = { '红':'红色', '黄':'黄色', '绿':'绿色', '蓝':'蓝色', '紫':'紫色', '褐':'褐色', '黑白':'素色' }
   const mc = allColors.find(x => x.name === main)
   const pc = allColors.find(x => x.name === paired)
   if (!mc || !pc) return ''
@@ -196,6 +226,13 @@ function openDetail(c) { detail.value = c }
   transition: all 0.2s;
   &.active { background: $theme-red; color: $theme-white; border-color: $theme-red; }
 }
+
+.tag-toggle {
+  display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.tag-btn { font-size: 11px; padding: 4px 10px; }
+.tag-btn.active { background: $theme-ink; color: $theme-white; border-color: $theme-ink; }
+
 
 .section { margin-bottom: 36px; }
 .section-label {
@@ -246,11 +283,16 @@ function openDetail(c) { detail.value = c }
 .c-ai-tag {
   display: inline-block;
   font-size: 10px;
-  margin: 0 10px 8px;
   padding: 1px 8px;
   border-radius: 3px;
   &.ok { background: #E8F5E9; color: #2E7D32; }
   &.no { background: #FBE9E7; color: #BF360C; }
+}
+.card-tags { display: flex; gap: 4px; padding: 0 10px 8px; flex-wrap: wrap; }
+.c-type-tag {
+  font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; display: inline-block;
+  background: #E3F2FD; color: #1565C0;
+  &.wa { background: #FFF3E0; color: #E65100; }
 }
 
 /* drawer */
@@ -301,6 +343,8 @@ function openDetail(c) { detail.value = c }
 .tag-ok { background: #E8F5E9; color: #2E7D32; }
 .tag-no { background: #FBE9E7; color: #BF360C; }
 .tag-cat { background: #E3F2FD; color: #1565C0; }
+.tag-cn { background: #E8F5E9; color: #2E7D32; }
+.tag-wa { background: #FFF3E0; color: #E65100; }
 
 .drawer-section { margin-bottom: 20px; }
 .ds-title {
