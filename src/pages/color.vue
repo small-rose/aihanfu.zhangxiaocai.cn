@@ -289,14 +289,33 @@ function exportPairs() {
   ctx.stroke()
   ctx.textAlign = 'left'
   
-  // Content area
+  // Helper: rounded rect
+  function roundRect(ctx, x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2)
+    ctx.beginPath()
+    ctx.moveTo(x + r, y)
+    ctx.lineTo(x + w - r, y)
+    ctx.arcTo(x + w, y, x + w, y + r, r)
+    ctx.lineTo(x + w, y + h - r)
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r)
+    ctx.lineTo(x + r, y + h)
+    ctx.arcTo(x, y + h, x, y + h - r, r)
+    ctx.lineTo(x, y + r)
+    ctx.arcTo(x, y, x + r, y, r)
+    ctx.closePath()
+  }
+
   const contentY = topPad + 10
-  
+  const r = 6
+
   pairs.forEach((pn, i) => {
     const py = contentY + i * (rowH + rowGap)
     const ph = hexForColor(pn)
     const swatchY = py
     const textCenterY = py + rowH / 2
+    const swatchX = pad + leftW + gap
+    const halfW = swatchW / 2
+    const rightX = swatchX + swatchW + gap
     
     // Left: name + hex (right-aligned)
     ctx.fillStyle = '#2C2C2C'
@@ -308,17 +327,32 @@ function exportPairs() {
     ctx.fillText(hex, pad + leftW - 4, textCenterY + 12)
     ctx.textAlign = 'left'
     
-    // Left swatch
-    const swatchX = pad + leftW + gap
-    ctx.fillStyle = hex
-    ctx.fillRect(swatchX, swatchY, swatchW / 2, rowH)
-    
-    // Right swatch
-    ctx.fillStyle = ph
-    ctx.fillRect(swatchX + swatchW / 2, swatchY, swatchW / 2, rowH)
+    if (swatchConnected.value) {
+      ctx.save()
+      roundRect(ctx, swatchX, swatchY, swatchW, rowH, r)
+      ctx.clip()
+      ctx.fillStyle = hex
+      ctx.fillRect(swatchX, swatchY, halfW, rowH)
+      ctx.fillStyle = ph
+      ctx.fillRect(swatchX + halfW, swatchY, halfW, rowH)
+      ctx.restore()
+    } else {
+      const gap = 4
+      const sw = halfW - gap
+      roundRect(ctx, swatchX, swatchY, sw, rowH, r)
+      ctx.fillStyle = hex
+      ctx.fill()
+      ctx.fillStyle = '#CCC'
+      ctx.font = '12px sans-serif'
+      ctx.textAlign = 'center'
+      ctx.fillText('⇌', swatchX + sw + gap / 2, textCenterY + 4)
+      ctx.textAlign = 'left'
+      roundRect(ctx, swatchX + sw + gap, swatchY, sw, rowH, r)
+      ctx.fillStyle = ph
+      ctx.fill()
+    }
     
     // Right: name + hex (left-aligned)
-    const rightX = swatchX + swatchW + gap
     ctx.fillStyle = '#2C2C2C'
     ctx.font = 'bold 13px sans-serif'
     ctx.fillText(pn, rightX, textCenterY - 5)
