@@ -11,7 +11,6 @@
             <text class="dc-title">{{ img.title }}</text>
             <text class="dc-dynasty">{{ img.dynasty }}</text>
           </view>
-          <view class="dc-fav" @tap="toggleFav">{{ isFav ? '★' : '☆' }}</view>
         </view>
 
         <view class="analysis-section">
@@ -69,7 +68,6 @@
         <view class="prompt-section">
           <view class="prompt-header">
             <text class="section-title">完整提示词</text>
-            <view class="prompt-fav" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }}</view>
           </view>
           <text class="prompt-label">中文</text>
           <textarea class="prompt-box" :value="img.prompt" readonly />
@@ -77,7 +75,8 @@
           <textarea class="prompt-box" :value="enPrompt" readonly />
         </view>
 
-        <text class="dc-meta">{{ img.model }} · {{ img.size }} · {{ img.date }}</text>
+          <text class="dc-meta">{{ img.model }} · {{ img.size }} · {{ img.date }}</text>
+        <view class="dc-fav-btn" @tap="toggleFav">{{ isFav ? '★' : '☆' }} 收藏</view>
       </view>
     </view>
     <view v-if="!img" class="empty-state">
@@ -174,7 +173,7 @@ export default {
 
 .dc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
 .dc-header-text { flex: 1; }
-.dc-fav { font-size: 22px; cursor: pointer; color: #d4a84b; flex-shrink: 0; margin-top: 4px; transition: transform 0.2s; &:hover { transform: scale(1.2); } }
+.dc-fav-btn { display: block; text-align: center; margin-top: 24px; padding: 10px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; background: #c41e3a; color: #fff; &:active { opacity: 0.85; } }
 
 .dc-title { font-size: 24px; font-weight: $font-weight-bold; color: $theme-ink; }
 
@@ -206,7 +205,6 @@ export default {
 
 .prompt-section { margin-bottom: 24px; }
 .prompt-header { display: flex; align-items: center; gap: 8px; }
-.prompt-fav { font-size: 18px; cursor: pointer; color: #d4a84b; transition: transform 0.2s; flex-shrink: 0; &:hover { transform: scale(1.2); } }
 
 .prompt-label { font-size: 13px; font-weight: $font-weight-semibold; color: $theme-ink; display: block; margin-top: 12px; margin-bottom: 6px; }
 
