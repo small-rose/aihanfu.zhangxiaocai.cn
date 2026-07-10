@@ -220,44 +220,59 @@ function pairDesc(main, paired) {
   const mcat = catMap[mc.category] || mc.category
   const pcat = catMap[pc.category] || pc.category
 
-  // 同类色搭配 — 细分深浅
+  // 亮度对比：从 hex 估算
+  const lum = h => (parseInt(h.slice(1,3),16)*0.299 + parseInt(h.slice(3,5),16)*0.587 + parseInt(h.slice(5,7),16)*0.114)
+  const ml = lum(mc.hex), pl = lum(pc.hex)
+  const diff = ml - pl
+  const lightDesc = diff > 40 ? '主色更深沉，搭配色更明亮' : diff < -40 ? '主色更明亮，搭配色更深沉' : '两色亮度相近'
+  
+  // 饱和度对比
+  const sat = h => { const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16); const max=Math.max(r,g,b),min=Math.min(r,g,b); return max===0?0:Math.round((max-min)/max*100); }
+  const ms = sat(mc.hex), ps = sat(pc.hex)
+  const satDesc = Math.abs(ms-ps) > 30 ? '饱和度反差明显，各具风采' : '饱和度协调统一'
+
+  // 同类色 — 按亮度差异细分
   if (mc.category === pc.category) {
-    const depth = ['更浅','稍浅','相近','稍深','更深']
-    // 从 hex 估算亮度差异
-    const ml = (parseInt(mc.hex.slice(1,3),16)+parseInt(mc.hex.slice(3,5),16)+parseInt(mc.hex.slice(5,7),16))/3
-    const pl = (parseInt(pc.hex.slice(1,3),16)+parseInt(pc.hex.slice(3,5),16)+parseInt(pc.hex.slice(5,7),16))/3
-    const diff = Math.round((ml - pl) / 255 * 4)
-    const di = Math.max(0, Math.min(4, 2 + diff))
-    return `${mcat}系${depth[di]}，层次细腻`
+    const depth = diff > 50 ? '更浅更明亮' : diff > 20 ? '稍浅' : diff > -20 ? '色调相近' : diff > -50 ? '稍深' : '更深更暗'
+    return `${mcat}系，${depth}，${satDesc}`
   }
 
-  // 经典色组搭配 — 按色系组合生成具体描述
-  const pairs = [`${mcat}与${pcat}搭配`, `${mcat}衬${pcat}`]
-  
-  // 互补对比组合
-  if ((mc.category === '红' && pc.category === '绿') || (mc.category === '绿' && pc.category === '红')) return `${pairs[0]}，红绿经典反差，鲜明热烈`
-  if ((mc.category === '蓝' && pc.category === '黄') || (mc.category === '黄' && pc.category === '蓝')) return `${pairs[0]}，冷暖撞色，视觉张力强`
-  if ((mc.category === '紫' && pc.category === '黄') || (mc.category === '黄' && pc.category === '紫')) return `${pairs[0]}，黄紫对比，华贵醒目`
-  
-  // 无彩色搭配
-  if (mc.category === '黑白') return `${pcat}底色上${pairs[1]}，素雅大方`
-  if (pc.category === '黑白') return `${mcat}配素色，主次分明，沉稳不失亮点`
-  
+  const pair1 = `${mcat}与${pcat}`
+
+  // 互补对比
+  if ((mc.category === '红' && pc.category === '绿') || (mc.category === '绿' && pc.category === '红'))
+    return `${pair1}，红绿经典反差，鲜明热烈。${lightDesc}`
+  if ((mc.category === '蓝' && pc.category === '黄') || (mc.category === '黄' && pc.category === '蓝'))
+    return `${pair1}，冷暖撞色，视觉张力强。${lightDesc}，${satDesc}`
+  if ((mc.category === '紫' && pc.category === '黄') || (mc.category === '黄' && pc.category === '紫'))
+    return `${pair1}，黄紫对比，华贵醒目。${lightDesc}`
+
+  // 无彩色
+  if (mc.category === '黑白') return `${pcat}底色上衬以${mcat}，素雅大方，${satDesc}`
+  if (pc.category === '黑白') return `${mcat}配素色，主次分明，沉稳不失亮点。${lightDesc}`
+
   // 冷暖组合
-  const warm = ['红','黄','褐']
-  const cool = ['绿','蓝','紫']
-  if (warm.includes(mc.category) && cool.includes(pc.category)) return `${pairs[0]}，冷暖调和，张弛有度`
-  if (cool.includes(mc.category) && warm.includes(pc.category)) return `${pairs[0]}，冷中带暖，层次丰富`
-  
-  // 邻近色搭配
-  if ((mc.category === '红' && pc.category === '紫') || (mc.category === '紫' && pc.category === '红')) return `${pairs[0]}，红紫相邻，温婉和谐`
-  if ((mc.category === '绿' && pc.category === '蓝') || (mc.category === '蓝' && pc.category === '绿')) return `${pairs[0]}，蓝绿邻近，清新自然`
-  if ((mc.category === '黄' && pc.category === '绿') || (mc.category === '绿' && pc.category === '黄')) return `${pairs[0]}，黄绿邻近，生机盎然`
-  if ((mc.category === '蓝' && pc.category === '紫') || (mc.category === '紫' && pc.category === '蓝')) return `${pairs[0]}，蓝紫邻近，沉静优雅`
-  if ((mc.category === '褐' && pc.category === '黄') || (mc.category === '黄' && pc.category === '褐')) return `${pairs[0]}，大地暖调，温润质朴`
-  if ((mc.category === '褐' && pc.category === '红') || (mc.category === '红' && pc.category === '褐')) return `${pairs[0]}，暖色过渡，温厚醇和`
-  
-  return `${pairs[0]}，${mcat}与${pcat}交融，别具韵味`
+  const warm = ['红','黄','褐'], cool = ['绿','蓝','紫']
+  if (warm.includes(mc.category) && cool.includes(pc.category))
+    return `${pair1}，冷暖调和，张弛有度。${lightDesc}`
+  if (cool.includes(mc.category) && warm.includes(pc.category))
+    return `${pair1}，冷中带暖，层次丰富。${lightDesc}`
+
+  // 邻近色
+  if ((mc.category === '红' && pc.category === '紫') || (mc.category === '紫' && pc.category === '红'))
+    return `${pair1}，红紫相邻，温婉和谐。${lightDesc}`
+  if ((mc.category === '绿' && pc.category === '蓝') || (mc.category === '蓝' && pc.category === '绿'))
+    return `${pair1}，蓝绿邻近，清新自然。${lightDesc}`
+  if ((mc.category === '黄' && pc.category === '绿') || (mc.category === '绿' && pc.category === '黄'))
+    return `${pair1}，黄绿邻近，生机盎然。${lightDesc}`
+  if ((mc.category === '蓝' && pc.category === '紫') || (mc.category === '紫' && pc.category === '蓝'))
+    return `${pair1}，蓝紫邻近，沉静优雅。${lightDesc}`
+  if ((mc.category === '褐' && pc.category === '黄') || (mc.category === '黄' && pc.category === '褐'))
+    return `${pair1}，大地暖调，温润质朴。${lightDesc}`
+  if ((mc.category === '褐' && pc.category === '红') || (mc.category === '红' && pc.category === '褐'))
+    return `${pair1}，暖色过渡，温厚醇和。${lightDesc}`
+
+  return `${pair1}交融，${lightDesc}，${satDesc}`
 }
 
 function openDetail(c) { detail.value = c }
