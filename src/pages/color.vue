@@ -52,7 +52,10 @@
             <view class="pm-arrow">⇌</view>
             <view class="pm-pair-swatch" :style="{ backgroundColor: hexForColor(pn) }"></view>
           </view>
-          <text class="pm-label-right">{{ pn }}</text>
+          <view class="pm-right-info">
+            <text class="pm-label-right">{{ pn }}</text>
+            <text class="pm-hex-right">{{ hexForColor(pn) }} · RGB {{ rgbForColor(pn) }}</text>
+          </view>
         </view>
       </view>
       <view class="pm-footer">
@@ -206,6 +209,10 @@ const adjacentColors = computed(() => {
 function hexForColor(name) {
   const c = allColors.find(x => x.name === name)
   return c ? c.hex : '#ccc'
+}
+function rgbForColor(name) {
+  const c = allColors.find(x => x.name === name)
+  return c ? c.rgb : ''
 }
 
 function pairDesc(main, paired, idx) {
@@ -471,11 +478,13 @@ function exportPairs() {
   display: flex; align-items: center; gap: 16px;
   padding: 0 8px;
 }
-.pm-label-left, .pm-label-right {
+.pm-label-left {
   font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink;
-  white-space: nowrap; min-width: 56px; text-align: center;
+  white-space: nowrap; min-width: 48px; text-align: center;
 }
-.pm-label-right { color: $theme-text-secondary; }
+.pm-right-info { display: flex; flex-direction: column; align-items: flex-start; min-width: 100px; }
+.pm-label-right { font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink; white-space: nowrap; }
+.pm-hex-right { font-size: 11px; color: $theme-placeholder; font-family: monospace; margin-top: 2px; }
 .pm-swatch-wrap {
   display: flex; align-items: center; gap: 4px; flex: 1;
 }
