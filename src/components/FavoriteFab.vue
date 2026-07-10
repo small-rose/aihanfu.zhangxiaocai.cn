@@ -2,7 +2,7 @@
   <view>
     <!-- 悬浮按钮 -->
     <view class="fab-btn" @tap="togglePanel">
-      <text class="fab-icon">{{ panelOpen ? '✕' : '📌' }}</text>
+      <text class="fab-icon">{{ panelOpen ? '✕' : '★' }}</text>
       <text v-if="totalCount > 0 && !panelOpen" class="fab-badge">{{ totalCount > 99 ? '99+' : totalCount }}</text>
     </view>
 
@@ -322,11 +322,11 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fab-btn {
   position: fixed; bottom: 80px; right: 20px;
   width: 48px; height: 48px; border-radius: 50%;
-  background: $theme-red; color: #fff;
+  background: #fff; color: #c41e3a;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px; z-index: 99;
-  box-shadow: 0 4px 16px rgba($theme-red, 0.3);
-  cursor: pointer;
+  font-size: 20px; z-index: 99;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  cursor: pointer; border: 1px solid #e8e0d5;
 }
 .fab-badge {
   position: absolute; top: -4px; right: -4px;
