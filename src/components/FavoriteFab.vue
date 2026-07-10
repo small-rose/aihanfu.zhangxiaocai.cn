@@ -36,10 +36,8 @@
             <text class="fp-item-name">{{ item.name }}</text>
             <text class="fp-item-sub">{{ item.sub }}</text>
           </view>
-          <view class="fp-item-right">
-            <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
-            <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
-          </view>
+          <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
+          <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
         </view>
       </view>
       <view v-else class="fp-empty">
@@ -246,22 +244,21 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fp-tab-label { font-weight: 500; }
 .fp-list { flex: 1; overflow-y: auto; padding: 0 16px 20px; }
 .fp-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 0; border-bottom: 1px solid $theme-light-gray; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid $theme-light-gray; cursor: pointer;
   &:active { opacity: 0.7; }
 }
 .fp-item-preview {
-  width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 5px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   background: $theme-bg;
 }
-.fp-item-type { font-size: 16px; }
+.fp-item-type { font-size: 13px; }
 .fp-item-info { flex: 1; min-width: 0; }
-.fp-item-name { font-size: 13px; font-weight: 500; color: $theme-ink; display: block; }
-.fp-item-sub { font-size: 11px; color: $theme-gray; margin-top: 2px; display: block; }
-.fp-item-right { display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0; }
-.fp-item-time { font-size: 9px; color: $theme-placeholder; white-space: nowrap; }
-.fp-item-del { font-size: 12px; color: $theme-placeholder; padding: 2px 4px; cursor: pointer; &:hover { color: $theme-red; } }
+.fp-item-name { font-size: 12px; font-weight: 500; color: $theme-ink; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fp-item-sub { font-size: 10px; color: $theme-gray; margin-top: 1px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fp-item-time { font-size: 9px; color: $theme-placeholder; white-space: nowrap; flex-shrink: 0; margin-right: 4px; }
+.fp-item-del { font-size: 11px; color: $theme-placeholder; padding: 2px; cursor: pointer; flex-shrink: 0; &:hover { color: $theme-red; } }
 .fp-empty {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center; padding-bottom: 40px;

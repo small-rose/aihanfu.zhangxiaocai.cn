@@ -98,7 +98,7 @@
 
           <view class="action-row">
             <Button variant="primary" @tap="generatePrompt">生成提示词</Button>
-            <Button variant="secondary" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }} 收藏</Button>
+            <view class="fav-btn" :class="{ active: isPromptFav }" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }} 收藏</view>
             <Button variant="secondary" @tap="randomPick">随机搭配</Button>
             <Button variant="ghost" @tap="resetAll">重置</Button>
           </view>
@@ -719,11 +719,12 @@ function toggleFavPrompt() {
 }
 
 .preview-text {
-  width: 100%; padding: 10px 10px 32px; border-radius: 6px; min-height: 280px;
+  width: 100%; padding: 10px 10px 32px; border-radius: 6px; min-height: 160px;
   font-size: 12px; color: $theme-ink; line-height: 1.6;
   border: 1px solid $theme-light-gray;
   background: $theme-input-bg; box-sizing: border-box;
   white-space: pre-wrap; word-break: break-all;
+  resize: vertical; overflow: auto;
 }
 
 .platform-row { display: flex; gap: 6px; margin-bottom: 8px; }
@@ -743,7 +744,14 @@ function toggleFavPrompt() {
 }
 
 .action-row { display: flex; gap: 8px; margin-bottom: 12px; }
-.action-row .btn { flex: 1; }
+.action-row .btn, .action-row .fav-btn { flex: 1; }
+.fav-btn {
+  display: flex; align-items: center; justify-content: center;
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+  background: $theme-white; color: $theme-gray; border: 1px solid $theme-border;
+  transition: all 0.2s;
+  &.active { background: #FFF0F0; color: $theme-red; border-color: $theme-red; }
+}
 
 /* 移动端适配：仅调整间距/布局，不改字号 */
 @media (max-width: 768px) {
@@ -774,6 +782,6 @@ function toggleFavPrompt() {
   .action-row { flex-wrap: wrap; gap: 4px; }
   .action-row .btn { flex: 1 0 calc(50% - 2px); min-width: 0; }
   .panel-section { padding: 10px; }
-  .preview-text { min-height: 180px; padding: 8px 8px 28px; }
+  .preview-text { min-height: 120px; padding: 8px 8px 28px; resize: vertical; }
 }
 </style>
