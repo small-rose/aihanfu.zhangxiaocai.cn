@@ -31,6 +31,7 @@
             <text class="overlay-title">{{ img.title }}</text>
             <text class="gallery-tags">{{ img.tags.slice(0, 5).join(' · ') }}</text>
           </view>
+          <text class="gallery-fav" @tap.stop="toggleFavImg(img, $event)">{{ isImgFav(img) ? '★' : '☆' }}</text>
         </view>
       </view>
 
@@ -115,6 +116,7 @@
                             <text class="label-fabric">{{ currentLeft.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ currentLeft.item.analysis?.colors?.[0] || '' }}</text>
+                            <text class="album-fav" @tap.stop="toggleFavImg(currentLeft.item, $event)">{{ isImgFav(currentLeft.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(currentLeft.item) }}</text>
@@ -147,6 +149,7 @@
                             <text class="label-fabric">{{ prevRight.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ prevRight.item.analysis?.colors?.[0] || '' }}</text>
+                            <text class="album-fav" @tap.stop="toggleFavImg(prevRight.item, $event)">{{ isImgFav(prevRight.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(prevRight.item) }}</text>
@@ -192,6 +195,7 @@
                             <text class="label-fabric">{{ currentRight.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ currentRight.item.analysis?.colors?.[0] || '' }}</text>
+                            <text class="album-fav" @tap.stop="toggleFavImg(currentRight.item, $event)">{{ isImgFav(currentRight.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(currentRight.item) }}</text>
@@ -224,6 +228,7 @@
                             <text class="label-fabric">{{ nextLeft.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ nextLeft.item.analysis?.colors?.[0] || '' }}</text>
+                            <text class="album-fav" @tap.stop="toggleFavImg(nextLeft.item, $event)">{{ isImgFav(nextLeft.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(nextLeft.item) }}</text>
@@ -268,6 +273,7 @@
           <view class="stack-modal" :style="cardFrameStyle(filtered[stackModal].dynasty)" @tap.stop>
           <image class="stack-modal-img" :class="{ skeleton: !loadedImgs.has(filtered[stackModal].id), 'img-loaded': loadedImgs.has(filtered[stackModal].id) }" :src="filtered[stackModal].src" mode="widthFix" @load="onImgLoad(filtered[stackModal].id)" />
           <view class="stack-modal-info">
+            <text class="stack-modal-fav" @tap.stop="toggleFavImg(filtered[stackModal], $event)">{{ isImgFav(filtered[stackModal]) ? '★' : '☆' }}</text>
             <text class="stack-modal-dynasty">{{ filtered[stackModal].dynasty }}</text>
             <text class="stack-modal-title">{{ filtered[stackModal].title }}</text>
             <text class="stack-modal-tags">{{ filtered[stackModal].tags?.slice(0, 4).join(' · ') }}</text>
@@ -296,6 +302,19 @@ import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
 import FavoriteFab from '../components/FavoriteFab.vue'
+import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
+import { showToast } from '../utils/useToast.js'
+
+const favRefreshKey = ref(0)
+function isImgFav(img) { favRefreshKey.value; return img ? isFavorite('detail_' + img.id) : false }
+function toggleFavImg(img, e) {
+  if (e) e.stopPropagation()
+  if (!img) return
+  const id = 'detail_' + img.id
+  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
+  else { addFavorite({ id, type: 'image', name: img.title, sub: img.dynasty + ' · ' + (img.analysis?.clothing?.[0] || ''), preview: img.src, route: '/pages/detail', query: { id: img.id }, content: img.prompt || '' }); showToast('已收藏') }
+  favRefreshKey.value++
+}
 
 // 图片骨架屏：loadedImgs 记录已加载完成的图片 id，驱动 skeleton / img-loaded 类切换
 const loadedImgs = reactive(new Set())
@@ -798,6 +817,13 @@ function topBottom(item) {
   .overlay-title { font-size: 15px; font-weight: 600; color: $theme-white; display: block; margin-bottom: 4px; }
   .gallery-tags { font-size: 12px; color: rgba($theme-white, 0.8); display: block; }
 }
+.gallery-fav {
+  position: absolute; top: 8px; right: 8px; z-index: 3;
+  font-size: 18px; cursor: pointer; color: #d4a84b;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  transition: transform 0.2s;
+  &:hover { transform: scale(1.2); }
+}
 
 /* ===== HANDSCROLL ===== */
 .scroll-layout { }
@@ -1206,6 +1232,7 @@ $seal-color: #B8442A;
 .mounting-bottom .mb-row {
   display: flex; gap: 4px; align-items: center; justify-content: center;
 }
+.album-fav { font-size: 14px; cursor: pointer; color: #d4a84b; margin-left: 6px; transition: transform 0.2s; &:hover { transform: scale(1.2); } }
 .mounting-bottom .label-clothing {
   font-size: 13px; color: $theme-ink; font-weight: 600;
   letter-spacing: 0.08em;
@@ -1337,9 +1364,11 @@ $seal-color: #B8442A;
   position: absolute; left: 16px; right: 16px; bottom: 16px;
   padding: 14px 16px;
   background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
   border-radius: 10px;
   display: flex; flex-direction: column; gap: 4px;
 }
+.stack-modal-fav { position: absolute; top: 8px; right: 8px; font-size: 16px; cursor: pointer; color: #d4a84b; text-shadow: 0 1px 2px rgba(0,0,0,0.1); z-index: 1; }
 .stack-modal-dynasty { font-size: $font-size-small; color: $theme-red; font-weight: 700; }
 .stack-modal-title { font-size: 18px; font-weight: 600; color: $theme-ink; }
 .stack-modal-tags { font-size: $font-size-body-sub; color: $theme-text-secondary; }
