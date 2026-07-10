@@ -98,12 +98,9 @@
 
           <view class="action-row">
             <Button variant="primary" @tap="generatePrompt">生成提示词</Button>
-            <Button variant="secondary" @tap="copyPrompt">复制</Button>
+            <Button variant="secondary" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }} 收藏</Button>
             <Button variant="secondary" @tap="randomPick">随机搭配</Button>
             <Button variant="ghost" @tap="resetAll">重置</Button>
-          </view>
-          <view class="fav-row">
-            <text class="fav-btn" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }} 收藏{{ isPromptFav ? '中' : '' }}</text>
           </view>
 
           <view class="panel-section">
@@ -572,20 +569,32 @@ function copyText(txt) {
   navigator.clipboard.writeText(txt).then(() => showToast()).catch(() => showToast())
 }
 
+function hashStr(s) {
+  let h = 0
+  for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0 }
+  return Math.abs(h).toString(36)
+}
+
 function resetAll() {
   selectedItems.value = []
   promptResult.value = null
 }
 
-const isPromptFav = computed(() => promptResult.value ? isFavorite('prompt_current') : false)
+const curFavId = computed(() => {
+  const txt = promptCN.value || promptEN.value
+  return txt ? 'prompt_' + hashStr(txt) : null
+})
+
+const isPromptFav = computed(() => curFavId.value ? isFavorite(curFavId.value) : false)
 
 function toggleFavPrompt() {
   const txt = promptCN.value || promptEN.value
   if (!txt) { showToast('先生成提示词'); return }
-  if (isPromptFav.value) {
-    removeFavorite('prompt_current')
-  } else {
-    addFavorite({ id: 'prompt_current', type: 'prompt', name: '当前提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#FF4C00', route: '/pages/prompter' })
+  const id = curFavId.value
+  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
+  else {
+    addFavorite({ id, type: 'prompt', name: '提示词 ' + promptResult.value?.promptCN?.substring(0, 30) + '…', sub: platform.value + ' · ' + selectedSize.value + ' · ' + promptCategories.length + ' 类', preview: '#C41E3A', route: '/pages/prompter' })
+    showToast('已收藏')
   }
 }
 </script>
@@ -735,8 +744,6 @@ function toggleFavPrompt() {
 
 .action-row { display: flex; gap: 8px; margin-bottom: 12px; }
 .action-row .btn { flex: 1; }
-.fav-row { margin-bottom: 16px; }
-.fav-btn { font-size: 12px; color: $theme-red; cursor: pointer; padding: 4px 0; display: inline-block; }
 
 /* 移动端适配：仅调整间距/布局，不改字号 */
 @media (max-width: 768px) {
