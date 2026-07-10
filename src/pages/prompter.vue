@@ -120,7 +120,7 @@
             <view v-if="promptModal" class="pm-overlay" @tap="closePromptModal"></view>
             <view class="pm-modal" :class="{ open: !!promptModal }" v-if="promptModal">
               <view class="pmm-header">
-                <text class="pmm-title">{{ promptModal === 'cn' ? '中文提示词' : promptModal === 'en' ? 'English Prompt' : '提示词（中英文）' }}</text>
+                <text class="pmm-title">{{ promptModal === 'cn' ? '中文提示词' : promptModal === 'en' ? 'English Prompt' : '提示词预览（中英文）' }}</text>
                 <text class="pmm-close" @tap="closePromptModal">✕</text>
               </view>
               <view class="pmm-body">
