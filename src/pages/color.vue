@@ -248,7 +248,7 @@ function closePairModal() { pairModal.value = null }
 function exportPairs() {
   if (!pairModal.value) return
   const { name, hex, pairs } = pairModal.value
-  const leftW = 110, rightW = 110, swatchW = 240, gap = 10
+  const leftW = 120, rightW = 120, swatchW = 270, gap = 12
   const totalW = leftW + gap + swatchW + gap + rightW
   const pad = 40
   const topPad = 60
