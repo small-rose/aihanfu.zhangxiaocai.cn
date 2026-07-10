@@ -457,16 +457,16 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
 .fd-palette-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; padding: 14px; background: #f8f6f2; border-radius: 10px; }
-.fd-palette-main { width: 60px; height: 60px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 3px 5px; }
-.fd-palette-hex { font-size: 9px; color: rgba(255,255,255,0.7); font-family: monospace; }
+.fd-palette-main { width: 64px; height: 64px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
+.fd-palette-hex { font-size: 10px; color: rgba(255,255,255,0.7); font-family: monospace; }
 .fd-palette-name { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-palette-sub { font-size: 12px; color: #999; margin-top: 2px; display: block; font-family: monospace; }
-.fd-palette-pairs { display: flex; flex-direction: column; gap: 8px; }
-.fd-palette-row { display: flex; align-items: center; gap: 8px; }
+.fd-palette-pairs { display: flex; flex-direction: column; gap: 10px; }
+.fd-palette-row { display: flex; align-items: center; gap: 10px; }
 .fd-palette-left, .fd-palette-right { flex: 1; min-width: 0; }
 .fd-palette-right { text-align: right; }
 .fd-palette-swatch-group { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-.fd-palette-swatch { width: 36px; height: 36px; border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
+.fd-palette-swatch { width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
 .fd-palette-arrow { font-size: 14px; color: #999; flex-shrink: 0; }
 .fd-palette-pair-name { font-size: 12px; color: #333; display: block; font-weight: 500; }
 .fd-palette-pair-hex { font-size: 10px; color: #aaa; display: block; margin-top: 1px; font-family: monospace; }
