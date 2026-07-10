@@ -11,7 +11,7 @@
             <text class="dc-title">{{ img.title }}</text>
             <text class="dc-dynasty">{{ img.dynasty }}</text>
           </view>
-          <text class="dc-fav" @tap="toggleFav">{{ isFav ? '★' : '☆' }}</text>
+          <view class="dc-fav" @tap="toggleFav"><text>{{ isFav ? '★' : '☆' }}</text></view>
         </view>
 
         <view class="analysis-section">
