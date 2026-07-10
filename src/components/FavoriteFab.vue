@@ -150,16 +150,21 @@ function goItem(item) {
 
 function removeWithRefresh(id) { removeFavorite(id); refreshKey.value++; detailItem.value = null }
 
+function pad(n) { return n < 10 ? '0' + n : n }
 function formatTime(ts) {
   if (!ts) return ''
   const d = new Date(ts)
   const now = new Date()
   const diff = now - d
   if (diff < 60000) return '刚刚'
-  if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
-  if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
-  if (diff < 172800000) return '昨天'
-  return (d.getMonth() + 1) + '/' + d.getDate()
+  if (diff < 7200000) return Math.floor(diff / 60000) + '分钟前'
+  const y = d.getFullYear()
+  const mo = pad(d.getMonth() + 1)
+  const da = pad(d.getDate())
+  const h = pad(d.getHours())
+  const mi = pad(d.getMinutes())
+  const s = pad(d.getSeconds())
+  return y + '-' + mo + '-' + da + ' ' + h + ':' + mi + ':' + s
 }
 
 function copyText(txt) {
