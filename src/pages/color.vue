@@ -157,6 +157,7 @@ const detail = ref(null)
 const pairModal = ref(null)
 const pairBodyRef = ref(null)
 const swatchConnected = ref(false)
+const favRefreshKey = ref(0)
 
 function toggleTag(t) {
   const set = selectedTags.value
@@ -248,13 +249,14 @@ function pairDesc(main, paired, idx) {
 
 function openDetail(c) { detail.value = c }
 
-const isColorFav = computed(() => detail.value ? isFavorite('color_' + detail.value.name) : false)
+const isColorFav = computed(() => { favRefreshKey.value; return detail.value ? isFavorite('color_' + detail.value.name) : false })
 
 function toggleFavColor() {
   if (!detail.value) return
   const id = 'color_' + detail.value.name
   if (isFavorite(id)) { removeFavorite(id) }
   else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name }, content: detail.value.story, meaning: detail.value.meaning, pairs: detail.value.pairs }) }
+  favRefreshKey.value++
 }
 
 function openPairModal() {
