@@ -108,12 +108,27 @@
             <view class="preview-block">
               <text class="preview-lang-label">中文</text>
               <text class="preview-copy-btn" @tap="copyText(promptCN)">复制</text>
-              <view class="preview-text">{{ promptCN || '生成后显示中文提示词' }}</view>
+              <view class="preview-text" @dblclick="promptModal = 'cn'">{{ promptCN || '生成后显示中文提示词' }}</view>
             </view>
             <view class="preview-block">
               <text class="preview-lang-label">English</text>
               <text class="preview-copy-btn" @tap="copyText(promptEN)">复制</text>
-              <view class="preview-text">{{ promptEN || 'Generate to see English prompt' }}</view>
+              <view class="preview-text" @dblclick="promptModal = 'en'">{{ promptEN || 'Generate to see English prompt' }}</view>
+            </view>
+
+            <!-- 提示词全屏弹窗 -->
+            <view v-if="promptModal" class="pm-overlay" @tap="promptModal = null"></view>
+            <view class="pm-modal" :class="{ open: !!promptModal }" v-if="promptModal">
+              <view class="pmm-header">
+                <text class="pmm-title">{{ promptModal === 'cn' ? '中文提示词' : 'English Prompt' }}</text>
+                <text class="pmm-close" @tap="promptModal = null">✕</text>
+              </view>
+              <view class="pmm-body">
+                <text class="pmm-content">{{ promptModal === 'cn' ? promptCN : promptEN }}</text>
+              </view>
+              <view class="pmm-footer">
+                <text class="pmm-btn" @tap="copyText(promptModal === 'cn' ? promptCN : promptEN); promptModal = null">复制</text>
+              </view>
             </view>
           </view>
         </view>
@@ -138,6 +153,7 @@ import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.j
 
 const keyword = ref('')
 const keywordDebounced = ref('')
+const promptModal = ref(null)
 let searchTimer = null
 watch(keyword, (val) => {
   clearTimeout(searchTimer)
@@ -725,6 +741,36 @@ function toggleFavPrompt() {
   background: $theme-input-bg; box-sizing: border-box;
   white-space: pre-wrap; word-break: break-all;
   resize: vertical; overflow: auto;
+}
+
+/* 提示词弹窗 */
+.pm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300; }
+.pm-modal {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
+  width: min(680px, 92vw); max-height: 80vh;
+  background: #fff; border-radius: 14px; z-index: 301;
+  display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2); overflow: hidden;
+}
+.pm-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+.pmm-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; border-bottom: 1px solid $theme-light-gray; flex-shrink: 0;
+}
+.pmm-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; }
+.pmm-close { font-size: 22px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; }
+.pmm-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+.pmm-content {
+  display: block; font-size: 13px; color: #333; line-height: 1.8;
+  white-space: pre-wrap; word-break: break-word;
+}
+.pmm-footer {
+  padding: 12px 24px 16px; display: flex; justify-content: center; gap: 10px;
+  border-top: 1px solid $theme-light-gray; flex-shrink: 0;
+}
+.pmm-btn {
+  padding: 8px 28px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  background: $theme-red; color: #fff; cursor: pointer; text-align: center;
 }
 
 .platform-row { display: flex; gap: 6px; margin-bottom: 8px; }
