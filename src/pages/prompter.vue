@@ -549,7 +549,7 @@ const promptEN = computed(() => {
 })
 
 function showCopyToast() {
-  uni.showToast({ title: '已复制', icon: 'none', duration: 1200 })
+  uni.showToast({ title: '已复制', icon: 'success', duration: 1200 })
 }
 
 function copyPrompt() {
