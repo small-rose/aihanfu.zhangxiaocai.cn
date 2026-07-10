@@ -211,7 +211,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { getFavorites, addFavorite, removeFavorite, isFavorite, clearFavorites, FAVORITE_TYPES } from '../utils/useFavorites.js'
 import { showToast } from '../utils/useToast.js'
 import allColors from '../data/color-data.js'
@@ -225,6 +225,10 @@ const refreshKey = ref(0)
 const detailItem = ref(null)
 
 const tabs = FAVORITE_TYPES
+
+onMounted(() => window.addEventListener('favorite-changed', onFavChanged))
+onUnmounted(() => window.removeEventListener('favorite-changed', onFavChanged))
+function onFavChanged() { refreshKey.value++ }
 
 const items = computed(() => {
   refreshKey.value

@@ -309,6 +309,7 @@ function toggleFavImg(img, e) {
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
   else { addFavorite({ id, type: 'image', name: img.title, sub: img.dynasty + ' · ' + (img.analysis?.clothing?.[0] || ''), preview: img.src, route: '/pages/detail', query: { id: img.id }, content: img.prompt || '' }); showToast('已收藏') }
   favRefreshKey.value++
+  window.dispatchEvent(new Event('favorite-changed'))
 }
 
 // 图片骨架屏：loadedImgs 记录已加载完成的图片 id，驱动 skeleton / img-loaded 类切换

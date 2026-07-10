@@ -135,6 +135,7 @@ export default {
         showToast('已收藏')
       }
       this.favRefreshKey++
+      window.dispatchEvent(new Event('favorite-changed'))
     },
     previewImage() {
       if (this.img?.src) uni.previewImage({ urls: [this.img.src] })
@@ -153,6 +154,7 @@ export default {
         }
       }
       this.promptFavRefreshKey++
+      window.dispatchEvent(new Event('favorite-changed'))
     }
   }
 }

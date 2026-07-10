@@ -160,7 +160,7 @@ function toggleFav(item, e) {
   const id = 'lexicon_' + (item.term || item.id)
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
   else { addFavorite({ id, type: 'lexicon', name: item.term || item.id, sub: (categoryMeta.find(c => c.key === item.category)?.label || item.category) + (item.sub ? ' · ' + item.sub : ''), preview: item.imagePath || item.hex || undefined, route: '/pages/lexicon', query: { q: item.term || item.id }, content: item.detail || undefined, meaning: item.meaning, imagePath: item.imagePath, hex: item.hex, pinyin: item.pinyin, dynasty: item.dynasty, dynasties: item.dynasties, gender: item.gender, identity: item.identity, category: item.category }); showToast('已收藏') }
-  favRefreshKey.value++
+  favRefreshKey.value++; window.dispatchEvent(new Event('favorite-changed'))
 }
 
 const dynastyFilterOptions = ['先秦', '汉', '魏晋', '南北朝', '隋', '唐', '宋', '明']
