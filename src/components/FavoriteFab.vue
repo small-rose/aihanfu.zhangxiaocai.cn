@@ -115,7 +115,10 @@
               </view>
               <view class="fd-section" v-if="detailItem.content">
                 <text class="fd-label">生成提示词</text>
-                <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+                <view class="fd-content-wrap">
+                  <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+                  <text class="fd-copy-btn" @tap.stop="copyText(detailItem.content)">📋</text>
+                </view>
               </view>
             </view>
             <view class="fd-image-right" v-if="detailItem.preview">
