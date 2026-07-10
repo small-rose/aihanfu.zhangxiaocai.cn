@@ -3,7 +3,7 @@
     <TopNav current="gallery" />
     <view v-if="img" class="detail-body">
       <view class="detail-left">
-        <image class="main-img" :src="img.src" mode="widthFix" />
+        <image class="main-img" :src="img.src" mode="widthFix" @tap="previewImage" />
       </view>
       <view class="detail-right">
         <view class="dc-header">
@@ -67,7 +67,10 @@
         </view>
 
         <view class="prompt-section">
-          <text class="section-title">完整提示词</text>
+          <view class="prompt-header">
+            <text class="section-title">完整提示词</text>
+            <text class="prompt-fav" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }}</text>
+          </view>
           <text class="prompt-label">中文</text>
           <textarea class="prompt-box" :value="img.prompt" readonly />
           <text class="prompt-label">English</text>
@@ -92,9 +95,10 @@ import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
 export default {
   components: { TopNav, Footer },
-  data() { return { img: null, favId: null } },
+  data() { return { img: null, favId: null, favRefreshKey: 0, promptFavRefreshKey: 0 } },
   computed: {
-    isFav() { return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
+    isFav() { this.favRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
+    isPromptFav() { this.promptFavRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite('prompt_' + this.favId) : false },
     analysis() { return this.img?.analysis || {} },
     enPrompt() {
       if (!this.img) return ''
@@ -120,10 +124,30 @@ export default {
     toggleFav() {
       if (!this.favId || !this.img) return
       const { addFavorite, removeFavorite, isFavorite } = require('../utils/useFavorites.js')
-      if (isFavorite(this.favId)) { removeFavorite(this.favId) }
+      if (isFavorite(this.favId)) { removeFavorite(this.favId); uni.showToast({ title: '已取消收藏', icon: 'none' }) }
       else {
         addFavorite({ id: this.favId, type: 'image', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id }, content: this.img.prompt || '' })
+        uni.showToast({ title: '已收藏', icon: 'none' })
       }
+      this.favRefreshKey++
+    },
+    previewImage() {
+      if (this.img?.src) uni.previewImage({ urls: [this.img.src] })
+    },
+    toggleFavPrompt() {
+      if (!this.favId || !this.img) return
+      const { addFavorite, removeFavorite, isFavorite } = require('../utils/useFavorites.js')
+      const promptId = 'prompt_' + this.favId
+      if (isFavorite(promptId)) { removeFavorite(promptId) }
+      else {
+        addFavorite({ id: promptId, type: 'prompt', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: '#C41E3A', route: '/pages/detail', query: { id: this.img.id }, contentCN: this.img.prompt, contentEN: this.enPrompt })
+        // 自动收藏图片
+        if (!isFavorite(this.favId)) {
+          addFavorite({ id: this.favId, type: 'image', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id }, content: this.img.prompt || '' })
+          this.favRefreshKey++
+        }
+      }
+      this.promptFavRefreshKey++
     }
   }
 }
@@ -142,7 +166,7 @@ export default {
   flex: 1; position: sticky; top: 84px;
 }
 
-.main-img { width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.main-img { width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); cursor: pointer; }
 
 .detail-right {
   width: 420px; flex-shrink: 0;
@@ -181,6 +205,8 @@ export default {
 .tip-item { font-size: 13px; color: $theme-text-body; line-height: 1.8; display: block; }
 
 .prompt-section { margin-bottom: 24px; }
+.prompt-header { display: flex; align-items: center; gap: 8px; }
+.prompt-fav { font-size: 18px; cursor: pointer; color: #d4a84b; transition: transform 0.2s; flex-shrink: 0; &:hover { transform: scale(1.2); } }
 
 .prompt-label { font-size: 13px; font-weight: $font-weight-semibold; color: $theme-ink; display: block; margin-top: 12px; margin-bottom: 6px; }
 

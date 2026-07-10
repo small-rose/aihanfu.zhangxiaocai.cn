@@ -31,6 +31,7 @@
             <text class="overlay-title">{{ img.title }}</text>
             <text class="gallery-tags">{{ img.tags.slice(0, 5).join(' · ') }}</text>
           </view>
+          <view class="grid-fav-wrap"><text class="grid-fav" @tap.stop="toggleFavImg(img, $event)">{{ isImgFav(img) ? '★' : '☆' }}</text></view>
         </view>
       </view>
 
@@ -296,6 +297,19 @@ import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
 import FavoriteFab from '../components/FavoriteFab.vue'
+import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
+import { showToast } from '../utils/useToast.js'
+
+const favRefreshKey = ref(0)
+function isImgFav(img) { favRefreshKey.value; return img ? isFavorite('detail_' + img.id) : false }
+function toggleFavImg(img, e) {
+  if (e) e.stopPropagation()
+  if (!img) return
+  const id = 'detail_' + img.id
+  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
+  else { addFavorite({ id, type: 'image', name: img.title, sub: img.dynasty + ' · ' + (img.analysis?.clothing?.[0] || ''), preview: img.src, route: '/pages/detail', query: { id: img.id }, content: img.prompt || '' }); showToast('已收藏') }
+  favRefreshKey.value++
+}
 
 // 图片骨架屏：loadedImgs 记录已加载完成的图片 id，驱动 skeleton / img-loaded 类切换
 const loadedImgs = reactive(new Set())
@@ -799,6 +813,9 @@ function topBottom(item) {
   .overlay-title { font-size: 15px; font-weight: 600; color: $theme-white; display: block; margin-bottom: 4px; }
   .gallery-tags { font-size: 12px; color: rgba($theme-white, 0.8); display: block; }
 }
+
+.grid-fav-wrap { position: absolute; top: 8px; right: 8px; z-index: 5; }
+.grid-fav { font-size: 18px; cursor: pointer; color: #d4a84b; text-shadow: 0 1px 3px rgba(0,0,0,0.5); transition: transform 0.2s; display: block; &:hover { transform: scale(1.2); } }
 
 /* ===== HANDSCROLL ===== */
 .scroll-layout { }
