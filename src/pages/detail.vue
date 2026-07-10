@@ -79,7 +79,7 @@
         <view class="dc-fav-wrap">
           <view class="dc-fav-btn" @tap="toggleFav">
             <view class="dc-fav-icon">{{ isFav ? '★' : '☆' }}</view>
-            <text class="dc-fav-text">{{ isFav ? '已收藏' : '收藏图片' }}</text>
+            <text class="dc-fav-text">收藏</text>
           </view>
         </view>
       </view>
@@ -180,7 +180,7 @@ export default {
 .dc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
 .dc-header-text { flex: 1; }
 .dc-fav-wrap { display: flex; justify-content: center; margin-top: 24px; }
-.dc-fav-btn { display: flex; align-items: center; gap: 8px; padding: 8px 24px; border-radius: 24px; cursor: pointer; background: #c41e3a; color: #fff; border: none; transition: opacity 0.2s; &:active { opacity: 0.8; } }
+.dc-fav-btn { display: flex; align-items: center; gap: 8px; padding: 8px 24px; border-radius: 6px; cursor: pointer; background: #c41e3a; color: #fff; border: none; transition: opacity 0.2s; &:active { opacity: 0.8; } }
 .dc-fav-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 .dc-fav-text { font-size: 14px; font-weight: 600; line-height: 1; }
 
