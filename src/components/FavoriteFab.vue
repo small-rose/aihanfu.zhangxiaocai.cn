@@ -273,10 +273,15 @@ function previewImage(src) {
 
 function remove(id, e) {
   if (e) e.stopPropagation()
-  try { removeFavorite(id); refreshKey.value++ } catch(e) { console.error('remove err', e) }
+  if (!id) return
+  removeFavorite(id)
+  refreshKey.value++
 }
 function removeWithRefresh(id) {
-  try { removeFavorite(id); refreshKey.value++; detailItem.value = null } catch(e) { console.error('removeWithRefresh err', e) }
+  if (!id) return
+  removeFavorite(id)
+  refreshKey.value++
+  detailItem.value = null
 }
 
 function typeIcon(type) {
