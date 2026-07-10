@@ -105,13 +105,22 @@
           </view>
         </template>
         <template v-else-if="detailItem.type === 'image'">
-          <view class="fd-section">
-            <text class="fd-label">图片信息</text>
-            <text class="fd-value">{{ detailItem.sub }}</text>
-          </view>
-          <view class="fd-section" v-if="detailItem.content">
-            <text class="fd-label">生成提示词</text>
-            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+          <view class="fd-image-body">
+            <view class="fd-image-left">
+              <view class="fd-lexicon-header">
+                <view class="fd-lexicon-header-bar">
+                  <text class="fd-lexicon-term">{{ detailItem.name }}</text>
+                </view>
+                <text class="fd-lexicon-sub">{{ detailItem.sub }}</text>
+              </view>
+              <view class="fd-section" v-if="detailItem.content">
+                <text class="fd-label">生成提示词</text>
+                <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+              </view>
+            </view>
+            <view class="fd-image-right" v-if="detailItem.preview">
+              <image class="fd-image-preview" :src="detailItem.preview" mode="widthFix" />
+            </view>
           </view>
         </template>
         <template v-else-if="detailItem.type === 'lexicon'">
@@ -472,6 +481,10 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-palette-main-swatch { width: 180px; height: 64px; }
 .fd-palette-pair-swatch { width: 180px; height: 64px; }
 .fd-palette-arrow { font-size: 16px; color: #bbb; flex-shrink: 0; }
+.fd-image-body { display: flex; gap: 20px; align-items: flex-start; }
+.fd-image-left { flex: 1; min-width: 0; }
+.fd-image-right { width: 160px; flex-shrink: 0; }
+.fd-image-preview { width: 100%; height: auto; border-radius: 8px; display: block; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .fd-pair-swatch { width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; border: 1px solid #e0dcd4; }
