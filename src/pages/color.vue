@@ -46,7 +46,10 @@
       </view>
       <view class="pm-body" ref="pairBodyRef">
         <view v-for="(pn, pi) in pairModal.pairs" :key="pi" class="pm-card">
-          <text class="pm-label-left">{{ pairModal.name }}</text>
+          <view class="pm-left-info">
+            <text class="pm-label-left">{{ pairModal.name }}</text>
+            <text class="pm-hex-left">{{ pairModal.hex }}</text>
+          </view>
           <view class="pm-swatch-wrap">
             <view class="pm-main-swatch" :style="{ backgroundColor: pairModal.hex }"></view>
             <view class="pm-arrow">⇌</view>
@@ -54,7 +57,7 @@
           </view>
           <view class="pm-right-info">
             <text class="pm-label-right">{{ pn }}</text>
-            <text class="pm-hex-right">{{ hexForColor(pn) }} · RGB {{ rgbForColor(pn) }}</text>
+            <text class="pm-hex-right">{{ hexForColor(pn) }}</text>
           </view>
         </view>
       </view>
@@ -478,11 +481,10 @@ function exportPairs() {
   display: flex; align-items: center; gap: 16px;
   padding: 0 8px;
 }
-.pm-label-left {
-  font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink;
-  white-space: nowrap; min-width: 48px; text-align: center;
-}
-.pm-right-info { display: flex; flex-direction: column; align-items: flex-start; min-width: 100px; }
+.pm-left-info { display: flex; flex-direction: column; align-items: flex-end; min-width: 72px; }
+.pm-label-left { font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink; white-space: nowrap; }
+.pm-hex-left { font-size: 11px; color: $theme-placeholder; font-family: monospace; margin-top: 2px; }
+.pm-right-info { display: flex; flex-direction: column; align-items: flex-start; min-width: 72px; }
 .pm-label-right { font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink; white-space: nowrap; }
 .pm-hex-right { font-size: 11px; color: $theme-placeholder; font-family: monospace; margin-top: 2px; }
 .pm-swatch-wrap {
