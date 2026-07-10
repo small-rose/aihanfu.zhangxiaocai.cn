@@ -55,7 +55,7 @@
           :class="{ active: current === item.key }"
           @tap="navToMobile(item.key)"
         >
-          <text class="nav-link-icon">{{ ['📖','✍️','🏛️','🖼️'][i] }}</text>
+          <text class="nav-link-icon">{{ ['📖','🎨','✍️','🏛️','🖼️'][i] }}</text>
           <view class="nav-link-texts">
             <text class="mobile-nav-label">{{ item.label }}</text>
             <text class="mobile-nav-label-en">{{ item.labelEn }}</text>
@@ -87,6 +87,7 @@ function navToMobile(key) {
 
 const navItems = [
   { key: 'lexicon', label: '词库', labelEn: 'Lexicon' },
+  { key: 'color', label: '色彩', labelEn: 'Colors' },
   { key: 'prompter', label: '提示词', labelEn: 'Prompts' },
   { key: 'dynasty', label: '朝代', labelEn: 'Dynasty' },
   { key: 'gallery', label: '图库', labelEn: 'Gallery' }
