@@ -64,14 +64,14 @@
             <text class="fd-label">中文提示词</text>
             <view class="fd-content-wrap">
               <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentCN }}</text></view>
-              <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentCN)">复制</text>
+              <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentCN)">📋</text>
             </view>
           </view>
           <view class="fd-section" v-if="detailItem.contentEN">
             <text class="fd-label">English Prompt</text>
             <view class="fd-content-wrap">
               <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentEN }}</text></view>
-              <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentEN)">复制</text>
+              <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentEN)">📋</text>
             </view>
           </view>
         </template>
