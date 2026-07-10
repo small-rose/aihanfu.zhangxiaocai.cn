@@ -149,6 +149,7 @@ import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import allColors from '../data/color-data.js'
 import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
+import { showToast } from '../utils/useToast.js'
 import FavoriteFab from '../components/FavoriteFab.vue'
 
 const filterBy = ref('all')
@@ -254,8 +255,8 @@ const isColorFav = computed(() => { favRefreshKey.value; return detail.value ? i
 function toggleFavColor() {
   if (!detail.value) return
   const id = 'color_' + detail.value.name
-  if (isFavorite(id)) { removeFavorite(id) }
-  else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name }, content: detail.value.story, meaning: detail.value.meaning, pairs: detail.value.pairs }) }
+  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
+  else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name }, content: detail.value.story, meaning: detail.value.meaning, pairs: detail.value.pairs }); showToast('已收藏') }
   favRefreshKey.value++
 }
 
