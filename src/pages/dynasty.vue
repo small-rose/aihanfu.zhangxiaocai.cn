@@ -54,9 +54,20 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import { dynasties as dynastyList } from '../data/hanfu-data.js'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
+
+onLoad(() => {
+  document.title = '朝代博物馆 | Dynasty Museum'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = '汉服朝代博物馆——从先秦到明代，探索各朝代服饰特色与演变。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '汉服,朝代博物馆,传统服饰,先秦,汉,魏晋,唐,宋,明,服饰演变'
+})
 
 const current = ref('tang')
 

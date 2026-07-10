@@ -121,6 +121,13 @@ import DetailDrawer from '../components/DetailDrawer.vue'
 const keyword = ref('')
 
 onLoad((query) => {
+  document.title = '汉服词库 | Hanfu Lexicon'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = '汉服服饰词库——收录历代汉服形制、面料、色彩、配饰等专业词汇，支持朝代、性别筛选。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '汉服,汉服词库,传统服饰,汉服形制,汉服面料,汉服配饰'
   if (query.q) {
     keyword.value = query.q
   }

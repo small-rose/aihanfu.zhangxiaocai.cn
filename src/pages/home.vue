@@ -107,7 +107,18 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import { dynasties } from '../data/hanfu-data.js'
+
+onLoad(() => {
+  document.title = '汉服图鉴 | Hanfu Reference - 朝代脉络'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = '汉服图鉴——从先秦到明末，一览千年服章之美。汉服朝代博物馆、传统色彩、服饰词库、AI提示词生成器。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '汉服,汉服图鉴,传统服饰,汉服朝代,中国传统文化,汉服词库'
+})
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 

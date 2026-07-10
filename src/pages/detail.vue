@@ -107,6 +107,7 @@ export default {
     }
   },
   onLoad(query) {
+    document.title = query.title || '图片详情 | Image Detail'
     if (query.id) this.img = galleryData.find(i => i.id === query.id) || null
   }
 }

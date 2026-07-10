@@ -184,6 +184,13 @@ function goPrompter(q) {
 }
 
 onLoad((query) => {
+  document.title = '全局搜索 | Search'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = '搜索汉服词库、传统色彩、灵感图库等内容。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '汉服,搜索,汉服图鉴,词库,色彩,图库'
   if (query.q) {
     keyword.value = query.q
     searched.value = true

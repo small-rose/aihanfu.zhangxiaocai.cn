@@ -141,6 +141,13 @@ watch(keyword, (val) => {
 })
 
 onLoad((query) => {
+  document.title = '提示词组合器 | AI Prompt Generator'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = 'AI汉服提示词生成器——选择朝代、性别、发髻、服饰要素，一键生成AI绘画提示词，支持Agnes AI/Midjourney/SD。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '汉服提示词,AI提示词生成器,AI绘画,汉服,Midjourney,Stable Diffusion,Agnes AI'
   if (query.q) { keyword.value = query.q; keywordDebounced.value = query.q }
 })
 const gender = ref('')  // ''=全部展示，'male'/'female' 过滤；点击可取消

@@ -163,6 +163,13 @@ function toggleTag(t) {
 }
 
 onLoad((query) => {
+  document.title = '传统色彩 | Traditional Chinese Colors'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = '中国传统色彩大全——收录600+种传统颜色，含色值、典故、搭配推荐，支持AI友好筛选。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '传统色彩,中国色,中国传统色,汉服配色,颜色搭配,传统文化'
   if (query.q) {
     const found = allColors.find(c => c.name === query.q)
     if (found) openDetail(found)

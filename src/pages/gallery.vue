@@ -368,6 +368,13 @@ function sealStyle(key) {
 }
 
 onLoad((query) => {
+  document.title = '灵感图库 | Gallery'
+  let d = document.querySelector('meta[name="description"]')
+  if (!d) { d = document.createElement('meta'); d.name = 'description'; document.head.appendChild(d) }
+  d.content = '汉服灵感图库——浏览大量AI生成的汉服人物图片，支持手卷/册页/层叠/网格多种浏览模式。'
+  let k = document.querySelector('meta[name="keywords"]')
+  if (!k) { k = document.createElement('meta'); k.name = 'keywords'; document.head.appendChild(k) }
+  k.content = '汉服,灵感图库,AI汉服,汉服图片,唐制,宋制,明制'
   if (query.q) searchKeyword.value = query.q
 })
 
