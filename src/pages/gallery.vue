@@ -752,9 +752,9 @@ function topBottom(item) {
   100% { background-position: 400px 0; }
 }
 .skeleton {
-  background: #e8e0d5;
-  background-image: linear-gradient(90deg, #e8e0d5 25%, #f0eae0 50%, #e8e0d5 75%);
-  background-size: 800px 100%;
+  background: #e8e0d5 !important;
+  background-image: linear-gradient(90deg, #e8e0d5 25%, #f0eae0 50%, #e8e0d5 75%) !important;
+  background-size: 800px 100% !important;
   animation: skeleton-shimmer 1.8s ease-in-out infinite;
 }
 
