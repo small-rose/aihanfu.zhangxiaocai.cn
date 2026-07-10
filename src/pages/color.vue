@@ -64,7 +64,10 @@
       </view>
       <view class="pm-footer">
         <text class="pm-btn pm-btn-secondary" @tap="swatchConnected = !swatchConnected">{{ swatchConnected ? '断开' : '连接' }}</text>
-        <text class="pm-btn" @tap="exportPairs">导出 PNG</text>
+        <view class="pm-footer-right">
+          <text class="pm-fav-btn" @tap="toggleFavPalette">{{ isPaletteFav ? '★' : '☆' }}</text>
+          <text class="pm-btn" @tap="exportPairs">导出 PNG</text>
+        </view>
       </view>
     </view>
 
@@ -257,6 +260,16 @@ function toggleFavColor() {
   const id = 'color_' + detail.value.name
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
   else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name }, content: detail.value.story, meaning: detail.value.meaning, pairs: detail.value.pairs }); showToast('已收藏') }
+  favRefreshKey.value++
+}
+
+const isPaletteFav = computed(() => { favRefreshKey.value; return pairModal.value ? isFavorite('palette_' + pairModal.value.name) : false })
+
+function toggleFavPalette() {
+  if (!pairModal.value) return
+  const id = 'palette_' + pairModal.value.name
+  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
+  else { addFavorite({ id, type: 'palette', name: pairModal.value.name + ' 配色', sub: pairModal.value.hex, preview: pairModal.value.hex, route: '/pages/color', query: { q: pairModal.value.name }, content: (pairModal.value.pairs || []).join('、') }); showToast('已收藏') }
   favRefreshKey.value++
 }
 
@@ -594,8 +607,10 @@ function exportPairs() {
 .pm-swatch-wrap.connected .pm-pair-swatch { border-radius: 0 6px 6px 0; }
 .pm-arrow { font-size: 16px; color: $theme-border; flex-shrink: 0; }
 .pm-footer {
-  padding: 14px 24px 18px; display: flex; justify-content: center; gap: 10px; flex-shrink: 0;
+  padding: 14px 24px 18px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
 }
+.pm-footer-right { display: flex; align-items: center; gap: 8px; }
+.pm-fav-btn { font-size: 20px; cursor: pointer; color: #d4a84b; transition: transform 0.2s; line-height: 1; &:hover { transform: scale(1.2); } }
 .pm-btn {
   padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600;
   background: $theme-red; color: #fff; cursor: pointer; border: none;
