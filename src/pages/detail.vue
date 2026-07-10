@@ -181,7 +181,7 @@ export default {
 .dc-header-text { flex: 1; }
 .dc-fav-wrap { display: flex; justify-content: center; margin-top: 24px; }
 .dc-fav-btn { display: flex; align-items: center; gap: 8px; padding: 8px 24px; border-radius: 6px; cursor: pointer; background: #c41e3a; color: #fff; border: none; transition: opacity 0.2s; &:active { opacity: 0.8; } }
-.dc-fav-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.dc-fav-icon { font-size: 18px; flex-shrink: 0; line-height: 1; }
 .dc-fav-text { font-size: 14px; font-weight: 600; line-height: 1; }
 
 .dc-title { font-size: 24px; font-weight: $font-weight-bold; color: $theme-ink; }
