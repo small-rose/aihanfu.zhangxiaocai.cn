@@ -332,7 +332,15 @@ function initLazyObserver() {
 function observeVisible() {
   if (!lazyObserver) return
   nextTick(() => {
-    document.querySelectorAll('[data-img-id]').forEach(el => lazyObserver.observe(el))
+    const els = document.querySelectorAll('[data-img-id]')
+    els.forEach(el => lazyObserver.observe(el))
+    // 立即加载视口内的图片，不等 IntersectionObserver 回调
+    els.forEach(el => {
+      const rect = el.getBoundingClientRect()
+      if (rect.top < window.innerHeight + 800) {
+        if (el.dataset.imgId) visibleImgs.add(el.dataset.imgId)
+      }
+    })
   })
 }
 
