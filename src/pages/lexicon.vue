@@ -46,6 +46,7 @@
               <text v-if="group.sub && !keyword" class="sub-heading">{{ group.sub }}</text>
               <view class="lexicon-grid" :class="{ 'grid-4col': activeCat === 'color' }">
                 <view v-for="item in group.items" :key="item.id" class="lexicon-card" @tap="openDrawer(item)">
+                  <text class="card-fav" @tap.stop="toggleFav(item, $event)">{{ isFav(item) ? '★' : '☆' }}</text>
                   <view v-if="item.hex" class="color-swatch" :style="{ backgroundColor: item.hex }">
                     <text class="color-hex">{{ item.hex }}</text>
                   </view>
@@ -104,7 +105,7 @@
       </view>
     </view>
 
-    <DetailDrawer :item="drawerItem" :category-label="drawerCategoryLabel" @close="drawerItem = null" />
+    <DetailDrawer :item="drawerItem" :category-label="drawerCategoryLabel" :favorite="drawerIsFav" @toggle-fav="drawerToggleFav" @close="drawerItem = null" />
 
     <FavoriteFab />
     <Footer />
@@ -119,6 +120,8 @@ import Footer from '../components/Footer.vue'
 import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import DetailDrawer from '../components/DetailDrawer.vue'
 import FavoriteFab from '../components/FavoriteFab.vue'
+import { addFavorite, removeFavorite, isFavorite, getFavorites } from '../utils/useFavorites.js'
+import { showToast } from '../utils/useToast.js'
 
 const keyword = ref('')
 
@@ -149,6 +152,16 @@ const selectedGenders = ref([])
 const selectedDynasties = ref([])
 const selectedIdentities = ref([])
 const drawerItem = ref(null)
+const favRefreshKey = ref(0)
+const favSet = computed(() => { favRefreshKey.value; return new Set(getFavorites('lexicon').map(f => f.id)) })
+function isFav(item) { return favSet.value.has('lexicon_' + (item.term || item.id)) }
+function toggleFav(item, e) {
+  if (e) e.stopPropagation()
+  const id = 'lexicon_' + (item.term || item.id)
+  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
+  else { addFavorite({ id, type: 'lexicon', name: item.term || item.id, sub: (categoryMeta.find(c => c.key === item.category)?.label || item.category) + (item.sub ? ' · ' + item.sub : ''), preview: item.hex || undefined, route: '/pages/lexicon', query: { q: item.term || item.id }, content: item.detail || undefined, meaning: item.meaning }); showToast('已收藏') }
+  favRefreshKey.value++
+}
 
 const dynastyFilterOptions = ['先秦', '汉', '魏晋', '南北朝', '隋', '唐', '宋', '明']
 const identityOptions = ['各阶层', '各阶层女性', '贵族女性', '宫人', '未婚少女', '仕女', '仙女', '民间女性', '已婚妇女', '侍女少女', '儿童少女', '成年男子', '少年男子', '男童', '男子']
@@ -224,6 +237,8 @@ function clearFilters() {
 function openDrawer(item) {
   drawerItem.value = item
 }
+const drawerIsFav = computed(() => drawerItem.value ? favSet.value.has('lexicon_' + (drawerItem.value.term || drawerItem.value.id)) : false)
+function drawerToggleFav() { if (drawerItem.value) toggleFav(drawerItem.value) }
 const drawerCategoryLabel = computed(() => {
   if (!drawerItem.value) return '词条'
   const meta = categoryMeta.find(c => c.key === drawerItem.value.category)
@@ -293,6 +308,13 @@ const drawerCategoryLabel = computed(() => {
   transition: all 0.25s; cursor: pointer; position: relative;
 
   &:hover { box-shadow: 0 8px 24px rgba($theme-ink, 0.06); transform: translateY(-2px); }
+
+  .card-fav {
+    position: absolute; top: 8px; right: 8px; z-index: 2; font-size: 16px;
+    cursor: pointer; color: $theme-gold; text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    &:hover { transform: scale(1.2); }
+  }
 
   .color-swatch {
     height: 50px; border-radius: 6px; display: flex; align-items: flex-end;

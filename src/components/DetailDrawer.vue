@@ -4,7 +4,10 @@
     <view class="detail-drawer" :class="{ open: !!item && !closing }">
       <view class="drawer-header">
         <text class="drawer-title">{{ categoryLabel }}详情</text>
-        <text class="drawer-close-btn" @tap="startClose">✕</text>
+        <view class="drawer-header-actions">
+          <text class="drawer-fav-btn" @tap.stop="$emit('toggle-fav')">{{ favorite ? '★' : '☆' }}</text>
+          <text class="drawer-close-btn" @tap="startClose">✕</text>
+        </view>
       </view>
       <!-- 顶部装饰区：有图时展示 AI 生成的发髻图，无图时保持渐变+首字占位 -->
       <!-- 用 v-show 保持 DOM 不销毁，避免抽屉关闭再打开时图片重新加载 -->
@@ -76,9 +79,10 @@ import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
   item: { type: Object, default: null },
-  categoryLabel: { type: String, default: '词条' }
+  categoryLabel: { type: String, default: '词条' },
+  favorite: { type: Boolean, default: false }
 })
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'toggle-fav'])
 
 const showAiInfo = ref(false)
 const imgLoaded = ref(false)
@@ -125,6 +129,13 @@ const hasMeta = computed(() => {
 }
 
 .drawer-title { font-size: 15px; font-weight: $font-weight-semibold; color: $theme-ink; }
+
+.drawer-header-actions { display: flex; align-items: center; gap: 6px; }
+.drawer-fav-btn {
+  font-size: 18px; cursor: pointer; color: $theme-gold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s;
+  &:hover { transform: scale(1.2); }
+}
 
 .drawer-close-btn {
   width: 30px; height: 30px; border-radius: 50%;
