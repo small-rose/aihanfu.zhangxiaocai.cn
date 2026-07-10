@@ -37,6 +37,33 @@
     <Footer />
 
     <!-- detail drawer -->
+    <!-- 配色搭配弹窗 -->
+    <view v-if="pairModal" class="pair-overlay" @tap="closePairModal"></view>
+    <view class="pair-modal" :class="{ open: !!pairModal }" v-if="pairModal">
+      <view class="pm-header">
+        <text class="pm-title">{{ pairModal.name }} · 配色搭配</text>
+        <text class="pm-close" @tap="closePairModal">✕</text>
+      </view>
+      <view class="pm-body" ref="pairBodyRef">
+        <view v-for="(pn, pi) in pairModal.pairs" :key="pi" class="pm-card">
+          <view class="pm-card-inner">
+            <view class="pm-swatch pm-main-swatch" :style="{ backgroundColor: pairModal.hex }">
+              <text class="pm-label">{{ pairModal.name }}</text>
+              <text class="pm-hex">{{ pairModal.hex }}</text>
+            </view>
+            <view class="pm-swatch pm-pair-swatch" :style="{ backgroundColor: hexForColor(pn) }">
+              <text class="pm-label">{{ pn }}</text>
+              <text class="pm-hex">{{ hexForColor(pn) }}</text>
+            </view>
+          </view>
+          <text class="pm-desc">{{ pairDesc(pairModal.name, pn) }}</text>
+        </view>
+      </view>
+      <view class="pm-footer">
+        <text class="pm-btn" @tap="exportPairs">导出 PNG</text>
+      </view>
+    </view>
+
     <view v-if="detail" class="drawer-overlay" @tap="detail = null"></view>
     <view class="detail-drawer" :class="{ open: !!detail }">
       <view class="drawer-header">
@@ -75,9 +102,9 @@
         </view>
 
         <view v-if="detail.pairs && detail.pairs.length" class="drawer-section">
-          <text class="ds-title">配色推荐</text>
+          <text class="ds-title">配色推荐 <text class="ds-sub" @tap.stop="openPairModal">查看搭配 ›</text></text>
           <view class="pair-list">
-            <view v-for="(pn, pi) in detail.pairs" :key="pi" class="pair-item">
+            <view v-for="(pn, pi) in detail.pairs" :key="pi" class="pair-item" @tap="openPairModal">
               <view class="pair-swatch" :style="{ backgroundColor: hexForColor(pn) }"></view>
               <text class="pair-name">{{ pn }}</text>
               <text class="pair-note">{{ pairDesc(detail.name, pn) }}</text>
@@ -120,6 +147,8 @@ import allColors from '../data/color-data.js'
 const filterBy = ref('all')
 const selectedTags = ref(new Set())
 const detail = ref(null)
+const pairModal = ref(null)
+const pairBodyRef = ref(null)
 
 function toggleTag(t) {
   const set = selectedTags.value
@@ -190,13 +219,118 @@ function pairDesc(main, paired) {
   if (!mc || !pc) return ''
   const mcat = catMap[mc.category] || mc.category
   const pcat = catMap[pc.category] || pc.category
-  if (mc.category === pc.category) return `同系深浅，和谐统一`
-  if ((mc.category === '红' && pc.category === '黑白') || (mc.category === '黑白' && pc.category === '红')) return '经典对比，鲜明夺目'
-  if (pc.category === '黄' || pc.category === '褐') return '冷暖平衡，温润雅致'
-  return `${mcat}配${pcat}，层次丰富`
+
+  // 同类色搭配 — 细分深浅
+  if (mc.category === pc.category) {
+    const depth = ['更浅','稍浅','相近','稍深','更深']
+    // 从 hex 估算亮度差异
+    const ml = (parseInt(mc.hex.slice(1,3),16)+parseInt(mc.hex.slice(3,5),16)+parseInt(mc.hex.slice(5,7),16))/3
+    const pl = (parseInt(pc.hex.slice(1,3),16)+parseInt(pc.hex.slice(3,5),16)+parseInt(pc.hex.slice(5,7),16))/3
+    const diff = Math.round((ml - pl) / 255 * 4)
+    const di = Math.max(0, Math.min(4, 2 + diff))
+    return `${mcat}系${depth[di]}，层次细腻`
+  }
+
+  // 经典色组搭配 — 按色系组合生成具体描述
+  const pairs = [`${mcat}与${pcat}搭配`, `${mcat}衬${pcat}`]
+  
+  // 互补对比组合
+  if ((mc.category === '红' && pc.category === '绿') || (mc.category === '绿' && pc.category === '红')) return `${pairs[0]}，红绿经典反差，鲜明热烈`
+  if ((mc.category === '蓝' && pc.category === '黄') || (mc.category === '黄' && pc.category === '蓝')) return `${pairs[0]}，冷暖撞色，视觉张力强`
+  if ((mc.category === '紫' && pc.category === '黄') || (mc.category === '黄' && pc.category === '紫')) return `${pairs[0]}，黄紫对比，华贵醒目`
+  
+  // 无彩色搭配
+  if (mc.category === '黑白') return `${pcat}底色上${pairs[1]}，素雅大方`
+  if (pc.category === '黑白') return `${mcat}配素色，主次分明，沉稳不失亮点`
+  
+  // 冷暖组合
+  const warm = ['红','黄','褐']
+  const cool = ['绿','蓝','紫']
+  if (warm.includes(mc.category) && cool.includes(pc.category)) return `${pairs[0]}，冷暖调和，张弛有度`
+  if (cool.includes(mc.category) && warm.includes(pc.category)) return `${pairs[0]}，冷中带暖，层次丰富`
+  
+  // 邻近色搭配
+  if ((mc.category === '红' && pc.category === '紫') || (mc.category === '紫' && pc.category === '红')) return `${pairs[0]}，红紫相邻，温婉和谐`
+  if ((mc.category === '绿' && pc.category === '蓝') || (mc.category === '蓝' && pc.category === '绿')) return `${pairs[0]}，蓝绿邻近，清新自然`
+  if ((mc.category === '黄' && pc.category === '绿') || (mc.category === '绿' && pc.category === '黄')) return `${pairs[0]}，黄绿邻近，生机盎然`
+  if ((mc.category === '蓝' && pc.category === '紫') || (mc.category === '紫' && pc.category === '蓝')) return `${pairs[0]}，蓝紫邻近，沉静优雅`
+  if ((mc.category === '褐' && pc.category === '黄') || (mc.category === '黄' && pc.category === '褐')) return `${pairs[0]}，大地暖调，温润质朴`
+  if ((mc.category === '褐' && pc.category === '红') || (mc.category === '红' && pc.category === '褐')) return `${pairs[0]}，暖色过渡，温厚醇和`
+  
+  return `${pairs[0]}，${mcat}与${pcat}交融，别具韵味`
 }
 
 function openDetail(c) { detail.value = c }
+
+function openPairModal() {
+  if (!detail.value || !detail.value.pairs) return
+  pairModal.value = { name: detail.value.name, hex: detail.value.hex, pairs: detail.value.pairs }
+}
+
+function closePairModal() { pairModal.value = null }
+
+function exportPairs() {
+  if (!pairModal.value) return
+  const { name, hex, pairs } = pairModal.value
+  const canvas = document.createElement('canvas')
+  canvas.width = 800; canvas.height = 200 + pairs.length * 120
+  const ctx = canvas.getContext('2d')
+  
+  // Background
+  ctx.fillStyle = '#FAF8F4'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  
+  // Title
+  ctx.fillStyle = '#2C2C2C'
+  ctx.font = 'bold 22px sans-serif'
+  ctx.fillText(name + ' · 配色方案', 30, 40)
+  
+  // Subtitle
+  ctx.fillStyle = '#999'
+  ctx.font = '13px sans-serif'
+  ctx.fillText(name + ' ' + hex, 30, 65)
+  
+  // Draw each pair
+  pairs.forEach((pn, i) => {
+    const py = 100 + i * 120
+    const ph = hexForColor(pn)
+    const sw = 300
+    
+    // Main color swatch
+    ctx.fillStyle = hex
+    ctx.fillRect(30, py, sw, 80)
+    ctx.fillStyle = '#fff'
+    ctx.font = 'bold 14px sans-serif'
+    ctx.fillText(name, 40, py + 30)
+    ctx.font = '11px monospace'
+    ctx.fillText(hex, 40, py + 50)
+    
+    // Arrow
+    ctx.fillStyle = '#999'
+    ctx.font = '20px sans-serif'
+    ctx.fillText('⇌', 345, py + 48)
+    
+    // Pair color swatch
+    ctx.fillStyle = ph
+    ctx.fillRect(370, py, sw, 80)
+    ctx.fillStyle = '#fff'
+    ctx.font = 'bold 14px sans-serif'
+    ctx.fillText(pn, 380, py + 30)
+    ctx.font = '11px monospace'
+    ctx.fillText(ph, 380, py + 50)
+    
+    // Description
+    ctx.fillStyle = '#666'
+    ctx.font = '12px sans-serif'
+    ctx.fillText(pairDesc(name, pn), 40, py + 100)
+  })
+  
+  // Download
+  const link = document.createElement('a')
+  link.download = name + '-配色.png'
+  link.href = canvas.toDataURL('image/png')
+  link.click()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -346,12 +480,58 @@ function openDetail(c) { detail.value = c }
 .tag-cn { background: #E8F5E9; color: #2E7D32; }
 .tag-wa { background: #FFF3E0; color: #E65100; }
 
+/* 配色搭配弹窗 */
+.pair-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300;
+}
+.pair-modal {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
+  width: min(520px, 90vw); max-height: 80vh;
+  background: $theme-white; border-radius: 14px; z-index: 301;
+  display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+.pair-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+.pm-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid $theme-light-gray;
+  flex-shrink: 0;
+}
+.pm-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; }
+.pm-close { font-size: 20px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; }
+.pm-body { padding: 16px 20px 8px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.pm-card {
+  background: $theme-bg; border-radius: 10px; overflow: hidden;
+  border: 1px solid $theme-light-gray;
+}
+.pm-card-inner { display: flex; }
+.pm-swatch {
+  flex: 1; height: 80px; display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 8px 12px;
+}
+.pm-main-swatch { border-right: 2px solid rgba(0,0,0,0.06); }
+.pm-label { font-size: 14px; font-weight: $font-weight-semibold; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.pm-hex { font-size: 11px; color: rgba(255,255,255,0.8); font-family: monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.pm-desc { font-size: 12px; color: $theme-gray; padding: 6px 12px 8px; }
+.pm-footer {
+  padding: 12px 20px 16px; border-top: 1px solid $theme-light-gray;
+  display: flex; justify-content: center; flex-shrink: 0;
+}
+.pm-btn {
+  padding: 8px 28px; border-radius: 6px; font-size: 14px; font-weight: 600;
+  background: $theme-red; color: #fff; cursor: pointer;
+  &:active { opacity: 0.85; }
+}
+
 .drawer-section { margin-bottom: 20px; }
 .ds-title {
   font-size: 13px; font-weight: $font-weight-semibold; color: $theme-ink;
   display: block; margin-bottom: 6px;
   padding-left: 10px; border-left: 3px solid $theme-red;
 }
+.ds-sub { font-size: 11px; color: $theme-red; cursor: pointer; font-weight: $font-weight-regular; margin-left: 8px; }
+.ds-sub:hover { text-decoration: underline; }
 .ds-text { font-size: $font-size-body-sub; color: $theme-text-body; line-height: 1.7; display: block; text-align: justify; }
 .adjacent-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .adj-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
