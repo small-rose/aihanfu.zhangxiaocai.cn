@@ -161,19 +161,19 @@
           <view class="fd-section">
             <text class="fd-label">推荐搭配</text>
             <view class="fd-palette-pairs">
-              <view v-for="(pn, pi) in palettePairs" :key="pi" class="fd-palette-row">
+              <view v-for="(pn, pi) in palettePairs" :key="pi" class="fd-palette-card">
                 <view class="fd-palette-left">
-                  <text class="fd-palette-pair-name">{{ mainColorName }}</text>
-                  <text class="fd-palette-pair-hex">{{ detailItem.sub }}</text>
+                  <text class="fd-palette-label">{{ mainColorName }}</text>
+                  <text class="fd-palette-hex-text">{{ detailItem.sub }}</text>
                 </view>
                 <view class="fd-palette-swatch-group">
-                  <view class="fd-palette-swatch" :style="{ backgroundColor: detailItem.preview }"></view>
+                  <view class="fd-palette-swatch fd-palette-main-swatch" :style="{ backgroundColor: detailItem.preview }"></view>
                   <text class="fd-palette-arrow">⇌</text>
-                  <view class="fd-palette-swatch" :style="{ backgroundColor: hexForPalette(pn) }"></view>
+                  <view class="fd-palette-swatch fd-palette-pair-swatch" :style="{ backgroundColor: hexForPalette(pn) }"></view>
                 </view>
                 <view class="fd-palette-right">
-                  <text class="fd-palette-pair-name">{{ pn }}</text>
-                  <text class="fd-palette-pair-hex">{{ hexForPalette(pn) }}</text>
+                  <text class="fd-palette-label">{{ pn }}</text>
+                  <text class="fd-palette-hex-text">{{ hexForPalette(pn) }}</text>
                 </view>
               </view>
             </view>
@@ -456,20 +456,22 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-lexicon-hex-swatch { width: 100%; aspect-ratio: 1; border-radius: 10px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
-.fd-palette-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; padding: 14px; background: #f8f6f2; border-radius: 10px; }
-.fd-palette-main { width: 64px; height: 64px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
-.fd-palette-hex { font-size: 10px; color: rgba(255,255,255,0.7); font-family: monospace; }
+.fd-palette-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; padding: 14px 16px; background: #f8f6f2; border-radius: 10px; }
+.fd-palette-main { width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 5px; }
+.fd-palette-hex { font-size: 9px; color: rgba(255,255,255,0.7); font-family: monospace; }
 .fd-palette-name { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-palette-sub { font-size: 12px; color: #999; margin-top: 2px; display: block; font-family: monospace; }
-.fd-palette-pairs { display: flex; flex-direction: column; gap: 10px; }
-.fd-palette-row { display: flex; align-items: center; gap: 10px; }
-.fd-palette-left, .fd-palette-right { flex: 1; min-width: 0; }
+.fd-palette-pairs { display: flex; flex-direction: column; gap: 8px; }
+.fd-palette-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #faf9f7; border-radius: 8px; border: 1px solid #f0ede8; }
+.fd-palette-left, .fd-palette-right { width: 80px; flex-shrink: 0; }
 .fd-palette-right { text-align: right; }
-.fd-palette-swatch-group { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-.fd-palette-swatch { width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
-.fd-palette-arrow { font-size: 14px; color: #999; flex-shrink: 0; }
-.fd-palette-pair-name { font-size: 12px; color: #333; display: block; font-weight: 500; }
-.fd-palette-pair-hex { font-size: 10px; color: #aaa; display: block; margin-top: 1px; font-family: monospace; }
+.fd-palette-label { font-size: 13px; color: #333; display: block; font-weight: 500; line-height: 1.3; }
+.fd-palette-hex-text { font-size: 10px; color: #aaa; display: block; margin-top: 2px; font-family: monospace; }
+.fd-palette-swatch-group { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
+.fd-palette-swatch { border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
+.fd-palette-main-swatch { width: 90px; height: 64px; }
+.fd-palette-pair-swatch { width: 90px; height: 64px; }
+.fd-palette-arrow { font-size: 16px; color: #bbb; flex-shrink: 0; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .fd-pair-swatch { width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; border: 1px solid #e0dcd4; }
