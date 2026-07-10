@@ -11,7 +11,7 @@
             <text class="dc-title">{{ img.title }}</text>
             <text class="dc-dynasty">{{ img.dynasty }}</text>
           </view>
-          <view class="dc-fav" @tap="toggleFav"><text>{{ isFav ? '★' : '☆' }}</text></view>
+          <text class="dc-fav" @tap="toggleFav">{{ isFav ? '★' : '☆' }}</text>
         </view>
 
         <view class="analysis-section">
@@ -69,7 +69,7 @@
         <view class="prompt-section">
           <view class="prompt-header">
             <text class="section-title">完整提示词</text>
-            <view class="prompt-fav" @tap="toggleFavPrompt"><text>{{ isPromptFav ? '★' : '☆' }}</text></view>
+            <text class="prompt-fav" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }}</text>
           </view>
           <text class="prompt-label">中文</text>
           <textarea class="prompt-box" :value="img.prompt" readonly />
@@ -174,7 +174,7 @@ export default {
 
 .dc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
 .dc-header-text { flex: 1; }
-.dc-fav { font-size: 20px; cursor: pointer; color: #d4a84b; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(212,168,75,0.1); flex-shrink: 0; transition: background 0.2s; &:hover { background: rgba(212,168,75,0.2); } }
+.dc-fav { font-size: 22px; cursor: pointer; color: #d4a84b; flex-shrink: 0; margin-top: 2px; transition: transform 0.2s; &:hover { transform: scale(1.2); } }
 
 .dc-title { font-size: 24px; font-weight: $font-weight-bold; color: $theme-ink; }
 
