@@ -310,7 +310,7 @@ const drawerCategoryLabel = computed(() => {
   &:hover { box-shadow: 0 8px 24px rgba($theme-ink, 0.06); transform: translateY(-2px); }
 
   .card-fav {
-    position: absolute; top: 8px; left: 8px; z-index: 2; font-size: 16px;
+    position: absolute; top: 8px; right: 8px; z-index: 2; font-size: 16px;
     cursor: pointer; color: $theme-gold; text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     transition: transform 0.2s;
     &:hover { transform: scale(1.2); }
@@ -328,7 +328,7 @@ const drawerCategoryLabel = computed(() => {
   .badge { font-size: 12px; padding: 2px 10px; border-radius: 4px; font-weight: 500; background: $theme-bg; color: $theme-text-secondary; border: 1px solid $theme-border; }
 
   .gender-badge-pos {
-    position: absolute; top: 12px; right: 12px; font-size: 12px; padding: 2px 10px;
+    position: absolute; top: 12px; right: 36px; font-size: 12px; padding: 2px 10px;
     border-radius: 4px; font-weight: 500;
     background: rgba($theme-red, 0.08); color: $theme-red;
   }
