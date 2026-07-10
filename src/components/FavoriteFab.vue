@@ -117,13 +117,17 @@
         <template v-else-if="detailItem.type === 'lexicon'">
           <view class="fd-lexicon-body">
             <view class="fd-lexicon-left">
-              <text class="fd-lexicon-term">{{ detailItem.name }}<text v-if="detailItem.pinyin" class="fd-lexicon-pinyin">（{{ detailItem.pinyin }}）</text></text>
-              <text class="fd-lexicon-sub">{{ detailItem.sub }}</text>
+              <view class="fd-lexicon-header">
+                <view class="fd-lexicon-header-bar">
+                  <text class="fd-lexicon-term">{{ detailItem.name }}<text v-if="detailItem.pinyin" class="fd-lexicon-pinyin">（{{ detailItem.pinyin }}）</text></text>
+                </view>
+                <text class="fd-lexicon-sub">{{ detailItem.sub }}</text>
+              </view>
               <view v-if="detailItem.dynasty || detailItem.dynasties || detailItem.gender || detailItem.identity" class="fd-lexicon-tags">
-                <text v-if="detailItem.dynasty && detailItem.dynasty !== '通用'" class="fd-lexicon-tag">{{ detailItem.dynasty }}</text>
-                <text v-if="detailItem.dynasties" v-for="d in detailItem.dynasties" :key="d" class="fd-lexicon-tag">{{ d }}</text>
-                <text v-if="detailItem.gender" class="fd-lexicon-tag">{{ detailItem.gender }}</text>
-                <text v-if="detailItem.identity" class="fd-lexicon-tag">{{ detailItem.identity }}</text>
+                <text v-if="detailItem.dynasty && detailItem.dynasty !== '通用'" class="fd-lexicon-tag dynasty-tag">{{ detailItem.dynasty }}</text>
+                <text v-if="detailItem.dynasties" v-for="d in detailItem.dynasties" :key="d" class="fd-lexicon-tag dynasty-tag">{{ d }}</text>
+                <text v-if="detailItem.gender" class="fd-lexicon-tag gender-tag">{{ detailItem.gender }}</text>
+                <text v-if="detailItem.identity" class="fd-lexicon-tag identity-tag">{{ detailItem.identity }}</text>
               </view>
               <view class="fd-section" v-if="detailItem.meaning">
                 <text class="fd-label">释义</text>
@@ -378,11 +382,17 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
 .fd-lexicon-body { display: flex; gap: 20px; align-items: flex-start; }
 .fd-lexicon-left { flex: 1; min-width: 0; }
-.fd-lexicon-term { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; }
-.fd-lexicon-pinyin { font-size: 13px; color: #999; font-weight: 400; margin-left: 4px; }
-.fd-lexicon-sub { font-size: 13px; color: #888; margin-top: 3px; display: block; }
-.fd-lexicon-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
-.fd-lexicon-tag { font-size: 11px; padding: 2px 10px; border-radius: 3px; background: #f5f3ef; color: #666; border: 1px solid #e8e4dc; display: inline-block; }
+.fd-lexicon-header { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid #c41e3a; position: relative; }
+.fd-lexicon-header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 50px; height: 2px; background: #d4a84b; }
+.fd-lexicon-header-bar { display: flex; align-items: baseline; gap: 8px; }
+.fd-lexicon-term { font-size: 24px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; }
+.fd-lexicon-pinyin { font-size: 13px; color: #aaa; font-weight: 400; margin-left: 6px; font-family: "Georgia", serif; }
+.fd-lexicon-sub { font-size: 13px; color: #999; margin-top: 4px; display: block; }
+.fd-lexicon-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+.fd-lexicon-tag { font-size: 11px; padding: 3px 12px; border-radius: 4px; font-weight: 500; display: inline-block; }
+.fd-lexicon-tag.dynasty-tag { background: #f5f3ef; color: #666; border: 1px solid #e8e4dc; }
+.fd-lexicon-tag.gender-tag { background: rgba(196,30,58,0.06); color: #c41e3a; border: 1px solid rgba(196,30,58,0.2); }
+.fd-lexicon-tag.identity-tag { background: rgba(212,168,75,0.08); color: #8b6b2a; border: 1px solid rgba(212,168,75,0.25); }
 .fd-lexicon-right { width: 200px; flex-shrink: 0; }
 .fd-lexicon-img-wrap { width: 100%; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f0ede8; }
 .fd-lexicon-img { width: 100%; height: auto; display: block; }
