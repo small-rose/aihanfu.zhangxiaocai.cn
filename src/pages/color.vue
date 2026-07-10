@@ -254,7 +254,7 @@ function toggleFavColor() {
   if (!detail.value) return
   const id = 'color_' + detail.value.name
   if (isFavorite(id)) { removeFavorite(id) }
-  else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name } }) }
+  else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name }, content: detail.value.story }) }
 }
 
 function openPairModal() {

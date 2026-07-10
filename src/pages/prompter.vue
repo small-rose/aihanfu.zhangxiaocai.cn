@@ -593,7 +593,7 @@ function toggleFavPrompt() {
   const id = curFavId.value
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
   else {
-    addFavorite({ id, type: 'prompt', name: '提示词 ' + promptResult.value?.promptCN?.substring(0, 30) + '…', sub: platform.value + ' · ' + selectedSize.value + ' · ' + promptCategories.length + ' 类', preview: '#C41E3A', route: '/pages/prompter' })
+    addFavorite({ id, type: 'prompt', name: '提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#C41E3A', route: '/pages/prompter', content: promptCN.value || promptEN.value })
     showToast('已收藏')
   }
 }
