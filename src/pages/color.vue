@@ -34,6 +34,7 @@
         </view>
       </view>
     </view>
+    <FavoriteFab />
     <Footer />
 
     <!-- detail drawer -->
@@ -148,6 +149,7 @@ import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import allColors from '../data/color-data.js'
 import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
+import FavoriteFab from '../components/FavoriteFab.vue'
 
 const filterBy = ref('all')
 const selectedTags = ref(new Set())

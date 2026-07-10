@@ -48,6 +48,7 @@
         <image v-if="data.image" class="dynasty-img" :src="data.image" mode="widthFix" />
       </view>
     </view>
+    <FavoriteFab />
     <Footer />
   </view>
 </template>
@@ -58,6 +59,7 @@ import { onLoad } from '@dcloudio/uni-app'
 import { dynasties as dynastyList } from '../data/hanfu-data.js'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
+import FavoriteFab from '../components/FavoriteFab.vue'
 
 onLoad(() => {
   document.title = '朝代博物馆 | Dynasty Museum'

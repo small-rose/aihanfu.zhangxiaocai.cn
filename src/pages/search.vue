@@ -81,6 +81,7 @@
         <text class="empty-text">未找到与 "<text class="keyword">{{ keyword }}</text>" 相关的结果</text>
       </view>
     </view>
+    <FavoriteFab />
     <Footer />
   </view>
 </template>
@@ -95,6 +96,7 @@ import { galleryData } from '../data/gallery-data.js'
 import { dynasties } from '../data/hanfu-data.js'
 import supplementData from '../data/prompt-supplement.json'
 import allColors from '../data/color-data.js'
+import FavoriteFab from '../components/FavoriteFab.vue'
 
 const keyword = ref('')
 const searched = ref(false)

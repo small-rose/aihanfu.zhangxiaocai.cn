@@ -80,11 +80,13 @@
     <view v-if="!img" class="empty-state">
       <text class="empty-text">未找到图片</text>
     </view>
+    <FavoriteFab />
     <Footer />
   </view>
 </template>
 
 <script>
+import FavoriteFab from '../components/FavoriteFab.vue'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'

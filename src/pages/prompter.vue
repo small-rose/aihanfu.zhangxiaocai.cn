@@ -123,6 +123,7 @@
       </view>
     </view>
     <Footer />
+    <FavoriteFab />
   </view>
 </template>
 
@@ -132,6 +133,7 @@ import { onLoad } from '@dcloudio/uni-app'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import Button from '../components/Button.vue'
+import FavoriteFab from '../components/FavoriteFab.vue'
 import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import supplementData from '../data/prompt-supplement.json'
 import { showToast } from '../utils/useToast.js'

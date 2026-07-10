@@ -106,6 +106,7 @@
 
     <DetailDrawer :item="drawerItem" :category-label="drawerCategoryLabel" @close="drawerItem = null" />
 
+    <FavoriteFab />
     <Footer />
   </view>
 </template>
@@ -117,6 +118,7 @@ import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import DetailDrawer from '../components/DetailDrawer.vue'
+import FavoriteFab from '../components/FavoriteFab.vue'
 
 const keyword = ref('')
 

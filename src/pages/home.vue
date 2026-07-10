@@ -101,6 +101,7 @@
       </view>
     </view>
 
+    <FavoriteFab />
     <Footer />
   </view>
 </template>
@@ -121,6 +122,7 @@ onLoad(() => {
 })
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
+import FavoriteFab from '../components/FavoriteFab.vue'
 
 const selectedDynasty = ref('sui')
 

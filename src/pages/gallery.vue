@@ -283,6 +283,7 @@
         <Button variant="primary" @click="goPrompter">前往组合器</Button>
       </view>
     </view>
+    <FavoriteFab />
     <Footer />
   </view>
 </template>
@@ -294,6 +295,7 @@ import Button from '../components/Button.vue'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
+import FavoriteFab from '../components/FavoriteFab.vue'
 
 // 图片骨架屏：loadedImgs 记录已加载完成的图片 id，驱动 skeleton / img-loaded 类切换
 const loadedImgs = reactive(new Set())
