@@ -324,9 +324,12 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   width: 48px; height: 48px; border-radius: 50%;
   background: #fff; color: #c41e3a;
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px; z-index: 99;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-  cursor: pointer; border: 1px solid #e8e0d5;
+  font-size: 24px; line-height: 1; padding: 0; z-index: 99;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  cursor: pointer; border: 1.5px solid #e8e0d5;
+  transition: transform 0.2s, box-shadow 0.2s;
+  &:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  &:active { transform: scale(0.95); }
 }
 .fab-badge {
   position: absolute; top: -4px; right: -4px;
