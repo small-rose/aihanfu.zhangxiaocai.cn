@@ -115,14 +115,27 @@
           </view>
         </template>
         <template v-else-if="detailItem.type === 'lexicon'">
-          <view class="fd-color-hero" v-if="detailItem.preview">
-            <view v-if="detailItem.preview.startsWith('#')" class="fd-color-swatch" :style="{ backgroundColor: detailItem.preview }">
-              <text class="fd-color-hex">{{ detailItem.preview }}</text>
+          <view class="fd-color-hero">
+            <view v-if="detailItem.imagePath" class="fd-lexicon-img-wrap">
+              <image class="fd-lexicon-img" :src="detailItem.imagePath" mode="widthFix" />
             </view>
-            <image v-else class="fd-lexicon-img" :src="detailItem.preview" mode="widthFix" />
+            <view v-else-if="detailItem.hex" class="fd-color-swatch" :style="{ backgroundColor: detailItem.hex }">
+              <text class="fd-color-hex">{{ detailItem.hex }}</text>
+            </view>
+            <view v-else class="fd-lexicon-img-wrap fd-lexicon-img-placeholder">
+              <text class="fd-lexicon-placeholder-text">{{ detailItem.name?.[0] || '?' }}</text>
+            </view>
             <view class="fd-color-name">
-              <text class="fd-color-name-text">{{ detailItem.name }}</text>
+              <text class="fd-color-name-text">{{ detailItem.name }}<text v-if="detailItem.pinyin" class="fd-lexicon-pinyin">（{{ detailItem.pinyin }}）</text></text>
               <text class="fd-color-cat">{{ detailItem.sub }}</text>
+            </view>
+          </view>
+          <view v-if="detailItem.dynasty || detailItem.dynasties || detailItem.gender || detailItem.identity" class="fd-section">
+            <view class="fd-lexicon-tags">
+              <text v-if="detailItem.dynasty && detailItem.dynasty !== '通用'" class="fd-lexicon-tag">{{ detailItem.dynasty }}</text>
+              <text v-if="detailItem.dynasties" v-for="d in detailItem.dynasties" :key="d" class="fd-lexicon-tag">{{ d }}</text>
+              <text v-if="detailItem.gender" class="fd-lexicon-tag">{{ detailItem.gender }}</text>
+              <text v-if="detailItem.identity" class="fd-lexicon-tag">{{ detailItem.identity }}</text>
             </view>
           </view>
           <view class="fd-section" v-if="detailItem.meaning">
@@ -366,7 +379,13 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px;
 }
 .fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
-.fd-lexicon-img { width: 80px; height: auto; border-radius: 8px; flex-shrink: 0; object-fit: cover; }
+.fd-lexicon-img-wrap { width: 80px; height: 80px; border-radius: 10px; flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f0ede8; }
+.fd-lexicon-img { width: 100%; height: auto; display: block; }
+.fd-lexicon-img-placeholder { background: linear-gradient(135deg, #d4a84b20, #c41e3a20); }
+.fd-lexicon-placeholder-text { font-size: 28px; font-weight: 700; color: #c41e3a55; }
+.fd-lexicon-pinyin { font-size: 13px; color: #999; font-weight: 400; margin-left: 4px; }
+.fd-lexicon-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.fd-lexicon-tag { font-size: 11px; padding: 2px 10px; border-radius: 3px; background: #f5f3ef; color: #666; border: 1px solid #e8e4dc; display: inline-block; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
