@@ -279,7 +279,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   display: flex; align-items: center; justify-content: space-between;
   padding: calc(clamp(48px, 7vw, 64px) + 12px) 20px 0; flex-shrink: 0;
 }
-.fp-header-deco { height: 2px; background: #c41e3a; margin: 10px 20px 0; border-radius: 1px; position: relative; }
+.fp-header-deco { height: 2px; background: #c41e3a; margin: 10px 20px 8px; border-radius: 1px; position: relative; }
 .fp-header-deco::after { content: ''; position: absolute; top: 0; left: 0; width: 50px; height: 2px; background: #d4a84b; border-radius: 1px; }
 .fp-title { font-size: 17px; font-weight: $font-weight-bold; color: $theme-ink; }
 .fp-count { font-size: 12px; color: $theme-gray; }
