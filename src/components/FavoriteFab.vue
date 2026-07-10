@@ -35,6 +35,7 @@
           <view class="fp-item-info">
             <text class="fp-item-name">{{ item.name }}</text>
             <text class="fp-item-sub">{{ item.sub }}</text>
+            <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
           </view>
           <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
         </view>
@@ -136,7 +137,7 @@ const items = computed(() => {
   return getFavorites(activeTab.value === 'all' ? undefined : activeTab.value)
 })
 
-const totalCount = computed(() => getFavorites().length)
+const totalCount = computed(() => { refreshKey.value; return getFavorites().length })
 
 function togglePanel() { panelOpen.value = !panelOpen.value }
 
@@ -148,6 +149,18 @@ function goItem(item) {
 }
 
 function removeWithRefresh(id) { removeFavorite(id); refreshKey.value++; detailItem.value = null }
+
+function formatTime(ts) {
+  if (!ts) return ''
+  const d = new Date(ts)
+  const now = new Date()
+  const diff = now - d
+  if (diff < 60000) return '刚刚'
+  if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
+  if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
+  if (diff < 172800000) return '昨天'
+  return (d.getMonth() + 1) + '/' + d.getDate()
+}
 
 function copyText(txt) {
   if (!txt) return
@@ -239,6 +252,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fp-item-info { flex: 1; min-width: 0; }
 .fp-item-name { font-size: 13px; font-weight: 500; color: $theme-ink; display: block; }
 .fp-item-sub { font-size: 11px; color: $theme-gray; margin-top: 2px; display: block; }
+.fp-item-time { font-size: 10px; color: $theme-placeholder; margin-top: 1px; display: block; }
 .fp-item-del {
   font-size: 12px; color: $theme-placeholder; padding: 4px; flex-shrink: 0;
   &:hover { color: $theme-red; }
