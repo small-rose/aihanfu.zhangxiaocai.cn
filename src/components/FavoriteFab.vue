@@ -33,7 +33,7 @@
             <text class="fp-item-type">{{ typeIcon(item.type) }}</text>
           </view>
           <view class="fp-item-info">
-            <text class="fp-item-name">{{ item.name }}</text>
+            <text class="fp-item-name">{{ item.type === 'color' ? '色彩 ' + item.name : item.name }}</text>
             <text class="fp-item-sub">{{ item.sub }}</text>
           </view>
           <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
@@ -86,9 +86,19 @@
               <text class="fd-color-cat">{{ detailItem.sub }}</text>
             </view>
           </view>
+          <view class="fd-section" v-if="detailItem.meaning">
+            <text class="fd-label">寓意</text>
+            <text class="fd-value">{{ detailItem.meaning }}</text>
+          </view>
           <view class="fd-section" v-if="detailItem.content">
-            <text class="fd-label">典故</text>
+            <text class="fd-label">文史典故</text>
             <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+          </view>
+          <view class="fd-section" v-if="detailItem.pairs && detailItem.pairs.length">
+            <text class="fd-label">推荐搭配色</text>
+            <view class="fd-tag-row">
+              <text v-for="pn in detailItem.pairs" :key="pn" class="fd-tag">{{ pn }}</text>
+            </view>
           </view>
         </template>
         <template v-else-if="detailItem.type === 'image'">
@@ -328,6 +338,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
+.fd-tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.fd-tag { font-size: 12px; padding: 4px 10px; border-radius: 4px; background: #f8f6f2; color: #555; border: 1px solid #e8e4dc; }
 .fd-footer {
   padding: 14px 24px 18px; display: flex; gap: 10px;
   border-top: 1px solid #eee; flex-shrink: 0;
