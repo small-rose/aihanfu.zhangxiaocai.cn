@@ -324,7 +324,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   width: 48px; height: 48px; border-radius: 50%;
   background: #fff; color: #c41e3a;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px; z-index: 99;
+  font-size: 24px; z-index: 99;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   cursor: pointer; border: 1px solid #e8e0d5;
 }
