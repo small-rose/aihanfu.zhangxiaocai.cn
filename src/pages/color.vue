@@ -251,12 +251,12 @@ function exportPairs() {
   const leftW = 110, rightW = 110, swatchW = 240, gap = 10
   const totalW = leftW + gap + swatchW + gap + rightW
   const pad = 40
+  const topPad = 60
   const rowH = 60
   const rowGap = 14
-  const headerH = 56
-  const footerH = 52
+  const footerH = 32
   const canvasW = totalW + pad * 2
-  const canvasH = headerH + pairs.length * (rowH + rowGap) + 8 + footerH + pad
+  const canvasH = topPad + 10 + pairs.length * (rowH + rowGap) + 8 + footerH + pad
   const canvas = document.createElement('canvas')
   canvas.width = canvasW * 2
   canvas.height = canvasH * 2
@@ -273,22 +273,24 @@ function exportPairs() {
   ctx.lineWidth = 2
   ctx.strokeRect(1, 1, canvasW - 2, canvasH - 2)
   
-  // Header
-  const headerY = 18
+  // Header - centered
+  const headerY = 42
+  ctx.textAlign = 'center'
   ctx.fillStyle = '#2C2C2C'
-  ctx.font = 'bold 16px sans-serif'
-  ctx.fillText(name + ' 配色', pad, headerY)
-  // Title underline
+  ctx.font = 'bold 18px sans-serif'
+  ctx.fillText(name + ' 配色', canvasW / 2, headerY)
+  // Title underline - centered
   const titleW = ctx.measureText(name + ' 配色').width
   ctx.strokeStyle = hex
-  ctx.lineWidth = 2
+  ctx.lineWidth = 2.5
   ctx.beginPath()
-  ctx.moveTo(pad, headerY + 4)
-  ctx.lineTo(pad + titleW, headerY + 4)
+  ctx.moveTo((canvasW - titleW) / 2, headerY + 5)
+  ctx.lineTo((canvasW + titleW) / 2, headerY + 5)
   ctx.stroke()
+  ctx.textAlign = 'left'
   
   // Content area
-  const contentY = headerY + 22
+  const contentY = topPad + 10
   
   pairs.forEach((pn, i) => {
     const py = contentY + i * (rowH + rowGap)
@@ -325,18 +327,12 @@ function exportPairs() {
     ctx.fillText(ph, rightX, textCenterY + 12)
   })
   
-  // Footer - Export button indicator
-  const footerY = contentY + pairs.length * (rowH + rowGap) + 4
-  ctx.fillStyle = '#F0F0F0'
-  const btnW = 100, btnH = 28
-  const btnX = (canvasW - btnW) / 2
-  ctx.beginPath()
-  ctx.roundRect(btnX, footerY, btnW, btnH, 6)
-  ctx.fill()
-  ctx.fillStyle = '#2C2C2C'
-  ctx.font = '12px sans-serif'
+  // Footer source link
+  const footerY = contentY + pairs.length * (rowH + rowGap) + 6
+  ctx.fillStyle = '#BBB'
+  ctx.font = '10px sans-serif'
   ctx.textAlign = 'center'
-  ctx.fillText('导出色卡', canvasW / 2, footerY + 19)
+  ctx.fillText('配色来源：https://aihanfu.zhangxiaocai.cn', canvasW / 2, footerY + footerH - 6)
   ctx.textAlign = 'left'
   
   // Download
