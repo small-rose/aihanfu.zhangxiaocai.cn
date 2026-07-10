@@ -465,8 +465,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-palette-card { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #faf9f7; border-radius: 8px; border: 1px solid #f0ede8; }
 .fd-palette-left, .fd-palette-right { width: 100px; flex-shrink: 0; }
 .fd-palette-right { text-align: right; }
-.fd-palette-label { font-size: 13px; color: #333; display: block; font-weight: 500; line-height: 1.3; }
-.fd-palette-hex-text { font-size: 10px; color: #aaa; display: block; margin-top: 2px; font-family: monospace; }
+.fd-palette-label { font-size: 14px; color: #1a1a1a; display: block; font-weight: 600; line-height: 1.3; }
+.fd-palette-hex-text { font-size: 11px; color: #888; display: block; margin-top: 3px; font-family: monospace; }
 .fd-palette-swatch-group { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
 .fd-palette-swatch { border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
 .fd-palette-main-swatch { width: 180px; height: 64px; }
