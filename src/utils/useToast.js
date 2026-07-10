@@ -14,7 +14,7 @@ export function showToast(msg = '已复制') {
     opacity: '0', transition: 'opacity 0.25s ease',
     boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
     pointerEvents: 'none',
-    borderLeft: '3px solid #C41E3A', fontFamily: '"Noto Serif SC", "Source Han Serif CN", serif'
+    border: '1.5px solid #C41E3A', fontFamily: '"Noto Serif SC", "Source Han Serif CN", serif'
   })
   document.body.appendChild(toastEl)
   requestAnimationFrame(() => { toastEl.style.opacity = '1' })
