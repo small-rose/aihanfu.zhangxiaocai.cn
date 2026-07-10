@@ -27,7 +27,7 @@
 
       <!-- 列表 -->
       <view class="fp-list" v-if="items.length">
-        <view v-for="item in items" :key="item.id" class="fp-item" @tap="goItem(item)">
+        <view v-for="item in items" :key="item.id" class="fp-item" @tap="showDetail(item)">
           <view class="fp-item-preview" :style="previewStyle(item)">
             <text class="fp-item-type">{{ typeIcon(item.type) }}</text>
           </view>
@@ -43,6 +43,40 @@
         <text class="fp-empty-text">暂无收藏</text>
       </view>
     </view>
+
+    <!-- 详情弹窗 -->
+    <view v-if="detailItem" class="fd-overlay" @tap="detailItem = null"></view>
+    <view class="fd-modal" :class="{ open: !!detailItem }" v-if="detailItem">
+      <view class="fd-header">
+        <text class="fd-title">{{ detailItem.name }}</text>
+        <text class="fd-close" @tap="detailItem = null">✕</text>
+      </view>
+      <view class="fd-body">
+        <view class="fd-preview" :style="previewStyle(detailItem)">
+          <text class="fd-type-icon">{{ typeIcon(detailItem.type) }}</text>
+        </view>
+        <view class="fd-section">
+          <text class="fd-label">类型</text>
+          <text class="fd-value">{{ FAVORITE_TYPES.find(t => t.key === detailItem.type)?.label || detailItem.type }}</text>
+        </view>
+        <view class="fd-section">
+          <text class="fd-label">名称</text>
+          <text class="fd-value">{{ detailItem.name }}</text>
+        </view>
+        <view class="fd-section" v-if="detailItem.sub">
+          <text class="fd-label">信息</text>
+          <text class="fd-value">{{ detailItem.sub }}</text>
+        </view>
+        <view class="fd-section" v-if="detailItem.content">
+          <text class="fd-label">内容</text>
+          <text class="fd-value fd-content">{{ detailItem.content }}</text>
+        </view>
+      </view>
+      <view class="fd-footer">
+        <text class="fd-btn" @tap="goItem(detailItem)">前往查看</text>
+        <text class="fd-btn fd-btn-del" @tap="removeWithRefresh(detailItem.id)">删除收藏</text>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -53,6 +87,7 @@ import { getFavorites, addFavorite, removeFavorite, isFavorite, clearFavorites, 
 const panelOpen = ref(false)
 const activeTab = ref('all')
 const refreshKey = ref(0)
+const detailItem = ref(null)
 
 const tabs = FAVORITE_TYPES
 
@@ -65,10 +100,14 @@ const totalCount = computed(() => getFavorites().length)
 
 function togglePanel() { panelOpen.value = !panelOpen.value }
 
+function showDetail(item) { detailItem.value = item }
+
 function goItem(item) {
-  panelOpen.value = false
+  panelOpen.value = false; detailItem.value = null
   if (item.route) uni.navigateTo({ url: item.route + (item.query ? '?' + obj2params(item.query) : '') })
 }
+
+function removeWithRefresh(id) { removeFavorite(id); refreshKey.value++; detailItem.value = null }
 
 function remove(id) { removeFavorite(id); refreshKey.value++ }
 
@@ -164,4 +203,43 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fp-empty-icon { font-size: 32px; margin-bottom: 8px; }
 .fp-empty-text { font-size: 13px; color: $theme-placeholder; }
+
+/* 详情弹窗 */
+.fd-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200;
+}
+.fd-modal {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
+  width: min(440px, 85vw); max-height: 70vh;
+  background: $theme-white; border-radius: 14px; z-index: 201;
+  display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18); overflow: hidden;
+}
+.fd-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+.fd-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid $theme-light-gray; flex-shrink: 0;
+}
+.fd-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; }
+.fd-close { font-size: 20px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; }
+.fd-body { padding: 16px 20px 12px; overflow-y: auto; flex: 1; }
+.fd-preview {
+  width: 60px; height: 60px; border-radius: 10px; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: $theme-bg; font-size: 24px;
+}
+.fd-section { margin-bottom: 12px; }
+.fd-label { font-size: 11px; font-weight: 600; color: $theme-placeholder; display: block; margin-bottom: 2px; }
+.fd-value { font-size: 14px; color: $theme-text-body; display: block; line-height: 1.5; }
+.fd-content { font-size: 12px; color: $theme-text-secondary; background: $theme-bg; padding: 8px 10px; border-radius: 6px; max-height: 140px; overflow-y: auto; word-break: break-all; }
+.fd-footer {
+  padding: 12px 20px 16px; display: flex; gap: 10px;
+  border-top: 1px solid $theme-light-gray; flex-shrink: 0;
+}
+.fd-btn {
+  flex: 1; padding: 8px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  text-align: center; cursor: pointer;
+  background: $theme-red; color: #fff;
+}
+.fd-btn-del { background: $theme-white; color: $theme-ink; border: 1px solid $theme-border; }
 </style>
