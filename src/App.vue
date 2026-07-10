@@ -1,8 +1,12 @@
 <template>
-  <view></view>
+  <view>
+    <FavoriteFab />
+  </view>
 </template>
 
 <script>
+import FavoriteFab from './components/FavoriteFab.vue'
+export default { components: { FavoriteFab } }
 // 捕获阶段监听 window 级 keydown：在 uni-app 处理之前拦截 Enter
 // capture:true 确保在事件到达 target 之前就拦截，不依赖冒泡
 if (typeof window !== 'undefined') {

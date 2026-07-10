@@ -102,6 +102,9 @@
             <Button variant="secondary" @tap="randomPick">随机搭配</Button>
             <Button variant="ghost" @tap="resetAll">重置</Button>
           </view>
+          <view class="fav-row">
+            <text class="fav-btn" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }} 收藏{{ isPromptFav ? '中' : '' }}</text>
+          </view>
 
           <view class="panel-section">
             <text class="panel-title">提示词预览</text>
@@ -132,6 +135,7 @@ import Button from '../components/Button.vue'
 import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import supplementData from '../data/prompt-supplement.json'
 import { showToast } from '../utils/useToast.js'
+import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
 
 const keyword = ref('')
 const keywordDebounced = ref('')
@@ -570,6 +574,18 @@ function resetAll() {
   selectedItems.value = []
   promptResult.value = null
 }
+
+const isPromptFav = computed(() => promptResult.value ? isFavorite('prompt_current') : false)
+
+function toggleFavPrompt() {
+  const txt = promptCN.value || promptEN.value
+  if (!txt) { showToast('先生成提示词'); return }
+  if (isPromptFav.value) {
+    removeFavorite('prompt_current')
+  } else {
+    addFavorite({ id: 'prompt_current', type: 'prompt', name: '当前提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#FF4C00', route: '/pages/prompter' })
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -715,8 +731,10 @@ function resetAll() {
   &.active { background: $theme-red; color: $theme-white; border-color: $theme-red; }
 }
 
-.action-row { display: flex; gap: 8px; margin-bottom: 20px; }
+.action-row { display: flex; gap: 8px; margin-bottom: 12px; }
 .action-row .btn { flex: 1; }
+.fav-row { margin-bottom: 16px; }
+.fav-btn { font-size: 12px; color: $theme-red; cursor: pointer; padding: 4px 0; display: inline-block; }
 
 /* 移动端适配：仅调整间距/布局，不改字号 */
 @media (max-width: 768px) {

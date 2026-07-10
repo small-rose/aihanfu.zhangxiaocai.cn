@@ -7,8 +7,11 @@
       </view>
       <view class="detail-right">
         <view class="dc-header">
-          <text class="dc-title">{{ img.title }}</text>
-          <text class="dc-dynasty">{{ img.dynasty }}</text>
+          <view class="dc-header-text">
+            <text class="dc-title">{{ img.title }}</text>
+            <text class="dc-dynasty">{{ img.dynasty }}</text>
+          </view>
+          <text class="dc-fav" @tap="toggleFav">{{ isFav ? '★' : '☆' }}</text>
         </view>
 
         <view class="analysis-section">
@@ -87,8 +90,9 @@ import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
 export default {
   components: { TopNav, Footer },
-  data() { return { img: null } },
+  data() { return { img: null, favId: null } },
   computed: {
+    isFav() { return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
     analysis() { return this.img?.analysis || {} },
     enPrompt() {
       if (!this.img) return ''
@@ -108,7 +112,17 @@ export default {
   },
   onLoad(query) {
     document.title = query.title || '图片详情 | Image Detail'
-    if (query.id) this.img = galleryData.find(i => i.id === query.id) || null
+    if (query.id) { this.img = galleryData.find(i => i.id === query.id) || null; this.favId = 'detail_' + query.id }
+  },
+  methods: {
+    toggleFav() {
+      if (!this.favId || !this.img) return
+      const { addFavorite, removeFavorite, isFavorite } = require('../utils/useFavorites.js')
+      if (isFavorite(this.favId)) { removeFavorite(this.favId) }
+      else {
+        addFavorite({ id: this.favId, type: 'prompt', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id } })
+      }
+    }
   }
 }
 </script>
@@ -132,7 +146,9 @@ export default {
   width: 420px; flex-shrink: 0;
 }
 
-.dc-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }
+.dc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
+.dc-header-text { flex: 1; }
+.dc-fav { font-size: 20px; cursor: pointer; color: $theme-red; padding: 4px; flex-shrink: 0; }
 
 .dc-title { font-size: 24px; font-weight: $font-weight-bold; color: $theme-ink; }
 

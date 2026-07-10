@@ -92,6 +92,7 @@
         <view class="drawer-tags">
           <text class="tag" :class="{ 'tag-ok': detail.ai, 'tag-no': !detail.ai }">{{ detail.ai ? 'AI友好' : '非AI友好' }}</text>
           <text class="tag" v-for="t in detail.tags" :key="t" :class="{ 'tag-cn': t==='中国色', 'tag-wa': t==='和风' }">{{ t }}</text>
+          <text class="tag tag-fav" @tap.stop="toggleFavColor">{{ isColorFav ? '★' : '☆' }} 收藏</text>
         </view>
 
         <view v-if="adjacentColors.length" class="drawer-section">
@@ -146,6 +147,7 @@ import { onLoad } from '@dcloudio/uni-app'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import allColors from '../data/color-data.js'
+import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
 
 const filterBy = ref('all')
 const selectedTags = ref(new Set())
@@ -243,6 +245,15 @@ function pairDesc(main, paired, idx) {
 }
 
 function openDetail(c) { detail.value = c }
+
+const isColorFav = computed(() => detail.value ? isFavorite('color_' + detail.value.name) : false)
+
+function toggleFavColor() {
+  if (!detail.value) return
+  const id = 'color_' + detail.value.name
+  if (isFavorite(id)) { removeFavorite(id) }
+  else { addFavorite({ id, type: 'color', name: detail.value.name, sub: detail.value.category + ' · ' + detail.value.hex, preview: detail.value.hex, route: '/pages/color', query: { q: detail.value.name } }) }
+}
 
 function openPairModal() {
   if (!detail.value || !detail.value.pairs) return
@@ -530,6 +541,7 @@ function exportPairs() {
 .tag-cat { background: #E3F2FD; color: #1565C0; }
 .tag-cn { background: #E8F5E9; color: #2E7D32; }
 .tag-wa { background: #FFF3E0; color: #E65100; }
+.tag-fav { background: #FFF8E1; color: #F57F17; cursor: pointer; }
 
 /* 配色搭配弹窗 */
 .pair-overlay {
