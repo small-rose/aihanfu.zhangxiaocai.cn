@@ -163,10 +163,14 @@
             <view class="fd-palette-pairs">
               <view v-for="(pn, pi) in palettePairs" :key="pi" class="fd-palette-row">
                 <view class="fd-palette-left">
-                  <text class="fd-palette-pair-name">{{ pi === 0 ? detailItem.name.replace(' 配色', '') : '' }}</text>
-                  <text class="fd-palette-pair-hex">{{ pi === 0 ? detailItem.sub : '' }}</text>
+                  <text class="fd-palette-pair-name">{{ mainColorName }}</text>
+                  <text class="fd-palette-pair-hex">{{ detailItem.sub }}</text>
                 </view>
-                <view class="fd-palette-swatch" :style="{ backgroundColor: pi === 0 ? detailItem.preview : hexForPalette(pn) }"></view>
+                <view class="fd-palette-swatch-group">
+                  <view class="fd-palette-swatch" :style="{ backgroundColor: detailItem.preview }"></view>
+                  <text class="fd-palette-arrow">⇌</text>
+                  <view class="fd-palette-swatch" :style="{ backgroundColor: hexForPalette(pn) }"></view>
+                </view>
                 <view class="fd-palette-right">
                   <text class="fd-palette-pair-name">{{ pn }}</text>
                   <text class="fd-palette-pair-hex">{{ hexForPalette(pn) }}</text>
@@ -277,6 +281,11 @@ const palettePairs = computed(() => {
     return pairs.split('、').filter(Boolean)
   }
   return []
+})
+
+const mainColorName = computed(() => {
+  if (!detailItem.value) return ''
+  return detailItem.value.name.replace(' 配色', '')
 })
 
 function hexForPalette(name) {
@@ -456,7 +465,9 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-palette-row { display: flex; align-items: center; gap: 8px; }
 .fd-palette-left, .fd-palette-right { flex: 1; min-width: 0; }
 .fd-palette-right { text-align: right; }
-.fd-palette-swatch { width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
+.fd-palette-swatch-group { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.fd-palette-swatch { width: 36px; height: 36px; border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
+.fd-palette-arrow { font-size: 14px; color: #999; flex-shrink: 0; }
 .fd-palette-pair-name { font-size: 12px; color: #333; display: block; font-weight: 500; }
 .fd-palette-pair-hex { font-size: 10px; color: #aaa; display: block; margin-top: 1px; font-family: monospace; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
