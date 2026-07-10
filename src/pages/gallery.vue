@@ -786,7 +786,7 @@ function topBottom(item) {
   box-shadow: 0 0 0 1px $theme-light-gray, 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   &::after { content: ''; position: absolute; inset: 0; border-radius: 10px; pointer-events: none; z-index: 3; border: 2px solid transparent; transition: border-color 0.35s ease; }
-  &:hover { transform: scale(1.02); box-shadow: 0 0 0 1px $theme-red, 0 12px 32px rgba($theme-red, 0.08); &::after { border-color: rgba($theme-gold, 0.3); } }
+  &:hover { box-shadow: 0 0 0 1px $theme-red, 0 12px 32px rgba($theme-red, 0.08); &::after { border-color: rgba($theme-gold, 0.3); } }
   .gallery-img { width: 100%; height: 100%; }
   .gallery-overlay {
     position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; z-index: 4;
