@@ -391,7 +391,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fd-modal {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  width: min(720px, 94vw); max-height: 85vh;
+  width: min(880px, 94vw); max-height: 90vh;
   background: #fff; border-radius: 14px; z-index: 201;
   display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
   box-shadow: 0 16px 48px rgba(0,0,0,0.2); overflow: hidden;
@@ -483,7 +483,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-palette-arrow { font-size: 16px; color: #bbb; flex-shrink: 0; }
 .fd-image-body { display: flex; gap: 20px; align-items: flex-start; }
 .fd-image-left { flex: 1; min-width: 0; }
-.fd-image-right { width: 160px; flex-shrink: 0; }
+.fd-image-right { width: 260px; flex-shrink: 0; }
 .fd-image-preview { width: 100%; height: auto; border-radius: 8px; display: block; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
