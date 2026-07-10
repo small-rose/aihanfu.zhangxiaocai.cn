@@ -100,7 +100,7 @@ import { galleryData } from '../data/gallery-data.js'
 import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
 import { showToast } from '../utils/useToast.js'
 export default {
-  components: { TopNav, Footer },
+  components: { TopNav, Footer, FavoriteFab },
   data() { return { img: null, favId: null, favRefreshKey: 0, promptFavRefreshKey: 0 } },
   computed: {
     isFav() { const k = this.favRefreshKey; return this.favId ? isFavorite(this.favId) : false },
