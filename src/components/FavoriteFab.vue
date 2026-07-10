@@ -15,6 +15,7 @@
         <text class="fp-title">收藏</text>
         <text class="fp-count">{{ totalCount }} 项</text>
       </view>
+      <view class="fp-divider"></view>
 
       <!-- 分类标签 -->
       <view class="fp-tabs">
@@ -61,11 +62,17 @@
         <template v-if="detailItem.type === 'prompt'">
           <view class="fd-section" v-if="detailItem.contentCN">
             <text class="fd-label">中文提示词</text>
-            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentCN }}</text></view>
+            <view class="fd-content-wrap">
+              <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentCN }}</text></view>
+              <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentCN)">复制</text>
+            </view>
           </view>
           <view class="fd-section" v-if="detailItem.contentEN">
             <text class="fd-label">English Prompt</text>
-            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentEN }}</text></view>
+            <view class="fd-content-wrap">
+              <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentEN }}</text></view>
+              <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentEN)">复制</text>
+            </view>
           </view>
         </template>
         <template v-else-if="detailItem.type === 'color'">
@@ -115,6 +122,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { getFavorites, addFavorite, removeFavorite, isFavorite, clearFavorites, FAVORITE_TYPES } from '../utils/useFavorites.js'
+import { showToast } from '../utils/useToast.js'
 
 const panelOpen = ref(false)
 const activeTab = ref('all')
@@ -140,6 +148,11 @@ function goItem(item) {
 }
 
 function removeWithRefresh(id) { removeFavorite(id); refreshKey.value++; detailItem.value = null }
+
+function copyText(txt) {
+  if (!txt) return
+  navigator.clipboard.writeText(txt).then(() => showToast('已复制')).catch(() => showToast('已复制'))
+}
 
 function remove(id) { removeFavorite(id); refreshKey.value++ }
 
@@ -197,6 +210,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fp-title { font-size: 17px; font-weight: $font-weight-bold; color: $theme-ink; }
 .fp-count { font-size: 12px; color: $theme-gray; }
+.fp-divider { height: 2px; background: $theme-red; margin: 4px 20px 10px; border-radius: 1px; }
 .fp-tabs {
   display: flex; gap: 4px; padding: 0 16px 10px; overflow-x: auto;
   flex-shrink: 0; flex-wrap: wrap;
@@ -242,7 +256,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fd-modal {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  width: min(640px, 92vw); max-height: 85vh;
+  width: min(720px, 94vw); max-height: 85vh;
   background: #fff; border-radius: 14px; z-index: 201;
   display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
   box-shadow: 0 16px 48px rgba(0,0,0,0.2); overflow: hidden;
@@ -268,6 +282,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   padding-left: 10px; border-left: 3px solid $theme-red;
 }
 .fd-value { font-size: 15px; color: #333; display: block; line-height: 1.7; }
+.fd-content-wrap { position: relative; }
 .fd-content-scroll {
   max-height: 200px; overflow-y: auto; border-radius: 8px;
   border: 1px solid #e8e4dc; background: #f8f6f2;
@@ -275,9 +290,15 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-content-scroll::-webkit-scrollbar { width: 4px; }
 .fd-content-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 .fd-content {
-  display: block; padding: 12px 14px;
+  display: block; padding: 12px 14px 36px;
   font-size: 13px; color: #333; line-height: 1.7;
   white-space: pre-wrap; word-break: break-word;
+}
+.fd-copy-btn {
+  position: absolute; bottom: 6px; right: 8px;
+  font-size: 11px; padding: 3px 10px; border-radius: 4px;
+  background: $theme-red; color: #fff; cursor: pointer; z-index: 1;
+  &:active { opacity: 0.8; }
 }
 .fd-color-hero {
   display: flex; gap: 16px; align-items: center; margin-bottom: 16px;
