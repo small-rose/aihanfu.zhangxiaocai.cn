@@ -52,7 +52,6 @@
           </view>
           <view class="pm-swatch-wrap">
             <view class="pm-main-swatch" :style="{ backgroundColor: pairModal.hex }"></view>
-            <view class="pm-arrow">⇌</view>
             <view class="pm-pair-swatch" :style="{ backgroundColor: hexForColor(pn) }"></view>
           </view>
           <view class="pm-right-info">
@@ -488,13 +487,13 @@ function exportPairs() {
 .pm-label-right { font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink; white-space: nowrap; }
 .pm-hex-right { font-size: 11px; color: $theme-placeholder; font-family: monospace; margin-top: 2px; }
 .pm-swatch-wrap {
-  display: flex; align-items: center; gap: 4px; flex: 1;
+  display: flex; align-items: stretch; flex: 1;
 }
 .pm-main-swatch, .pm-pair-swatch {
-  flex: 1; height: 60px; border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  flex: 1; height: 60px;
 }
-.pm-arrow { font-size: 16px; color: $theme-border; flex-shrink: 0; }
+.pm-main-swatch { border-radius: 6px 0 0 6px; }
+.pm-pair-swatch { border-radius: 0 6px 6px 0; }
 .pm-footer {
   padding: 14px 24px 18px; display: flex; justify-content: center; flex-shrink: 0;
 }
