@@ -122,7 +122,7 @@
               </view>
             </view>
             <view class="fd-image-right" v-if="detailItem.preview">
-              <image class="fd-image-preview" :src="detailItem.preview" mode="widthFix" />
+              <image class="fd-image-preview" :src="detailItem.preview" mode="widthFix" @tap="previewImage(detailItem.preview)" />
             </view>
           </view>
         </template>
@@ -264,6 +264,11 @@ function formatTime(ts) {
 function copyText(txt) {
   if (!txt) return
   navigator.clipboard.writeText(txt).then(() => showToast('已复制', true)).catch(() => showToast('已复制', true))
+}
+
+function previewImage(src) {
+  if (!src) return
+  uni.previewImage({ urls: [src] })
 }
 
 function remove(id) { removeFavorite(id); refreshKey.value++ }
@@ -487,7 +492,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-image-body { display: flex; gap: 20px; align-items: flex-start; }
 .fd-image-left { flex: 1; min-width: 0; }
 .fd-image-right { width: 260px; flex-shrink: 0; }
-.fd-image-preview { width: 100%; height: auto; border-radius: 8px; display: block; }
+.fd-image-preview { width: 100%; height: auto; border-radius: 8px; display: block; cursor: pointer; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .fd-pair-swatch { width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; border: 1px solid #e0dcd4; }
