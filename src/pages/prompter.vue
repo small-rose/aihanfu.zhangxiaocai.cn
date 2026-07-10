@@ -593,7 +593,7 @@ function toggleFavPrompt() {
   const id = curFavId.value
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
   else {
-    addFavorite({ id, type: 'prompt', name: '提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#C41E3A', route: '/pages/prompter', content: promptCN.value || promptEN.value })
+    addFavorite({ id, type: 'prompt', name: '提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#C41E3A', route: '/pages/prompter', contentCN: promptCN.value || '', contentEN: promptEN.value || '' })
     showToast('已收藏')
   }
 }

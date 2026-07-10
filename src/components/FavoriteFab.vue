@@ -48,33 +48,65 @@
     <view v-if="detailItem" class="fd-overlay" @tap="detailItem = null"></view>
     <view class="fd-modal" :class="{ open: !!detailItem }" v-if="detailItem">
       <view class="fd-header">
-        <text class="fd-title">{{ detailItem.name }}</text>
+        <view class="fd-header-info">
+          <text class="fd-type-badge" :style="{ background: detailItem.preview?.startsWith('#') ? detailItem.preview : '#C41E3A' }">{{ typeIcon(detailItem.type) }}</text>
+          <view>
+            <text class="fd-title">{{ detailItem.name }}</text>
+            <text class="fd-sub" v-if="detailItem.sub">{{ detailItem.sub }}</text>
+          </view>
+        </view>
         <text class="fd-close" @tap="detailItem = null">✕</text>
       </view>
       <view class="fd-body">
-        <view class="fd-preview" :style="previewStyle(detailItem)">
-          <text class="fd-type-icon">{{ typeIcon(detailItem.type) }}</text>
-        </view>
-        <view class="fd-section">
-          <text class="fd-label">类型</text>
-          <text class="fd-value">{{ FAVORITE_TYPES.find(t => t.key === detailItem.type)?.label || detailItem.type }}</text>
-        </view>
-        <view class="fd-section">
-          <text class="fd-label">名称</text>
-          <text class="fd-value">{{ detailItem.name }}</text>
-        </view>
-        <view class="fd-section" v-if="detailItem.sub">
-          <text class="fd-label">信息</text>
-          <text class="fd-value">{{ detailItem.sub }}</text>
-        </view>
-        <view class="fd-section" v-if="detailItem.content">
-          <text class="fd-label">内容</text>
-          <text class="fd-value fd-content">{{ detailItem.content }}</text>
-        </view>
+        <template v-if="detailItem.type === 'prompt'">
+          <view class="fd-section" v-if="detailItem.contentCN">
+            <text class="fd-label">中文提示词</text>
+            <text class="fd-content">{{ detailItem.contentCN }}</text>
+          </view>
+          <view class="fd-section" v-if="detailItem.contentEN">
+            <text class="fd-label">English Prompt</text>
+            <text class="fd-content">{{ detailItem.contentEN }}</text>
+          </view>
+        </template>
+        <template v-else-if="detailItem.type === 'color'">
+          <view class="fd-color-hero">
+            <view class="fd-color-swatch" :style="{ backgroundColor: detailItem.preview }">
+              <text class="fd-color-hex">{{ detailItem.preview }}</text>
+            </view>
+            <view class="fd-color-name">
+              <text class="fd-color-name-text">{{ detailItem.name }}</text>
+              <text class="fd-color-cat">{{ detailItem.sub }}</text>
+            </view>
+          </view>
+          <view class="fd-section" v-if="detailItem.content">
+            <text class="fd-label">典故</text>
+            <text class="fd-content">{{ detailItem.content }}</text>
+          </view>
+        </template>
+        <template v-else-if="detailItem.type === 'image'">
+          <view class="fd-section">
+            <text class="fd-label">图片信息</text>
+            <text class="fd-value">{{ detailItem.sub }}</text>
+          </view>
+          <view class="fd-section" v-if="detailItem.content">
+            <text class="fd-label">生成提示词</text>
+            <text class="fd-content">{{ detailItem.content }}</text>
+          </view>
+        </template>
+        <template v-else>
+          <view class="fd-section">
+            <text class="fd-label">名称</text>
+            <text class="fd-value">{{ detailItem.name }}</text>
+          </view>
+          <view class="fd-section" v-if="detailItem.sub">
+            <text class="fd-label">信息</text>
+            <text class="fd-value">{{ detailItem.sub }}</text>
+          </view>
+        </template>
       </view>
       <view class="fd-footer">
         <text class="fd-btn" @tap="goItem(detailItem)">前往查看</text>
-        <text class="fd-btn fd-btn-del" @tap="removeWithRefresh(detailItem.id)">删除收藏</text>
+        <text class="fd-btn fd-btn-del" @tap="removeWithRefresh(detailItem.id)">删除</text>
       </view>
     </view>
   </view>
@@ -210,34 +242,54 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fd-modal {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  width: min(440px, 85vw); max-height: 70vh;
+  width: min(600px, 90vw); max-height: 80vh;
   background: $theme-white; border-radius: 14px; z-index: 201;
   display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
   box-shadow: 0 12px 40px rgba(0,0,0,0.18); overflow: hidden;
 }
 .fd-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 .fd-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; border-bottom: 1px solid $theme-light-gray; flex-shrink: 0;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 18px 24px; border-bottom: 1px solid $theme-light-gray; flex-shrink: 0;
+  gap: 12px;
 }
-.fd-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; }
-.fd-close { font-size: 20px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; }
-.fd-body { padding: 16px 20px 12px; overflow-y: auto; flex: 1; }
-.fd-preview {
-  width: 60px; height: 60px; border-radius: 10px; margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-  background: $theme-bg; font-size: 24px;
+.fd-header-info { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.fd-type-badge {
+  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
 }
-.fd-section { margin-bottom: 12px; }
-.fd-label { font-size: 11px; font-weight: 600; color: $theme-placeholder; display: block; margin-bottom: 2px; }
-.fd-value { font-size: 14px; color: $theme-text-body; display: block; line-height: 1.5; }
-.fd-content { font-size: 12px; color: $theme-text-secondary; background: $theme-bg; padding: 8px 10px; border-radius: 6px; max-height: 140px; overflow-y: auto; word-break: break-all; }
+.fd-title { font-size: 17px; font-weight: $font-weight-bold; color: $theme-ink; display: block; }
+.fd-sub { font-size: 12px; color: $theme-gray; margin-top: 2px; display: block; }
+.fd-close { font-size: 20px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; flex-shrink: 0; }
+.fd-body { padding: 18px 24px 12px; overflow-y: auto; flex: 1; }
+.fd-section { margin-bottom: 16px; }
+.fd-label {
+  font-size: 11px; font-weight: 600; color: $theme-placeholder; display: block; margin-bottom: 4px;
+  padding-left: 8px; border-left: 2px solid $theme-red;
+}
+.fd-value { font-size: 14px; color: $theme-text-body; display: block; line-height: 1.6; }
+.fd-content {
+  font-size: 13px; color: $theme-text-secondary; background: $theme-bg; padding: 10px 12px;
+  border-radius: 6px; max-height: 200px; overflow-y: auto; word-break: break-all;
+  line-height: 1.6; border: 1px solid $theme-light-gray;
+}
+.fd-color-hero {
+  display: flex; gap: 16px; align-items: center; margin-bottom: 16px;
+  padding: 12px; background: $theme-bg; border-radius: 10px;
+}
+.fd-color-swatch {
+  width: 72px; height: 72px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px;
+}
+.fd-color-hex { font-size: 9px; color: rgba(255,255,255,0.7); font-family: monospace; }
+.fd-color-name-text { font-size: 18px; font-weight: $font-weight-bold; color: $theme-ink; display: block; }
+.fd-color-cat { font-size: 12px; color: $theme-gray; margin-top: 2px; display: block; }
 .fd-footer {
-  padding: 12px 20px 16px; display: flex; gap: 10px;
+  padding: 14px 24px 18px; display: flex; gap: 10px;
   border-top: 1px solid $theme-light-gray; flex-shrink: 0;
 }
 .fd-btn {
-  flex: 1; padding: 8px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  flex: 1; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600;
   text-align: center; cursor: pointer;
   background: $theme-red; color: #fff;
 }
