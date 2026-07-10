@@ -98,7 +98,7 @@
 
           <view class="action-row">
             <Button variant="primary" @tap="generatePrompt">生成提示词</Button>
-            <view class="fav-btn" :class="{ active: isPromptFav }" @tap="toggleFavPrompt">{{ isPromptFav ? '★' : '☆' }} 收藏</view>
+            <view class="fav-btn" :style="{ color: isPromptFav ? '#C41E3A' : '', borderColor: isPromptFav ? '#C41E3A' : '' }" @tap="toggleFavPrompt">★ 收藏</view>
             <Button variant="secondary" @tap="randomPick">随机搭配</Button>
             <Button variant="ghost" @tap="resetAll">重置</Button>
           </view>
@@ -652,11 +652,9 @@ function toggleFavPrompt() {
   const txt = promptCN.value || promptEN.value
   if (!txt) { showToast('先生成提示词'); return }
   const id = curFavId.value
-  if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
-  else {
-    addFavorite({ id, type: 'prompt', name: '提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#C41E3A', route: '/pages/prompter', contentCN: promptCN.value || '', contentEN: promptEN.value || '' })
-    showToast('已收藏')
-  }
+  if (isFavorite(id)) { showToast('已收藏，无需重复收藏'); return }
+  addFavorite({ id, type: 'prompt', name: '提示词', sub: platform.value + ' · ' + selectedSize.value, preview: '#C41E3A', route: '/pages/prompter', contentCN: promptCN.value || '', contentEN: promptEN.value || '' })
+  showToast('已收藏')
 }
 </script>
 
