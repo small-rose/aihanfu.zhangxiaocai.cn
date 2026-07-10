@@ -271,17 +271,8 @@ function previewImage(src) {
   uni.previewImage({ urls: [src] })
 }
 
-function remove(id) {
-  if (!id) return
-  removeFavorite(id)
-  refreshKey.value++
-}
-function removeWithRefresh(id) {
-  if (!id) return
-  removeFavorite(id)
-  refreshKey.value++
-  detailItem.value = null
-}
+function remove(id) { removeFavorite(id); refreshKey.value++ }
+function removeWithRefresh(id) { removeFavorite(id); refreshKey.value++; detailItem.value = null }
 
 function typeIcon(type) {
   const m = { image: '🖼️', color: '🎨', prompt: '✍️', palette: '🎯', lexicon: '📖', pattern: '🔄' }
