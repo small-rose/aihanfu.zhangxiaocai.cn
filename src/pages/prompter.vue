@@ -217,7 +217,7 @@ const availableCategories = computed(() => {
     key: cat.key,
     icon: cat.icon,
     label: cat.label,
-    groups: [{ sub: null, items: cat.items }],
+    groups: [{ sub: null, items: cat.items.map((item, i) => ({ ...item, id: 'supp_' + cat.key + '_' + i, category: cat.key })) }],
     source: 'supplement'
   }))
 
@@ -371,16 +371,22 @@ function randomPick() {
   pickOne('footwear', '古鞋')
 
   // Supplement: pick one from each relevant category
+  let suppIdx = {}
   function pickSupp(key) {
+    if (!suppIdx[key]) suppIdx[key] = 0
     const pool = supplementData.categories.find(c => c.key === key)?.items || []
     const item = pickRandom(pool)
-    if (item) selectedItems.value.push({ ...item, category: key })
+    if (item) {
+      const idx = suppIdx[key]++
+      selectedItems.value.push({ ...item, id: 'supp_' + key + '_' + idx, category: key })
+    }
   }
 
   pickSupp('pose')
   pickSupp('angle')
   const lightingItems = supplementData.categories.find(c => c.key === 'lighting')?.items || []
-  pickN(lightingItems, 1, 2).forEach(i => selectedItems.value.push({ ...i, category: 'lighting' }))
+  let li = 0
+  pickN(lightingItems, 1, 2).forEach(i => selectedItems.value.push({ ...i, id: 'supp_lighting_' + (li++), category: 'lighting' }))
   pickSupp('shot')
 }
 
