@@ -37,7 +37,7 @@
             <text class="fp-item-sub">{{ item.sub }}</text>
           </view>
           <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
-          <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
+          <text class="fp-item-del" @tap="remove(item.id, $event)">✕</text>
         </view>
       </view>
       <view v-else class="fp-empty">
@@ -242,7 +242,7 @@ function goItem(item) {
   if (item.route) uni.navigateTo({ url: item.route + (item.query ? '?' + obj2params(item.query) : '') })
 }
 
-function removeWithRefresh(id) { removeFavorite(id); refreshKey.value++; detailItem.value = null }
+
 
 function pad(n) { return n < 10 ? '0' + n : n }
 function formatTime(ts) {
@@ -271,7 +271,13 @@ function previewImage(src) {
   uni.previewImage({ urls: [src] })
 }
 
-function remove(id) { removeFavorite(id); refreshKey.value++ }
+function remove(id, e) {
+  if (e) e.stopPropagation()
+  try { removeFavorite(id); refreshKey.value++ } catch(e) { console.error('remove err', e) }
+}
+function removeWithRefresh(id) {
+  try { removeFavorite(id); refreshKey.value++; detailItem.value = null } catch(e) { console.error('removeWithRefresh err', e) }
+}
 
 function typeIcon(type) {
   const m = { image: '🖼️', color: '🎨', prompt: '✍️', palette: '🎯', lexicon: '📖', pattern: '🔄' }
