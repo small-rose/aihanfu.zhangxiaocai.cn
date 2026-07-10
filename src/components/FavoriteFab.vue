@@ -148,6 +148,33 @@
             </view>
           </view>
         </template>
+        <template v-else-if="detailItem.type === 'palette'">
+          <view class="fd-palette-hero">
+            <view class="fd-palette-main" :style="{ backgroundColor: detailItem.preview }">
+              <text class="fd-palette-hex">{{ detailItem.preview }}</text>
+            </view>
+            <view class="fd-palette-info">
+              <text class="fd-palette-name">{{ detailItem.name }}</text>
+              <text class="fd-palette-sub">{{ detailItem.sub }}</text>
+            </view>
+          </view>
+          <view class="fd-section">
+            <text class="fd-label">推荐搭配</text>
+            <view class="fd-palette-pairs">
+              <view v-for="(pn, pi) in palettePairs" :key="pi" class="fd-palette-row">
+                <view class="fd-palette-left">
+                  <text class="fd-palette-pair-name">{{ pi === 0 ? detailItem.name.replace(' 配色', '') : '' }}</text>
+                  <text class="fd-palette-pair-hex">{{ pi === 0 ? detailItem.sub : '' }}</text>
+                </view>
+                <view class="fd-palette-swatch" :style="{ backgroundColor: pi === 0 ? detailItem.preview : hexForPalette(pn) }"></view>
+                <view class="fd-palette-right">
+                  <text class="fd-palette-pair-name">{{ pn }}</text>
+                  <text class="fd-palette-pair-hex">{{ hexForPalette(pn) }}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </template>
         <template v-else>
           <view class="fd-section">
             <text class="fd-label">名称</text>
@@ -172,6 +199,9 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { getFavorites, addFavorite, removeFavorite, isFavorite, clearFavorites, FAVORITE_TYPES } from '../utils/useFavorites.js'
 import { showToast } from '../utils/useToast.js'
 import allColors from '../data/color-data.js'
+import wairoColors from '../data/color-wairo.js'
+
+const allColorList = [...allColors, ...wairoColors]
 
 const panelOpen = ref(false)
 const activeTab = ref('all')
@@ -236,6 +266,22 @@ function previewStyle(item) {
 function hexByName(name) {
   const c = allColors.find(x => x.name === name)
   return c ? c.hex : '#ddd'
+}
+
+const palettePairs = computed(() => {
+  if (!detailItem.value || detailItem.value.type !== 'palette') return []
+  const pairs = detailItem.value.pairs
+  if (Array.isArray(pairs)) return pairs
+  if (typeof pairs === 'string') {
+    try { return JSON.parse(pairs) } catch {}
+    return pairs.split('、').filter(Boolean)
+  }
+  return []
+})
+
+function hexForPalette(name) {
+  const c = allColorList.find(x => x.name === name)
+  return c ? c.hex : '#cccccc'
 }
 
 function obj2params(obj) {
@@ -401,6 +447,18 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-lexicon-hex-swatch { width: 100%; aspect-ratio: 1; border-radius: 10px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
+.fd-palette-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; padding: 14px; background: #f8f6f2; border-radius: 10px; }
+.fd-palette-main { width: 60px; height: 60px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 3px 5px; }
+.fd-palette-hex { font-size: 9px; color: rgba(255,255,255,0.7); font-family: monospace; }
+.fd-palette-name { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; }
+.fd-palette-sub { font-size: 12px; color: #999; margin-top: 2px; display: block; font-family: monospace; }
+.fd-palette-pairs { display: flex; flex-direction: column; gap: 8px; }
+.fd-palette-row { display: flex; align-items: center; gap: 8px; }
+.fd-palette-left, .fd-palette-right { flex: 1; min-width: 0; }
+.fd-palette-right { text-align: right; }
+.fd-palette-swatch { width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
+.fd-palette-pair-name { font-size: 12px; color: #333; display: block; font-weight: 500; }
+.fd-palette-pair-hex { font-size: 10px; color: #aaa; display: block; margin-top: 1px; font-family: monospace; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .fd-pair-swatch { width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; border: 1px solid #e0dcd4; }

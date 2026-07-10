@@ -267,7 +267,7 @@ function toggleFavPalette() {
   if (!pairModal.value) return
   const id = 'palette_' + pairModal.value.name
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
-  else { addFavorite({ id, type: 'palette', name: pairModal.value.name + ' 配色', sub: pairModal.value.hex, preview: pairModal.value.hex, route: '/pages/color', query: { q: pairModal.value.name }, content: (pairModal.value.pairs || []).join('、') }); showToast('已收藏') }
+  else { addFavorite({ id, type: 'palette', name: pairModal.value.name + ' 配色', sub: pairModal.value.hex, preview: pairModal.value.hex, route: '/pages/color', query: { q: pairModal.value.name }, pairs: pairModal.value.pairs }); showToast('已收藏') }
   favRefreshKey.value++
 }
 
