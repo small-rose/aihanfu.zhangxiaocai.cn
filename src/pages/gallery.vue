@@ -326,7 +326,7 @@ function initLazyObserver() {
       if (!entry.isIntersecting) return
       if (entry.target.dataset.imgId) visibleImgs.add(entry.target.dataset.imgId)
     })
-  }, { rootMargin: '200px' })
+  }, { rootMargin: '800px' })
 }
 
 function observeVisible() {
