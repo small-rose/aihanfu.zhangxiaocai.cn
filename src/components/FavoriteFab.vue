@@ -312,8 +312,9 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fd-copy-btn {
   position: absolute; bottom: 6px; right: 8px;
-  font-size: 11px; padding: 3px 10px; border-radius: 4px;
-  background: $theme-red; color: #fff; cursor: pointer; z-index: 1;
+  width: 24px; height: 24px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; background: $theme-red; color: #fff; cursor: pointer; z-index: 1;
   &:active { opacity: 0.8; }
 }
 .fd-color-hero {
