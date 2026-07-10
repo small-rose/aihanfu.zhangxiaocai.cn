@@ -549,17 +549,15 @@ const promptEN = computed(() => {
   return r.promptEN
 })
 
-function showCopyToast() { showToast() }
-
 function copyPrompt() {
   const txt = promptEN.value || promptCN.value
   if (!txt) return
-  uni.setClipboardData({ data: txt, success: showCopyToast })
+  navigator.clipboard.writeText(txt).then(() => showToast()).catch(() => showToast())
 }
 
 function copyText(txt) {
   if (!txt) return
-  uni.setClipboardData({ data: txt, success: showCopyToast })
+  navigator.clipboard.writeText(txt).then(() => showToast()).catch(() => showToast())
 }
 
 function resetAll() {
