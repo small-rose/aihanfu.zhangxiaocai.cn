@@ -233,7 +233,7 @@ const items = computed(() => {
 
 const totalCount = computed(() => { refreshKey.value; return getFavorites().length })
 
-function togglePanel() { panelOpen.value = !panelOpen.value }
+function togglePanel() { panelOpen.value = !panelOpen.value; if (panelOpen.value) refreshKey.value++ }
 
 function showDetail(item) { detailItem.value = item }
 
