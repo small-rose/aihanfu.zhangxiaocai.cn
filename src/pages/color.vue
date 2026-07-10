@@ -337,15 +337,15 @@ function exportPairs() {
       ctx.fillRect(swatchX + halfW, swatchY, halfW, rowH)
       ctx.restore()
     } else {
-      const arrowSpace = 18
+      const arrowSpace = 12
       const sw = halfW - Math.ceil(arrowSpace / 2)
       roundRect(ctx, swatchX, swatchY, sw, rowH, r)
       ctx.fillStyle = hex
       ctx.fill()
       ctx.fillStyle = '#999'
-      ctx.font = '14px sans-serif'
+      ctx.font = '11px sans-serif'
       ctx.textAlign = 'center'
-      ctx.fillText('⇌', swatchX + sw + arrowSpace / 2, textCenterY + 5)
+      ctx.fillText('⇌', swatchX + sw + arrowSpace / 2, textCenterY + 4)
       ctx.textAlign = 'left'
       roundRect(ctx, swatchX + sw + arrowSpace, swatchY, sw, rowH, r)
       ctx.fillStyle = ph
@@ -559,7 +559,7 @@ function exportPairs() {
 .pm-label-right { font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink; white-space: nowrap; }
 .pm-hex-right { font-size: 11px; color: $theme-placeholder; font-family: monospace; margin-top: 2px; }
 .pm-swatch-wrap {
-  display: flex; align-items: center; gap: 6px; flex: 1;
+  display: flex; align-items: center; gap: 4px; flex: 1;
 }
 .pm-swatch-wrap.connected { gap: 0; }
 .pm-main-swatch, .pm-pair-swatch {
