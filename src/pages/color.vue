@@ -337,17 +337,17 @@ function exportPairs() {
       ctx.fillRect(swatchX + halfW, swatchY, halfW, rowH)
       ctx.restore()
     } else {
-      const gap = 4
-      const sw = halfW - gap
+      const arrowSpace = 18
+      const sw = halfW - Math.ceil(arrowSpace / 2)
       roundRect(ctx, swatchX, swatchY, sw, rowH, r)
       ctx.fillStyle = hex
       ctx.fill()
-      ctx.fillStyle = '#CCC'
-      ctx.font = '12px sans-serif'
+      ctx.fillStyle = '#999'
+      ctx.font = '14px sans-serif'
       ctx.textAlign = 'center'
-      ctx.fillText('⇌', swatchX + sw + gap / 2, textCenterY + 4)
+      ctx.fillText('⇌', swatchX + sw + arrowSpace / 2, textCenterY + 5)
       ctx.textAlign = 'left'
-      roundRect(ctx, swatchX + sw + gap, swatchY, sw, rowH, r)
+      roundRect(ctx, swatchX + sw + arrowSpace, swatchY, sw, rowH, r)
       ctx.fillStyle = ph
       ctx.fill()
     }
