@@ -131,6 +131,7 @@ import Footer from '../components/Footer.vue'
 import Button from '../components/Button.vue'
 import { categories, categoryMeta, filterItems } from '../data/lexicon-data.js'
 import supplementData from '../data/prompt-supplement.json'
+import { showToast } from '../utils/useToast.js'
 
 const keyword = ref('')
 const keywordDebounced = ref('')
@@ -548,17 +549,7 @@ const promptEN = computed(() => {
   return r.promptEN
 })
 
-function showCopyToast() {
-  const el = document.createElement('div')
-  el.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;background:#2C2C2C;color:#fff;padding:10px 22px;border-radius:8px;font-size:14px;opacity:0;transition:opacity 0.25s ease;box-shadow:0 4px 16px rgba(0,0,0,0.15)'
-  el.textContent = '✓ 已复制'
-  document.body.appendChild(el)
-  requestAnimationFrame(() => { el.style.opacity = '1' })
-  setTimeout(() => {
-    el.style.opacity = '0'
-    setTimeout(() => el.remove(), 300)
-  }, 1200)
-}
+function showCopyToast() { showToast() }
 
 function copyPrompt() {
   const txt = promptEN.value || promptCN.value
