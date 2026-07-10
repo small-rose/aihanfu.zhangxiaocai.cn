@@ -61,11 +61,11 @@
         <template v-if="detailItem.type === 'prompt'">
           <view class="fd-section" v-if="detailItem.contentCN">
             <text class="fd-label">中文提示词</text>
-            <text class="fd-content">{{ detailItem.contentCN }}</text>
+            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentCN }}</text></view>
           </view>
           <view class="fd-section" v-if="detailItem.contentEN">
             <text class="fd-label">English Prompt</text>
-            <text class="fd-content">{{ detailItem.contentEN }}</text>
+            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentEN }}</text></view>
           </view>
         </template>
         <template v-else-if="detailItem.type === 'color'">
@@ -80,7 +80,7 @@
           </view>
           <view class="fd-section" v-if="detailItem.content">
             <text class="fd-label">典故</text>
-            <text class="fd-content">{{ detailItem.content }}</text>
+            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
           </view>
         </template>
         <template v-else-if="detailItem.type === 'image'">
@@ -90,7 +90,7 @@
           </view>
           <view class="fd-section" v-if="detailItem.content">
             <text class="fd-label">生成提示词</text>
-            <text class="fd-content">{{ detailItem.content }}</text>
+            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
           </view>
         </template>
         <template v-else>
@@ -268,10 +268,16 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   padding-left: 10px; border-left: 3px solid $theme-red;
 }
 .fd-value { font-size: 15px; color: #333; display: block; line-height: 1.7; }
+.fd-content-scroll {
+  max-height: 200px; overflow-y: auto; border-radius: 8px;
+  border: 1px solid #e8e4dc; background: #f8f6f2;
+}
+.fd-content-scroll::-webkit-scrollbar { width: 4px; }
+.fd-content-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 .fd-content {
-  font-size: 14px; color: #333; background: #f8f6f2; padding: 14px 16px;
-  border-radius: 8px; max-height: 300px; overflow-y: auto;
-  line-height: 1.8; border: 1px solid #e8e4dc; white-space: pre-wrap;
+  display: block; padding: 12px 14px;
+  font-size: 13px; color: #333; line-height: 1.7;
+  white-space: pre-wrap; word-break: break-word;
 }
 .fd-color-hero {
   display: flex; gap: 16px; align-items: center; margin-bottom: 16px;
