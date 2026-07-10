@@ -248,58 +248,96 @@ function closePairModal() { pairModal.value = null }
 function exportPairs() {
   if (!pairModal.value) return
   const { name, hex, pairs } = pairModal.value
+  const leftW = 110, rightW = 110, swatchW = 240, gap = 10
+  const totalW = leftW + gap + swatchW + gap + rightW
+  const pad = 40
+  const rowH = 60
+  const rowGap = 14
+  const headerH = 56
+  const footerH = 52
+  const canvasW = totalW + pad * 2
+  const canvasH = headerH + pairs.length * (rowH + rowGap) + 8 + footerH + pad
   const canvas = document.createElement('canvas')
-  canvas.width = 800; canvas.height = 200 + pairs.length * 120
+  canvas.width = canvasW * 2
+  canvas.height = canvasH * 2
   const ctx = canvas.getContext('2d')
+  const scale = 2
+  ctx.scale(scale, scale)
   
-  // Background
-  ctx.fillStyle = '#FAF8F4'
-  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  // White background
+  ctx.fillStyle = '#FFFFFF'
+  ctx.fillRect(0, 0, canvasW, canvasH)
   
-  // Title
+  // Border in main color
+  ctx.strokeStyle = hex
+  ctx.lineWidth = 2
+  ctx.strokeRect(1, 1, canvasW - 2, canvasH - 2)
+  
+  // Header
+  const headerY = 18
   ctx.fillStyle = '#2C2C2C'
-  ctx.font = 'bold 22px sans-serif'
-  ctx.fillText(name + ' · 配色方案', 30, 40)
+  ctx.font = 'bold 16px sans-serif'
+  ctx.fillText(name + ' 配色', pad, headerY)
+  // Title underline
+  const titleW = ctx.measureText(name + ' 配色').width
+  ctx.strokeStyle = hex
+  ctx.lineWidth = 2
+  ctx.beginPath()
+  ctx.moveTo(pad, headerY + 4)
+  ctx.lineTo(pad + titleW, headerY + 4)
+  ctx.stroke()
   
-  // Subtitle
-  ctx.fillStyle = '#999'
-  ctx.font = '13px sans-serif'
-  ctx.fillText(name + ' ' + hex, 30, 65)
+  // Content area
+  const contentY = headerY + 22
   
-  // Draw each pair
   pairs.forEach((pn, i) => {
-    const py = 100 + i * 120
+    const py = contentY + i * (rowH + rowGap)
     const ph = hexForColor(pn)
-    const sw = 300
+    const swatchY = py
+    const textCenterY = py + rowH / 2
     
-    // Main color swatch
-    ctx.fillStyle = hex
-    ctx.fillRect(30, py, sw, 80)
-    ctx.fillStyle = '#fff'
-    ctx.font = 'bold 14px sans-serif'
-    ctx.fillText(name, 40, py + 30)
-    ctx.font = '11px monospace'
-    ctx.fillText(hex, 40, py + 50)
-    
-    // Arrow
+    // Left: name + hex (right-aligned)
+    ctx.fillStyle = '#2C2C2C'
+    ctx.font = 'bold 13px sans-serif'
+    ctx.textAlign = 'right'
+    ctx.fillText(name, pad + leftW - 4, textCenterY - 5)
     ctx.fillStyle = '#999'
-    ctx.font = '20px sans-serif'
-    ctx.fillText('⇌', 345, py + 48)
-    
-    // Pair color swatch
-    ctx.fillStyle = ph
-    ctx.fillRect(370, py, sw, 80)
-    ctx.fillStyle = '#fff'
-    ctx.font = 'bold 14px sans-serif'
-    ctx.fillText(pn, 380, py + 30)
     ctx.font = '11px monospace'
-    ctx.fillText(ph, 380, py + 50)
+    ctx.fillText(hex, pad + leftW - 4, textCenterY + 12)
+    ctx.textAlign = 'left'
     
-    // Description
-    ctx.fillStyle = '#666'
-    ctx.font = '12px sans-serif'
-    ctx.fillText(pairDesc(name, pn, i), 40, py + 100)
+    // Left swatch
+    const swatchX = pad + leftW + gap
+    ctx.fillStyle = hex
+    ctx.fillRect(swatchX, swatchY, swatchW / 2, rowH)
+    
+    // Right swatch
+    ctx.fillStyle = ph
+    ctx.fillRect(swatchX + swatchW / 2, swatchY, swatchW / 2, rowH)
+    
+    // Right: name + hex (left-aligned)
+    const rightX = swatchX + swatchW + gap
+    ctx.fillStyle = '#2C2C2C'
+    ctx.font = 'bold 13px sans-serif'
+    ctx.fillText(pn, rightX, textCenterY - 5)
+    ctx.fillStyle = '#999'
+    ctx.font = '11px monospace'
+    ctx.fillText(ph, rightX, textCenterY + 12)
   })
+  
+  // Footer - Export button indicator
+  const footerY = contentY + pairs.length * (rowH + rowGap) + 4
+  ctx.fillStyle = '#F0F0F0'
+  const btnW = 100, btnH = 28
+  const btnX = (canvasW - btnW) / 2
+  ctx.beginPath()
+  ctx.roundRect(btnX, footerY, btnW, btnH, 6)
+  ctx.fill()
+  ctx.fillStyle = '#2C2C2C'
+  ctx.font = '12px sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('导出色卡', canvasW / 2, footerY + 19)
+  ctx.textAlign = 'left'
   
   // Download
   const link = document.createElement('a')
