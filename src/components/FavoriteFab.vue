@@ -227,8 +227,9 @@ const detailItem = ref(null)
 const tabs = FAVORITE_TYPES
 
 const items = computed(() => {
-  refreshKey.value // 触发重新计算
-  return getFavorites(activeTab.value === 'all' ? undefined : activeTab.value)
+  refreshKey.value
+  const list = getFavorites(activeTab.value === 'all' ? undefined : activeTab.value)
+  return [...list]
 })
 
 const totalCount = computed(() => { refreshKey.value; return getFavorites().length })
