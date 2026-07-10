@@ -40,23 +40,19 @@
     <!-- 配色搭配弹窗 -->
     <view v-if="pairModal" class="pair-overlay" @tap="closePairModal"></view>
     <view class="pair-modal" :class="{ open: !!pairModal }" v-if="pairModal">
-      <view class="pm-header">
-        <text class="pm-title">{{ pairModal.name }} · 配色搭配</text>
+      <view class="pm-header" :style="{ background: pairModal.hex, color: '#fff' }">
+        <text class="pm-title">{{ pairModal.name }} 配色</text>
         <text class="pm-close" @tap="closePairModal">✕</text>
       </view>
       <view class="pm-body" ref="pairBodyRef">
         <view v-for="(pn, pi) in pairModal.pairs" :key="pi" class="pm-card">
-          <view class="pm-card-inner">
-            <view class="pm-swatch pm-main-swatch" :style="{ backgroundColor: pairModal.hex }">
-              <text class="pm-label">{{ pairModal.name }}</text>
-              <text class="pm-hex">{{ pairModal.hex }}</text>
-            </view>
-            <view class="pm-swatch pm-pair-swatch" :style="{ backgroundColor: hexForColor(pn) }">
-              <text class="pm-label">{{ pn }}</text>
-              <text class="pm-hex">{{ hexForColor(pn) }}</text>
-            </view>
+          <text class="pm-label-left">{{ pairModal.name }}</text>
+          <view class="pm-swatch-wrap">
+            <view class="pm-main-swatch" :style="{ backgroundColor: pairModal.hex }"></view>
+            <view class="pm-arrow">⇌</view>
+            <view class="pm-pair-swatch" :style="{ backgroundColor: hexForColor(pn) }"></view>
           </view>
-          <text class="pm-desc">{{ pairDesc(pairModal.name, pn, pi) }}</text>
+          <text class="pm-label-right">{{ pn }}</text>
         </view>
       </view>
       <view class="pm-footer">
@@ -453,7 +449,7 @@ function exportPairs() {
 }
 .pair-modal {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  width: min(520px, 90vw); max-height: 80vh;
+  width: min(600px, 92vw); max-height: 80vh;
   background: $theme-white; border-radius: 14px; z-index: 301;
   display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
   box-shadow: 0 12px 40px rgba(0,0,0,0.2);
@@ -462,28 +458,33 @@ function exportPairs() {
 .pair-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 .pm-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; border-bottom: 1px solid $theme-light-gray;
-  flex-shrink: 0;
+  padding: 16px 24px; flex-shrink: 0;
 }
-.pm-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; }
-.pm-close { font-size: 20px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; }
-.pm-body { padding: 16px 20px 8px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.pm-title { font-size: 16px; font-weight: $font-weight-bold; }
+.pm-close { font-size: 20px; cursor: pointer; padding: 4px; line-height: 1; opacity: 0.85; }
+.pm-body {
+  padding: 20px 24px; overflow-y: auto; flex: 1;
+  display: flex; flex-direction: column; gap: 16px;
+}
 .pm-card {
-  background: $theme-bg; border-radius: 10px; overflow: hidden;
-  border: 1px solid $theme-light-gray;
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 8px;
 }
-.pm-card-inner { display: flex; }
-.pm-swatch {
-  flex: 1; height: 80px; display: flex; flex-direction: column;
-  justify-content: flex-end; padding: 8px 12px;
+.pm-label-left, .pm-label-right {
+  font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink;
+  white-space: nowrap; min-width: 56px; text-align: center;
 }
-.pm-main-swatch { border-right: 2px solid rgba(0,0,0,0.06); }
-.pm-label { font-size: 14px; font-weight: $font-weight-semibold; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
-.pm-hex { font-size: 11px; color: rgba(255,255,255,0.8); font-family: monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.pm-desc { font-size: 12px; color: $theme-gray; padding: 6px 12px 8px; }
+.pm-label-right { color: $theme-text-secondary; }
+.pm-swatch-wrap {
+  display: flex; align-items: center; gap: 4px; flex: 1;
+}
+.pm-main-swatch, .pm-pair-swatch {
+  flex: 1; height: 60px; border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.pm-arrow { font-size: 16px; color: $theme-border; flex-shrink: 0; }
 .pm-footer {
-  padding: 12px 20px 16px; border-top: 1px solid $theme-light-gray;
-  display: flex; justify-content: center; flex-shrink: 0;
+  padding: 14px 24px 18px; display: flex; justify-content: center; flex-shrink: 0;
 }
 .pm-btn {
   padding: 8px 28px; border-radius: 6px; font-size: 14px; font-weight: 600;
