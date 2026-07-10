@@ -115,8 +115,8 @@
           </view>
         </template>
         <template v-else-if="detailItem.type === 'lexicon'">
-          <view class="fd-lexicon-hero">
-            <view class="fd-lexicon-texts">
+          <view class="fd-lexicon-body">
+            <view class="fd-lexicon-left">
               <text class="fd-lexicon-term">{{ detailItem.name }}<text v-if="detailItem.pinyin" class="fd-lexicon-pinyin">（{{ detailItem.pinyin }}）</text></text>
               <text class="fd-lexicon-sub">{{ detailItem.sub }}</text>
               <view v-if="detailItem.dynasty || detailItem.dynasties || detailItem.gender || detailItem.identity" class="fd-lexicon-tags">
@@ -125,23 +125,23 @@
                 <text v-if="detailItem.gender" class="fd-lexicon-tag">{{ detailItem.gender }}</text>
                 <text v-if="detailItem.identity" class="fd-lexicon-tag">{{ detailItem.identity }}</text>
               </view>
+              <view class="fd-section" v-if="detailItem.meaning">
+                <text class="fd-label">释义</text>
+                <text class="fd-value">{{ detailItem.meaning }}</text>
+              </view>
+              <view class="fd-section" v-if="detailItem.content">
+                <text class="fd-label">详细</text>
+                <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+              </view>
             </view>
-            <view v-if="detailItem.imagePath" class="fd-lexicon-img-wrap">
-              <image class="fd-lexicon-img" :src="detailItem.imagePath" mode="widthFix" />
-            </view>
-            <view v-else-if="detailItem.hex" class="fd-lexicon-img-wrap">
-              <view class="fd-lexicon-hex-swatch" :style="{ backgroundColor: detailItem.hex }">
+            <view class="fd-lexicon-right" v-if="detailItem.imagePath || detailItem.hex">
+              <view v-if="detailItem.imagePath" class="fd-lexicon-img-wrap">
+                <image class="fd-lexicon-img" :src="detailItem.imagePath" mode="widthFix" />
+              </view>
+              <view v-else class="fd-lexicon-hex-swatch" :style="{ backgroundColor: detailItem.hex }">
                 <text class="fd-color-hex">{{ detailItem.hex }}</text>
               </view>
             </view>
-          </view>
-          <view class="fd-section" v-if="detailItem.meaning">
-            <text class="fd-label">释义</text>
-            <text class="fd-value">{{ detailItem.meaning }}</text>
-          </view>
-          <view class="fd-section" v-if="detailItem.content">
-            <text class="fd-label">详细</text>
-            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
           </view>
         </template>
         <template v-else>
@@ -376,16 +376,17 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px;
 }
 .fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
-.fd-lexicon-hero { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; padding: 14px; background: #f8f6f2; border-radius: 10px; }
-.fd-lexicon-texts { flex: 1; min-width: 0; }
+.fd-lexicon-body { display: flex; gap: 20px; align-items: flex-start; }
+.fd-lexicon-left { flex: 1; min-width: 0; }
 .fd-lexicon-term { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; }
 .fd-lexicon-pinyin { font-size: 13px; color: #999; font-weight: 400; margin-left: 4px; }
 .fd-lexicon-sub { font-size: 13px; color: #888; margin-top: 3px; display: block; }
 .fd-lexicon-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
 .fd-lexicon-tag { font-size: 11px; padding: 2px 10px; border-radius: 3px; background: #f5f3ef; color: #666; border: 1px solid #e8e4dc; display: inline-block; }
-.fd-lexicon-img-wrap { width: 80px; min-height: 80px; border-radius: 10px; flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f0ede8; }
+.fd-lexicon-right { width: 200px; flex-shrink: 0; }
+.fd-lexicon-img-wrap { width: 100%; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f0ede8; }
 .fd-lexicon-img { width: 100%; height: auto; display: block; }
-.fd-lexicon-hex-swatch { width: 80px; height: 80px; border-radius: 10px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
+.fd-lexicon-hex-swatch { width: 100%; aspect-ratio: 1; border-radius: 10px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
