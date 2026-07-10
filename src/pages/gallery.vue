@@ -31,7 +31,7 @@
             <text class="overlay-title">{{ img.title }}</text>
             <text class="gallery-tags">{{ img.tags.slice(0, 5).join(' · ') }}</text>
           </view>
-          <view class="gallery-fav" @tap.stop="toggleFavImg(img, $event)">{{ isImgFav(img) ? '★' : '☆' }}</view>
+          <view class="gallery-fav"><text @tap.stop="toggleFavImg(img, $event)">{{ isImgFav(img) ? '★' : '☆' }}</text></view>
         </view>
       </view>
 
@@ -116,7 +116,7 @@
                             <text class="label-fabric">{{ currentLeft.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ currentLeft.item.analysis?.colors?.[0] || '' }}</text>
-                            <view class="album-fav" @tap.stop="toggleFavImg(currentLeft.item, $event)">{{ isImgFav(currentLeft.item) ? '★' : '☆' }}</view>
+                            <text class="album-fav" @tap.stop="toggleFavImg(currentLeft.item, $event)">{{ isImgFav(currentLeft.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(currentLeft.item) }}</text>
@@ -149,7 +149,7 @@
                             <text class="label-fabric">{{ prevRight.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ prevRight.item.analysis?.colors?.[0] || '' }}</text>
-                            <view class="album-fav" @tap.stop="toggleFavImg(prevRight.item, $event)">{{ isImgFav(prevRight.item) ? '★' : '☆' }}</view>
+                            <text class="album-fav" @tap.stop="toggleFavImg(prevRight.item, $event)">{{ isImgFav(prevRight.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(prevRight.item) }}</text>
@@ -195,7 +195,7 @@
                             <text class="label-fabric">{{ currentRight.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ currentRight.item.analysis?.colors?.[0] || '' }}</text>
-                            <view class="album-fav" @tap.stop="toggleFavImg(currentRight.item, $event)">{{ isImgFav(currentRight.item) ? '★' : '☆' }}</view>
+                            <text class="album-fav" @tap.stop="toggleFavImg(currentRight.item, $event)">{{ isImgFav(currentRight.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(currentRight.item) }}</text>
@@ -228,7 +228,7 @@
                             <text class="label-fabric">{{ nextLeft.item.analysis?.fabric?.join(' · ') || '' }}</text>
                             <text class="label-sep">·</text>
                             <text class="label-color">{{ nextLeft.item.analysis?.colors?.[0] || '' }}</text>
-                            <view class="album-fav" @tap.stop="toggleFavImg(nextLeft.item, $event)">{{ isImgFav(nextLeft.item) ? '★' : '☆' }}</view>
+                            <text class="album-fav" @tap.stop="toggleFavImg(nextLeft.item, $event)">{{ isImgFav(nextLeft.item) ? '★' : '☆' }}</text>
                           </view>
                           <view class="mb-row">
                             <text class="label-clothing">{{ topBottom(nextLeft.item) }}</text>
@@ -273,7 +273,7 @@
           <view class="stack-modal" :style="cardFrameStyle(filtered[stackModal].dynasty)" @tap.stop>
           <image class="stack-modal-img" :class="{ skeleton: !loadedImgs.has(filtered[stackModal].id), 'img-loaded': loadedImgs.has(filtered[stackModal].id) }" :src="filtered[stackModal].src" mode="widthFix" @load="onImgLoad(filtered[stackModal].id)" />
           <view class="stack-modal-info">
-            <view class="stack-modal-fav" @tap.stop="toggleFavImg(filtered[stackModal], $event)">{{ isImgFav(filtered[stackModal]) ? '★' : '☆' }}</view>
+            <view class="stack-modal-fav"><text @tap.stop="toggleFavImg(filtered[stackModal], $event)">{{ isImgFav(filtered[stackModal]) ? '★' : '☆' }}</text></view>
             <text class="stack-modal-dynasty">{{ filtered[stackModal].dynasty }}</text>
             <text class="stack-modal-title">{{ filtered[stackModal].title }}</text>
             <text class="stack-modal-tags">{{ filtered[stackModal].tags?.slice(0, 4).join(' · ') }}</text>
@@ -1364,7 +1364,6 @@ $seal-color: #B8442A;
   position: absolute; left: 16px; right: 16px; bottom: 16px;
   padding: 14px 16px;
   background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(6px);
   border-radius: 10px;
   display: flex; flex-direction: column; gap: 4px;
 }
