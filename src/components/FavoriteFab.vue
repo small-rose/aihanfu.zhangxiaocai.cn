@@ -35,9 +35,11 @@
           <view class="fp-item-info">
             <text class="fp-item-name">{{ item.name }}</text>
             <text class="fp-item-sub">{{ item.sub }}</text>
-            <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
           </view>
-          <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
+          <view class="fp-item-right">
+            <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
+            <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
+          </view>
         </view>
       </view>
       <view v-else class="fp-empty">
@@ -257,11 +259,9 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fp-item-info { flex: 1; min-width: 0; }
 .fp-item-name { font-size: 13px; font-weight: 500; color: $theme-ink; display: block; }
 .fp-item-sub { font-size: 11px; color: $theme-gray; margin-top: 2px; display: block; }
-.fp-item-time { font-size: 10px; color: $theme-placeholder; margin-top: 1px; display: block; }
-.fp-item-del {
-  font-size: 12px; color: $theme-placeholder; padding: 4px; flex-shrink: 0;
-  &:hover { color: $theme-red; }
-}
+.fp-item-right { display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0; }
+.fp-item-time { font-size: 9px; color: $theme-placeholder; white-space: nowrap; }
+.fp-item-del { font-size: 12px; color: $theme-placeholder; padding: 2px 4px; cursor: pointer; &:hover { color: $theme-red; } }
 .fp-empty {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center; padding-bottom: 40px;
