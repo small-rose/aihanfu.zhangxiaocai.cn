@@ -96,8 +96,11 @@
           </view>
           <view class="fd-section" v-if="detailItem.pairs && detailItem.pairs.length">
             <text class="fd-label">推荐搭配色</text>
-            <view class="fd-tag-row">
-              <text v-for="pn in detailItem.pairs" :key="pn" class="fd-tag">{{ pn }}</text>
+            <view class="fd-pair-grid">
+              <view v-for="pn in detailItem.pairs" :key="pn" class="fd-pair-card">
+                <view class="fd-pair-swatch" :style="{ backgroundColor: hexByName(pn) }"></view>
+                <text class="fd-pair-label">{{ pn }}</text>
+              </view>
             </view>
           </view>
         </template>
@@ -134,6 +137,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { getFavorites, addFavorite, removeFavorite, isFavorite, clearFavorites, FAVORITE_TYPES } from '../utils/useFavorites.js'
 import { showToast } from '../utils/useToast.js'
+import allColors from '../data/color-data.js'
 
 const panelOpen = ref(false)
 const activeTab = ref('all')
@@ -193,6 +197,11 @@ function previewStyle(item) {
   if (item.preview?.startsWith('#')) return { backgroundColor: item.preview }
   if (item.preview?.startsWith('/') || item.preview?.startsWith('http')) return { backgroundImage: 'url(' + item.preview + ')', backgroundSize: 'cover' }
   return {}
+}
+
+function hexByName(name) {
+  const c = allColors.find(x => x.name === name)
+  return c ? c.hex : '#ddd'
 }
 
 function obj2params(obj) {
@@ -338,8 +347,10 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
-.fd-tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.fd-tag { font-size: 12px; padding: 4px 10px; border-radius: 4px; background: #f8f6f2; color: #555; border: 1px solid #e8e4dc; }
+.fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.fd-pair-swatch { width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; border: 1px solid #e0dcd4; }
+.fd-pair-label { font-size: 11px; color: #666; }
 .fd-footer {
   padding: 14px 24px 18px; display: flex; gap: 10px;
   border-top: 1px solid #eee; flex-shrink: 0;
