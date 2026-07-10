@@ -56,7 +56,7 @@
               <text class="pm-hex">{{ hexForColor(pn) }}</text>
             </view>
           </view>
-          <text class="pm-desc">{{ pairDesc(pairModal.name, pn) }}</text>
+          <text class="pm-desc">{{ pairDesc(pairModal.name, pn, pi) }}</text>
         </view>
       </view>
       <view class="pm-footer">
@@ -107,7 +107,7 @@
             <view v-for="(pn, pi) in detail.pairs" :key="pi" class="pair-item" @tap="openPairModal">
               <view class="pair-swatch" :style="{ backgroundColor: hexForColor(pn) }"></view>
               <text class="pair-name">{{ pn }}</text>
-              <text class="pair-note">{{ pairDesc(detail.name, pn) }}</text>
+              <text class="pair-note">{{ pairDesc(detail.name, pn, pi) }}</text>
             </view>
           </view>
         </view>
@@ -212,14 +212,19 @@ function hexForColor(name) {
   return c ? c.hex : '#ccc'
 }
 
-function pairDesc(main, paired) {
+function pairDesc(main, paired, idx) {
   const mc = allColors.find(x => x.name === main)
   const pc = allColors.find(x => x.name === paired)
   if (!mc || !pc) return ''
-  const lum = h => parseInt(h.slice(1,3),16)*0.299 + parseInt(h.slice(3,5),16)*0.587 + parseInt(h.slice(5,7),16)*0.114
-  const diff = lum(mc.hex) - lum(pc.hex)
-  const tones = ['明暗有致','深浅呼应','亮度和谐','层次分明','一深一浅','浓淡得宜']
-  return `「${paired}」` + tones[Math.abs(Math.round(diff / 28)) % tones.length]
+  const a = parseInt(mc.hex.slice(1), 16)
+  const b = parseInt(pc.hex.slice(1), 16)
+  // idx(0-3) 加上颜色本身确保每对唯一
+  const seed = ((a * 31 + b) >>> 0) % 1000000 + (idx || 0) * 7919
+  const p1 = ['明','暗','浓','淡','浅','暖','清','雅','沉','盈','幽','素','鲜','郁','腴','朗','穆','和','穆','润']
+  const p2 = ['配','映','衬','和','融','谐','辅','交','叠','对','合','应','随','傍','间','夹','错','参','掩','绕']
+  const p3 = ['韵','彩','调','度','泽','华','致','光','味','气','色','风','神','骨','格','趣','态','姿','形','意']
+  const p4 = ['生','成','宜','洽','妙','谐','融','畅','匀','合','得','匀','适','臻','至','见','显','含','蕴','兼']
+  return p1[seed % 20] + p2[Math.floor(seed / 20) % 20] + p3[Math.floor(seed / 400) % 20] + p4[Math.floor(seed / 8000) % 20]
 }
 
 function openDetail(c) { detail.value = c }
@@ -284,7 +289,7 @@ function exportPairs() {
     // Description
     ctx.fillStyle = '#666'
     ctx.font = '12px sans-serif'
-    ctx.fillText(pairDesc(name, pn), 40, py + 100)
+    ctx.fillText(pairDesc(name, pn, i), 40, py + 100)
   })
   
   // Download
