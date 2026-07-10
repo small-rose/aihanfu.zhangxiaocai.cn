@@ -46,7 +46,7 @@
               <text v-if="group.sub && !keyword" class="sub-heading">{{ group.sub }}</text>
               <view class="lexicon-grid" :class="{ 'grid-4col': activeCat === 'color' }">
                 <view v-for="item in group.items" :key="item.id" class="lexicon-card" @tap="openDrawer(item)">
-                  <text class="card-fav" @tap.stop="toggleFav(item, $event)">{{ isFav(item) ? '★' : '☆' }}</text>
+                  <view class="card-fav" @tap.stop="toggleFav(item, $event)">{{ favSet.has('lexicon_' + (item.term || item.id)) ? '★' : '☆' }}</view>
                   <view v-if="item.hex" class="color-swatch" :style="{ backgroundColor: item.hex }">
                     <text class="color-hex">{{ item.hex }}</text>
                   </view>
@@ -237,7 +237,7 @@ function clearFilters() {
 function openDrawer(item) {
   drawerItem.value = item
 }
-const drawerIsFav = computed(() => drawerItem.value ? favSet.value.has('lexicon_' + (drawerItem.value.term || drawerItem.value.id)) : false)
+const drawerIsFav = computed(() => { favRefreshKey.value; return drawerItem.value ? isFavorite('lexicon_' + (drawerItem.value.term || drawerItem.value.id)) : false })
 function drawerToggleFav() { if (drawerItem.value) toggleFav(drawerItem.value) }
 const drawerCategoryLabel = computed(() => {
   if (!drawerItem.value) return '词条'
