@@ -238,60 +238,61 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 
 /* 详情弹窗 */
 .fd-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 200;
 }
 .fd-modal {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  width: min(600px, 90vw); max-height: 80vh;
-  background: $theme-white; border-radius: 14px; z-index: 201;
+  width: min(640px, 92vw); max-height: 85vh;
+  background: #fff; border-radius: 14px; z-index: 201;
   display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.18); overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2); overflow: hidden;
 }
 .fd-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 .fd-header {
   display: flex; align-items: flex-start; justify-content: space-between;
-  padding: 18px 24px; border-bottom: 1px solid $theme-light-gray; flex-shrink: 0;
-  gap: 12px;
+  padding: 20px 24px; border-bottom: 1px solid #eee; flex-shrink: 0; gap: 12px;
 }
 .fd-header-info { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .fd-type-badge {
   width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center; font-size: 20px;
 }
-.fd-title { font-size: 17px; font-weight: $font-weight-bold; color: $theme-ink; display: block; }
-.fd-sub { font-size: 12px; color: $theme-gray; margin-top: 2px; display: block; }
-.fd-close { font-size: 20px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; flex-shrink: 0; }
-.fd-body { padding: 18px 24px 12px; overflow-y: auto; flex: 1; }
-.fd-section { margin-bottom: 16px; }
+.fd-title { font-size: 18px; font-weight: 700; color: #1a1a1a; display: block; }
+.fd-sub { font-size: 13px; color: #888; margin-top: 3px; display: block; }
+.fd-close { font-size: 22px; color: #999; cursor: pointer; padding: 4px; line-height: 1; flex-shrink: 0; }
+.fd-close:hover { color: #333; }
+.fd-body { padding: 20px 24px 16px; overflow-y: auto; flex: 1; }
+.fd-section { margin-bottom: 18px; }
 .fd-label {
-  font-size: 11px; font-weight: 600; color: $theme-placeholder; display: block; margin-bottom: 4px;
-  padding-left: 8px; border-left: 2px solid $theme-red;
+  font-size: 13px; font-weight: 600; color: #555; display: block; margin-bottom: 6px;
+  padding-left: 10px; border-left: 3px solid $theme-red;
 }
-.fd-value { font-size: 14px; color: $theme-text-body; display: block; line-height: 1.6; }
+.fd-value { font-size: 15px; color: #333; display: block; line-height: 1.7; }
 .fd-content {
-  font-size: 13px; color: $theme-text-secondary; background: $theme-bg; padding: 10px 12px;
-  border-radius: 6px; max-height: 200px; overflow-y: auto; word-break: break-all;
-  line-height: 1.6; border: 1px solid $theme-light-gray;
+  font-size: 14px; color: #333; background: #f8f6f2; padding: 14px 16px;
+  border-radius: 8px; max-height: 300px; overflow-y: auto;
+  line-height: 1.8; border: 1px solid #e8e4dc; white-space: pre-wrap;
 }
 .fd-color-hero {
   display: flex; gap: 16px; align-items: center; margin-bottom: 16px;
-  padding: 12px; background: $theme-bg; border-radius: 10px;
+  padding: 14px; background: #f8f6f2; border-radius: 10px;
 }
 .fd-color-swatch {
-  width: 72px; height: 72px; border-radius: 10px; flex-shrink: 0;
+  width: 80px; height: 80px; border-radius: 10px; flex-shrink: 0;
   display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px;
 }
-.fd-color-hex { font-size: 9px; color: rgba(255,255,255,0.7); font-family: monospace; }
-.fd-color-name-text { font-size: 18px; font-weight: $font-weight-bold; color: $theme-ink; display: block; }
-.fd-color-cat { font-size: 12px; color: $theme-gray; margin-top: 2px; display: block; }
+.fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
+.fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
+.fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
 .fd-footer {
   padding: 14px 24px 18px; display: flex; gap: 10px;
-  border-top: 1px solid $theme-light-gray; flex-shrink: 0;
+  border-top: 1px solid #eee; flex-shrink: 0;
 }
 .fd-btn {
-  flex: 1; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  flex: 1; padding: 11px; border-radius: 8px; font-size: 14px; font-weight: 600;
   text-align: center; cursor: pointer;
   background: $theme-red; color: #fff;
+  &:active { opacity: 0.85; }
 }
-.fd-btn-del { background: $theme-white; color: $theme-ink; border: 1px solid $theme-border; }
+.fd-btn-del { background: #fff; color: #333; border: 1px solid #ddd; }
 </style>
