@@ -53,7 +53,7 @@
         <view class="fd-header-info">
           <text class="fd-type-badge" :style="{ background: detailItem.preview?.startsWith('#') ? detailItem.preview : '#C41E3A' }">{{ typeIcon(detailItem.type) }}</text>
           <view>
-            <text class="fd-title">{{ detailItem.name }}</text>
+            <text class="fd-title">收藏详细 · {{ FAVORITE_TYPES.find(t => t.key === detailItem.type)?.label || detailItem.type }}</text>
             <text class="fd-sub" v-if="detailItem.sub">{{ detailItem.sub }}</text>
           </view>
         </view>
@@ -284,8 +284,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fd-header-info { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .fd-type-badge {
-  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
 }
 .fd-title { font-size: 18px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-sub { font-size: 13px; color: #888; margin-top: 3px; display: block; }
