@@ -543,7 +543,6 @@ watch(filtered, () => {
 function switchLayout(key) {
   layoutMode.value = key
   // 切换模式后重新注册懒加载（DOM 完全变化）
-  visibleImgs.clear()
   observeVisible()
   if (key === 'scroll') {
     autoScrollDisabled = {}
