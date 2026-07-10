@@ -104,41 +104,49 @@
           </view>
 
           <view class="panel-section">
-            <text class="panel-title">提示词预览</text>
+            <text class="panel-title" @dblclick="openPromptModal('both')">提示词预览</text>
             <view class="preview-block">
               <text class="preview-lang-label">中文</text>
               <text class="preview-copy-btn" @tap="copyText(promptCN)">复制</text>
-              <view class="preview-text" @dblclick="promptModal = 'cn'">{{ promptCN || '生成后显示中文提示词' }}</view>
+              <view class="preview-text" @dblclick="openPromptModal('cn')">{{ promptCN || '生成后显示中文提示词' }}</view>
             </view>
             <view class="preview-block">
               <text class="preview-lang-label">English</text>
               <text class="preview-copy-btn" @tap="copyText(promptEN)">复制</text>
-              <view class="preview-text" @dblclick="promptModal = 'en'">{{ promptEN || 'Generate to see English prompt' }}</view>
+              <view class="preview-text" @dblclick="openPromptModal('en')">{{ promptEN || 'Generate to see English prompt' }}</view>
             </view>
 
-            <!-- 提示词全屏弹窗 -->
-            <view v-if="promptModal" class="pm-overlay" @tap="promptModal = null"></view>
+            <!-- 提示词编辑弹窗 -->
+            <view v-if="promptModal" class="pm-overlay" @tap="closePromptModal"></view>
             <view class="pm-modal" :class="{ open: !!promptModal }" v-if="promptModal">
               <view class="pmm-header">
-                <text class="pmm-title">提示词</text>
-                <text class="pmm-close" @tap="promptModal = null">✕</text>
+                <text class="pmm-title">{{ promptModal === 'cn' ? '中文提示词' : promptModal === 'en' ? 'English Prompt' : '提示词（中英文）' }}</text>
+                <text class="pmm-close" @tap="closePromptModal">✕</text>
               </view>
               <view class="pmm-body">
-                <view class="pmm-section">
-                  <view class="pmm-section-hd">
-                    <text class="pmm-lang">中文</text>
-                    <text class="pmm-copy" @tap="copyText(promptCN); promptModal = null">📋 复制</text>
+                <template v-if="promptModal === 'both' || promptModal === 'cn'">
+                  <view class="pmm-section">
+                    <view class="pmm-section-hd">
+                      <text class="pmm-lang">中文</text>
+                      <text class="pmm-copy" @tap="saveAndCopy('cn')">📋 复制</text>
+                    </view>
+                    <textarea class="pmm-textarea" v-model="editCN" />
                   </view>
-                  <view class="pmm-content">{{ promptCN || '（无）' }}</view>
-                </view>
-                <view class="pmm-divider"></view>
-                <view class="pmm-section">
-                  <view class="pmm-section-hd">
-                    <text class="pmm-lang">English</text>
-                    <text class="pmm-copy" @tap="copyText(promptEN); promptModal = null">📋 Copy</text>
+                </template>
+                <view v-if="promptModal === 'both'" class="pmm-divider"></view>
+                <template v-if="promptModal === 'both' || promptModal === 'en'">
+                  <view class="pmm-section">
+                    <view class="pmm-section-hd">
+                      <text class="pmm-lang">English</text>
+                      <text class="pmm-copy" @tap="saveAndCopy('en')">📋 Copy</text>
+                    </view>
+                    <textarea class="pmm-textarea" v-model="editEN" />
                   </view>
-                  <view class="pmm-content">{{ promptEN || '(none)' }}</view>
-                </view>
+                </template>
+              </view>
+              <view class="pmm-footer">
+                <text class="pmm-btn" @tap="savePrompt">保存修改</text>
+                <text class="pmm-btn pmm-btn-cancel" @tap="closePromptModal">取消</text>
               </view>
             </view>
           </view>
@@ -165,6 +173,32 @@ import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.j
 const keyword = ref('')
 const keywordDebounced = ref('')
 const promptModal = ref(null)
+const editCN = ref('')
+const editEN = ref('')
+
+function openPromptModal(mode) {
+  editCN.value = promptCN.value || ''
+  editEN.value = promptEN.value || ''
+  promptModal.value = mode
+}
+function closePromptModal() { promptModal.value = null }
+function savePrompt() {
+  if (promptResult.value) {
+    if (promptModal.value === 'both' || promptModal.value === 'cn') promptResult.value.promptCN = editCN.value
+    if (promptModal.value === 'both' || promptModal.value === 'en') promptResult.value.promptEN = editEN.value
+  }
+  promptModal.value = null
+  showToast('已保存')
+}
+function saveAndCopy(lang) {
+  const txt = lang === 'cn' ? editCN.value : editEN.value
+  if (!txt) return
+  if (promptResult.value) {
+    if (lang === 'cn') promptResult.value.promptCN = editCN.value
+    else promptResult.value.promptEN = editEN.value
+  }
+  navigator.clipboard.writeText(txt).then(() => showToast('已复制')).catch(() => showToast('已复制'))
+}
 let searchTimer = null
 watch(keyword, (val) => {
   clearTimeout(searchTimer)
@@ -789,7 +823,24 @@ function toggleFavPrompt() {
   background: #fff; padding: 14px 16px; border-radius: 8px;
   border: 1px solid #e8e4dc; max-height: 240px; overflow-y: auto;
 }
+.pmm-textarea {
+  width: 100%; min-height: 160px; padding: 12px 14px; box-sizing: border-box;
+  font-size: 13px; color: #333; line-height: 1.7; font-family: inherit;
+  background: #fff; border: 1px solid #ddd; border-radius: 8px;
+  resize: vertical; outline: none; transition: border-color 0.2s;
+}
+.pmm-textarea:focus { border-color: $theme-red; }
 .pmm-divider { height: 1px; background: #e0d8cc; margin: 16px 0; }
+.pmm-footer {
+  padding: 12px 24px 16px; display: flex; justify-content: center; gap: 10px;
+  border-top: 1px solid #e0d8cc; flex-shrink: 0;
+}
+.pmm-btn {
+  padding: 9px 28px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  background: $theme-red; color: #fff; cursor: pointer; text-align: center;
+  &:active { opacity: 0.85; }
+}
+.pmm-btn-cancel { background: #fff; color: #333; border: 1px solid #ddd; }
 
 .platform-row { display: flex; gap: 6px; margin-bottom: 8px; }
 
