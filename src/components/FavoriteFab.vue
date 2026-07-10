@@ -64,14 +64,14 @@
           <view class="fd-section" v-if="detailItem.contentCN">
             <text class="fd-label">中文提示词</text>
             <view class="fd-content-wrap">
-              <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentCN }}</text></view>
+              <view class="fd-content-scroll fd-scroll-limit"><text class="fd-content">{{ detailItem.contentCN }}</text></view>
               <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentCN)">📋</text>
             </view>
           </view>
           <view class="fd-section" v-if="detailItem.contentEN">
             <text class="fd-label">English Prompt</text>
             <view class="fd-content-wrap">
-              <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.contentEN }}</text></view>
+              <view class="fd-content-scroll fd-scroll-limit"><text class="fd-content">{{ detailItem.contentEN }}</text></view>
               <text class="fd-copy-btn" @tap.stop="copyText(detailItem.contentEN)">📋</text>
             </view>
           </view>
@@ -111,6 +111,26 @@
           </view>
           <view class="fd-section" v-if="detailItem.content">
             <text class="fd-label">生成提示词</text>
+            <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
+          </view>
+        </template>
+        <template v-else-if="detailItem.type === 'lexicon'">
+          <view class="fd-color-hero" v-if="detailItem.preview">
+            <view v-if="detailItem.preview.startsWith('#')" class="fd-color-swatch" :style="{ backgroundColor: detailItem.preview }">
+              <text class="fd-color-hex">{{ detailItem.preview }}</text>
+            </view>
+            <image v-else class="fd-lexicon-img" :src="detailItem.preview" mode="widthFix" />
+            <view class="fd-color-name">
+              <text class="fd-color-name-text">{{ detailItem.name }}</text>
+              <text class="fd-color-cat">{{ detailItem.sub }}</text>
+            </view>
+          </view>
+          <view class="fd-section" v-if="detailItem.meaning">
+            <text class="fd-label">释义</text>
+            <text class="fd-value">{{ detailItem.meaning }}</text>
+          </view>
+          <view class="fd-section" v-if="detailItem.content">
+            <text class="fd-label">详细</text>
             <view class="fd-content-scroll"><text class="fd-content">{{ detailItem.content }}</text></view>
           </view>
         </template>
@@ -319,9 +339,10 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-value { font-size: 15px; color: #333; display: block; line-height: 1.7; }
 .fd-content-wrap { position: relative; }
 .fd-content-scroll {
-  max-height: 200px; overflow-y: auto; border-radius: 8px;
+  border-radius: 8px;
   border: 1px solid #e8e4dc; background: #f8f6f2;
 }
+.fd-content-scroll.fd-scroll-limit { max-height: 200px; overflow-y: auto; }
 .fd-content-scroll::-webkit-scrollbar { width: 4px; }
 .fd-content-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 .fd-content {
@@ -345,6 +366,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px;
 }
 .fd-color-hex { font-size: 10px; color: rgba(255,255,255,0.75); font-family: monospace; }
+.fd-lexicon-img { width: 80px; height: auto; border-radius: 8px; flex-shrink: 0; object-fit: cover; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-color-cat { font-size: 13px; color: #888; margin-top: 2px; display: block; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }

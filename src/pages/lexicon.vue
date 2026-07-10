@@ -159,7 +159,7 @@ function toggleFav(item, e) {
   if (e) e.stopPropagation()
   const id = 'lexicon_' + (item.term || item.id)
   if (isFavorite(id)) { removeFavorite(id); showToast('已取消收藏') }
-  else { addFavorite({ id, type: 'lexicon', name: item.term || item.id, sub: (categoryMeta.find(c => c.key === item.category)?.label || item.category) + (item.sub ? ' · ' + item.sub : ''), preview: item.hex || undefined, route: '/pages/lexicon', query: { q: item.term || item.id }, content: item.detail || undefined, meaning: item.meaning }); showToast('已收藏') }
+  else { addFavorite({ id, type: 'lexicon', name: item.term || item.id, sub: (categoryMeta.find(c => c.key === item.category)?.label || item.category) + (item.sub ? ' · ' + item.sub : ''), preview: item.imagePath || item.hex || undefined, route: '/pages/lexicon', query: { q: item.term || item.id }, content: item.detail || undefined, meaning: item.meaning }); showToast('已收藏') }
   favRefreshKey.value++
 }
 
