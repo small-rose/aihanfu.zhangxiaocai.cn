@@ -169,7 +169,7 @@ function formatTime(ts) {
 
 function copyText(txt) {
   if (!txt) return
-  navigator.clipboard.writeText(txt).then(() => showToast('已复制')).catch(() => showToast('已复制'))
+  navigator.clipboard.writeText(txt).then(() => showToast('已复制', true)).catch(() => showToast('已复制', true))
 }
 
 function remove(id) { removeFavorite(id); refreshKey.value++ }
