@@ -213,77 +213,13 @@ function hexForColor(name) {
 }
 
 function pairDesc(main, paired) {
-  const catMap = { '红':'红色', '黄':'黄色', '绿':'绿色', '蓝':'蓝色', '紫':'紫色', '褐':'褐色', '黑白':'素色' }
   const mc = allColors.find(x => x.name === main)
   const pc = allColors.find(x => x.name === paired)
-  if (!mc || !pc) return `${main}配${paired}`
-  const mcat = catMap[mc.category] || mc.category
-  const pcat = catMap[pc.category] || pc.category
-
-  // 亮度估算
+  if (!mc || !pc) return ''
   const lum = h => parseInt(h.slice(1,3),16)*0.299 + parseInt(h.slice(3,5),16)*0.587 + parseInt(h.slice(5,7),16)*0.114
-  const ml = lum(mc.hex), pl = lum(pc.hex)
-  const diff = ml - pl
-  
-  // 用亮度差生成多样化描述（确保每条不同）
-  let ld
-  if (diff > 80) ld = '一深一浅，对比强烈'
-  else if (diff > 40) ld = '明暗分明，层次清晰'
-  else if (diff > 10) ld = '主色偏暗，搭配偏亮'
-  else if (diff > -10) ld = '明度相当，和谐统一'
-  else if (diff > -40) ld = '主色偏亮，搭配偏暗'
-  else ld = '一明一暗，反差有力'
-  
-  // 插入搭配色名确保唯一性
-  const pair = `${main} · ${paired}`
-
-  // 同类色
-  if (mc.category === pc.category) {
-    const d2 = diff > 50 ? '，前者更亮' : diff > 10 ? '，前者略亮' : diff > -10 ? '，亮度相当' : diff > -50 ? '，后者略亮' : '，后者更亮'
-    return `${pair}：${mcat}系${d2}`
-  }
-
-  // 不同色系：用具体配色组合生成唯一描述
-  const tips = [
-    '经典搭配', '配色佳选', '和谐组合', '时尚搭配', '传统搭配',
-    '雅致选择', '经典配色', '醒目组合'
-  ]
-  const tip = tips[((main.charCodeAt(0) || 0) + (paired.charCodeAt(0) || 0)) % tips.length]
-
-  // 互补色
-  if ((mc.category === '红' && pc.category === '绿') || (mc.category === '绿' && pc.category === '红'))
-    return `${pair}：红绿${tip}，${ld}`
-  if ((mc.category === '蓝' && pc.category === '黄') || (mc.category === '黄' && pc.category === '蓝'))
-    return `${pair}：蓝黄${tip}，${ld}`
-  if ((mc.category === '紫' && pc.category === '黄') || (mc.category === '黄' && pc.category === '紫'))
-    return `${pair}：黄紫${tip}，${ld}`
-
-  // 无彩色
-  if (mc.category === '黑白') return `${pair}：${pcat}底色配素色，${ld}`
-  if (pc.category === '黑白') return `${pair}：${mcat}配素色${tip}，${ld}`
-
-  // 冷暖
-  const warm = ['红','黄','褐'], cool = ['绿','蓝','紫']
-  if (warm.includes(mc.category) && cool.includes(pc.category))
-    return `${pair}：冷暖${tip}，${ld}`
-  if (cool.includes(mc.category) && warm.includes(pc.category))
-    return `${pair}：冷暖${tip}，${ld}`
-
-  // 邻近
-  if ((mc.category === '红' && pc.category === '紫') || (mc.category === '紫' && pc.category === '红'))
-    return `${pair}：红紫${tip}，${ld}`
-  if ((mc.category === '绿' && pc.category === '蓝') || (mc.category === '蓝' && pc.category === '绿'))
-    return `${pair}：蓝绿${tip}，${ld}`
-  if ((mc.category === '黄' && pc.category === '绿') || (mc.category === '绿' && pc.category === '黄'))
-    return `${pair}：黄绿${tip}，${ld}`
-  if ((mc.category === '蓝' && pc.category === '紫') || (mc.category === '紫' && pc.category === '蓝'))
-    return `${pair}：蓝紫${tip}，${ld}`
-  if ((mc.category === '褐' && pc.category === '黄') || (mc.category === '黄' && pc.category === '褐'))
-    return `${pair}：大地暖调${tip}，${ld}`
-  if ((mc.category === '褐' && pc.category === '红') || (mc.category === '红' && pc.category === '褐'))
-    return `${pair}：暖色${tip}，${ld}`
-
-  return `${pair}：${mcat}配${pcat}，${ld}`
+  const diff = lum(mc.hex) - lum(pc.hex)
+  const tones = ['明暗有致','深浅呼应','亮度和谐','层次分明','一深一浅','浓淡得宜']
+  return `「${paired}」` + tones[Math.abs(Math.round(diff / 28)) % tones.length]
 }
 
 function openDetail(c) { detail.value = c }
