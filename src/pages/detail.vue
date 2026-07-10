@@ -92,9 +92,9 @@ import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
 export default {
   components: { TopNav, Footer },
-  data() { return { img: null, favId: null, favRefreshKey: 0 } },
+  data() { return { img: null, favId: null } },
   computed: {
-    isFav() { this.favRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
+    isFav() { return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
     analysis() { return this.img?.analysis || {} },
     enPrompt() {
       if (!this.img) return ''
@@ -124,7 +124,6 @@ export default {
       else {
         addFavorite({ id: this.favId, type: 'image', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id }, content: this.img.prompt || '' })
       }
-      this.favRefreshKey++
     }
   }
 }
