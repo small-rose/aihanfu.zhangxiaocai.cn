@@ -120,14 +120,25 @@
             <view v-if="promptModal" class="pm-overlay" @tap="promptModal = null"></view>
             <view class="pm-modal" :class="{ open: !!promptModal }" v-if="promptModal">
               <view class="pmm-header">
-                <text class="pmm-title">{{ promptModal === 'cn' ? '中文提示词' : 'English Prompt' }}</text>
+                <text class="pmm-title">提示词</text>
                 <text class="pmm-close" @tap="promptModal = null">✕</text>
               </view>
               <view class="pmm-body">
-                <text class="pmm-content">{{ promptModal === 'cn' ? promptCN : promptEN }}</text>
-              </view>
-              <view class="pmm-footer">
-                <text class="pmm-btn" @tap="copyText(promptModal === 'cn' ? promptCN : promptEN); promptModal = null">复制</text>
+                <view class="pmm-section">
+                  <view class="pmm-section-hd">
+                    <text class="pmm-lang">中文</text>
+                    <text class="pmm-copy" @tap="copyText(promptCN); promptModal = null">📋 复制</text>
+                  </view>
+                  <view class="pmm-content">{{ promptCN || '（无）' }}</view>
+                </view>
+                <view class="pmm-divider"></view>
+                <view class="pmm-section">
+                  <view class="pmm-section-hd">
+                    <text class="pmm-lang">English</text>
+                    <text class="pmm-copy" @tap="copyText(promptEN); promptModal = null">📋 Copy</text>
+                  </view>
+                  <view class="pmm-content">{{ promptEN || '(none)' }}</view>
+                </view>
               </view>
             </view>
           </view>
@@ -744,34 +755,41 @@ function toggleFavPrompt() {
 }
 
 /* 提示词弹窗 */
-.pm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300; }
+.pm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 300; }
 .pm-modal {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  width: min(680px, 92vw); max-height: 80vh;
-  background: #fff; border-radius: 14px; z-index: 301;
+  width: min(720px, 92vw); max-height: 82vh;
+  background: #faf8f4; border-radius: 14px; z-index: 301;
   display: flex; flex-direction: column; opacity: 0; transition: all 0.25s ease;
   box-shadow: 0 16px 48px rgba(0,0,0,0.2); overflow: hidden;
+  border: 1px solid #e8e4dc;
 }
 .pm-modal.open { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 .pmm-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 24px; border-bottom: 1px solid $theme-light-gray; flex-shrink: 0;
+  padding: 16px 24px; border-bottom: 1px solid #e0d8cc; flex-shrink: 0;
+  background: #fff;
 }
-.pmm-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; }
-.pmm-close { font-size: 22px; color: $theme-gray; cursor: pointer; padding: 4px; line-height: 1; }
+.pmm-title {
+  font-size: 15px; font-weight: $font-weight-bold; color: $theme-ink;
+  padding-left: 10px; border-left: 3px solid $theme-red;
+}
+.pmm-close { font-size: 22px; color: #aaa; cursor: pointer; padding: 4px; line-height: 1; &:hover { color: #333; } }
 .pmm-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+.pmm-section { margin-bottom: 4px; }
+.pmm-section-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.pmm-lang { font-size: 13px; font-weight: 600; color: #555; }
+.pmm-copy { font-size: 11px; color: $theme-red; cursor: pointer; padding: 2px 8px; border-radius: 4px; &:hover { background: rgba($theme-red,0.06); } }
 .pmm-content {
   display: block; font-size: 13px; color: #333; line-height: 1.8;
   white-space: pre-wrap; word-break: break-word;
+  background: #fff; padding: 14px 16px; border-radius: 8px;
+  border: 1px solid #e8e4dc; max-height: 240px; overflow-y: auto;
 }
-.pmm-footer {
-  padding: 12px 24px 16px; display: flex; justify-content: center; gap: 10px;
-  border-top: 1px solid $theme-light-gray; flex-shrink: 0;
-}
-.pmm-btn {
-  padding: 8px 28px; border-radius: 6px; font-size: 13px; font-weight: 600;
-  background: $theme-red; color: #fff; cursor: pointer; text-align: center;
-}
+.pmm-divider { height: 1px; background: #e0d8cc; margin: 16px 0; }
 
 .platform-row { display: flex; gap: 6px; margin-bottom: 8px; }
 
