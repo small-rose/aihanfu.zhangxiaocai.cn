@@ -64,10 +64,8 @@
       </view>
       <view class="pm-footer">
         <text class="pm-btn pm-btn-secondary" @tap="swatchConnected = !swatchConnected">{{ swatchConnected ? '断开' : '连接' }}</text>
-        <view class="pm-footer-right">
-          <text class="pm-fav-btn" @tap="toggleFavPalette">{{ isPaletteFav ? '★' : '☆' }}</text>
-          <text class="pm-btn" @tap="exportPairs">导出 PNG</text>
-        </view>
+        <text class="pm-fav-btn" @tap="toggleFavPalette">{{ isPaletteFav ? '★' : '☆' }}</text>
+        <text class="pm-btn" @tap="exportPairs">导出 PNG</text>
       </view>
     </view>
 
@@ -607,10 +605,9 @@ function exportPairs() {
 .pm-swatch-wrap.connected .pm-pair-swatch { border-radius: 0 6px 6px 0; }
 .pm-arrow { font-size: 16px; color: $theme-border; flex-shrink: 0; }
 .pm-footer {
-  padding: 14px 24px 18px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+  padding: 14px 24px 18px; display: flex; justify-content: center; gap: 10px; flex-shrink: 0;
 }
-.pm-footer-right { display: flex; align-items: center; gap: 8px; }
-.pm-fav-btn { font-size: 20px; cursor: pointer; color: #d4a84b; transition: transform 0.2s; line-height: 1; &:hover { transform: scale(1.2); } }
+.pm-fav-btn { font-size: 18px; cursor: pointer; color: #d4a84b; line-height: 32px; transition: transform 0.2s; &:hover { transform: scale(1.2); } }
 .pm-btn {
   padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600;
   background: $theme-red; color: #fff; cursor: pointer; border: none;
