@@ -462,15 +462,15 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-palette-name { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; }
 .fd-palette-sub { font-size: 12px; color: #999; margin-top: 2px; display: block; font-family: monospace; }
 .fd-palette-pairs { display: flex; flex-direction: column; gap: 8px; }
-.fd-palette-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #faf9f7; border-radius: 8px; border: 1px solid #f0ede8; }
-.fd-palette-left, .fd-palette-right { width: 80px; flex-shrink: 0; }
+.fd-palette-card { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #faf9f7; border-radius: 8px; border: 1px solid #f0ede8; }
+.fd-palette-left, .fd-palette-right { width: 100px; flex-shrink: 0; }
 .fd-palette-right { text-align: right; }
 .fd-palette-label { font-size: 13px; color: #333; display: block; font-weight: 500; line-height: 1.3; }
 .fd-palette-hex-text { font-size: 10px; color: #aaa; display: block; margin-top: 2px; font-family: monospace; }
 .fd-palette-swatch-group { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
 .fd-palette-swatch { border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.06); }
-.fd-palette-main-swatch { width: 90px; height: 64px; }
-.fd-palette-pair-swatch { width: 90px; height: 64px; }
+.fd-palette-main-swatch { width: 180px; height: 64px; }
+.fd-palette-pair-swatch { width: 180px; height: 64px; }
 .fd-palette-arrow { font-size: 16px; color: #bbb; flex-shrink: 0; }
 .fd-pair-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .fd-pair-card { display: flex; flex-direction: column; align-items: center; gap: 4px; }
