@@ -97,12 +97,14 @@ import FavoriteFab from '../components/FavoriteFab.vue'
 import TopNav from '../components/TopNav.vue'
 import Footer from '../components/Footer.vue'
 import { galleryData } from '../data/gallery-data.js'
+import { addFavorite, removeFavorite, isFavorite } from '../utils/useFavorites.js'
+import { showToast } from '../utils/useToast.js'
 export default {
   components: { TopNav, Footer },
   data() { return { img: null, favId: null, favRefreshKey: 0, promptFavRefreshKey: 0 } },
   computed: {
-    isFav() { const k = this.favRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
-    isPromptFav() { this.promptFavRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite('prompt_' + this.favId) : false },
+    isFav() { const k = this.favRefreshKey; return this.favId ? isFavorite(this.favId) : false },
+    isPromptFav() { this.promptFavRefreshKey; return this.favId ? isFavorite('prompt_' + this.favId) : false },
     analysis() { return this.img?.analysis || {} },
     enPrompt() {
       if (!this.img) return ''
@@ -127,11 +129,10 @@ export default {
   methods: {
     toggleFav() {
       if (!this.favId || !this.img) return
-      const { addFavorite, removeFavorite, isFavorite } = require('../utils/useFavorites.js')
-      if (isFavorite(this.favId)) { removeFavorite(this.favId); uni.showToast({ title: '已取消收藏', icon: 'none' }) }
+      if (isFavorite(this.favId)) { removeFavorite(this.favId); showToast('已取消收藏') }
       else {
         addFavorite({ id: this.favId, type: 'image', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id }, content: this.img.prompt || '' })
-        uni.showToast({ title: '已收藏', icon: 'none' })
+        showToast('已收藏')
       }
       this.favRefreshKey++
     },
