@@ -37,7 +37,7 @@
             <text class="fp-item-sub">{{ item.sub }}</text>
           </view>
           <text class="fp-item-time">{{ formatTime(item.createdAt) }}</text>
-          <text class="fp-item-del" @tap="remove(item.id, $event)">✕</text>
+          <text class="fp-item-del" @tap.stop="remove(item.id)">✕</text>
         </view>
       </view>
       <view v-else class="fp-empty">
@@ -271,8 +271,7 @@ function previewImage(src) {
   uni.previewImage({ urls: [src] })
 }
 
-function remove(id, e) {
-  if (e) e.stopPropagation()
+function remove(id) {
   if (!id) return
   removeFavorite(id)
   refreshKey.value++
