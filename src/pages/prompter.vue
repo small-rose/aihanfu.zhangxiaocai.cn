@@ -405,6 +405,10 @@ function generatePrompt() {
   const styles = getTags('style')
   const scenes = getTags('scene')
 
+  const isMale = gender.value === 'male'
+  const subjectLabel = isMale ? '一位年轻男子' : '一位年轻女子'
+  const subjectLabelEN = isMale ? 'A young man' : 'A young woman'
+
   // Build subject description
   const subjectParts = []
   if (temp.length) subjectParts.push('气质' + temp.map(t => t.term).join('、'))
@@ -428,10 +432,6 @@ function generatePrompt() {
 
   // Style
   const style = styles.length ? '，' + styles.map(t => t.term).join('、') + '风格' : ''
-
-  const isMale = gender.value === 'male'
-  const subjectLabel = isMale ? '一位年轻男子' : '一位年轻女子'
-  const subjectLabelEN = isMale ? 'A young man' : 'A young woman'
 
   const quality = '，8K超清，细节丰富，画质精美，焦点清晰'
   const negative = '模糊，低质量，变形，畸形，水印，文字，多余肢体，丑陋'
