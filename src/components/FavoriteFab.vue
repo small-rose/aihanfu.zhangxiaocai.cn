@@ -113,7 +113,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 }
 .fab-panel {
   position: fixed; top: 0; right: 0; bottom: 0;
-  width: 340px; max-width: 85vw;
+  width: 33.33%; max-width: 500px; min-width: 300px;
   background: $theme-white; z-index: 101;
   transform: translateX(100%); transition: transform 0.3s ease;
   display: flex; flex-direction: column;
@@ -122,7 +122,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fab-panel.open { transform: translateX(0); }
 .fp-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 20px 12px; flex-shrink: 0;
+  padding: calc(clamp(48px, 7vw, 64px) + 12px) 20px 8px; flex-shrink: 0;
 }
 .fp-title { font-size: 17px; font-weight: $font-weight-bold; color: $theme-ink; }
 .fp-count { font-size: 12px; color: $theme-gray; }
