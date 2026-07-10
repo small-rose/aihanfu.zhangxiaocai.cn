@@ -120,7 +120,7 @@ export default {
       const { addFavorite, removeFavorite, isFavorite } = require('../utils/useFavorites.js')
       if (isFavorite(this.favId)) { removeFavorite(this.favId) }
       else {
-        addFavorite({ id: this.favId, type: 'prompt', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id } })
+        addFavorite({ id: this.favId, type: 'image', name: this.img.title, sub: this.img.dynasty + ' · ' + (this.img.analysis?.clothing?.[0] || ''), preview: this.img.src, route: '/pages/detail', query: { id: this.img.id } })
       }
     }
   }

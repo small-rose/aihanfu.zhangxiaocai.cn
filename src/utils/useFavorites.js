@@ -43,6 +43,7 @@ export function clearFavorites(type) {
 
 export const FAVORITE_TYPES = [
   { key: 'all', label: '全部', icon: '📌' },
+  { key: 'image', label: '图片', icon: '🖼️' },
   { key: 'color', label: '色彩', icon: '🎨' },
   { key: 'prompt', label: '提示词', icon: '✍️' },
   { key: 'palette', label: '配色卡', icon: '🎯' },

@@ -73,7 +73,7 @@ function goItem(item) {
 function remove(id) { removeFavorite(id); refreshKey.value++ }
 
 function typeIcon(type) {
-  const m = { color: '🎨', prompt: '✍️', palette: '🎯', lexicon: '📖', pattern: '🔄' }
+  const m = { image: '🖼️', color: '🎨', prompt: '✍️', palette: '🎯', lexicon: '📖', pattern: '🔄' }
   return m[type] || '📌'
 }
 
