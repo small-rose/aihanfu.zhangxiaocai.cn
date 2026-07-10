@@ -188,7 +188,7 @@ function savePrompt() {
     if (promptModal.value === 'both' || promptModal.value === 'en') promptResult.value.promptEN = editEN.value
   }
   promptModal.value = null
-  showToast('已保存')
+  showToast('已保存', true)
 }
 function saveAndCopy(lang) {
   const txt = lang === 'cn' ? editCN.value : editEN.value
@@ -197,7 +197,7 @@ function saveAndCopy(lang) {
     if (lang === 'cn') promptResult.value.promptCN = editCN.value
     else promptResult.value.promptEN = editEN.value
   }
-  navigator.clipboard.writeText(txt).then(() => showToast('已复制')).catch(() => showToast('已复制'))
+  navigator.clipboard.writeText(txt).then(() => showToast('已复制', true)).catch(() => showToast('已复制', true))
 }
 let searchTimer = null
 watch(keyword, (val) => {
