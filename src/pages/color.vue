@@ -50,8 +50,9 @@
             <text class="pm-label-left">{{ pairModal.name }}</text>
             <text class="pm-hex-left">{{ pairModal.hex }}</text>
           </view>
-          <view class="pm-swatch-wrap">
+          <view class="pm-swatch-wrap" :class="{ connected: swatchConnected }">
             <view class="pm-main-swatch" :style="{ backgroundColor: pairModal.hex }"></view>
+            <view v-if="!swatchConnected" class="pm-arrow">⇌</view>
             <view class="pm-pair-swatch" :style="{ backgroundColor: hexForColor(pn) }"></view>
           </view>
           <view class="pm-right-info">
@@ -61,6 +62,7 @@
         </view>
       </view>
       <view class="pm-footer">
+        <text class="pm-btn pm-btn-secondary" @tap="swatchConnected = !swatchConnected">{{ swatchConnected ? '断开' : '连接' }}</text>
         <text class="pm-btn" @tap="exportPairs">导出 PNG</text>
       </view>
     </view>
@@ -150,6 +152,7 @@ const selectedTags = ref(new Set())
 const detail = ref(null)
 const pairModal = ref(null)
 const pairBodyRef = ref(null)
+const swatchConnected = ref(false)
 
 function toggleTag(t) {
   const set = selectedTags.value
@@ -237,6 +240,7 @@ function openDetail(c) { detail.value = c }
 function openPairModal() {
   if (!detail.value || !detail.value.pairs) return
   pairModal.value = { name: detail.value.name, hex: detail.value.hex, pairs: detail.value.pairs }
+  swatchConnected.value = false
 }
 
 function closePairModal() { pairModal.value = null }
@@ -487,21 +491,25 @@ function exportPairs() {
 .pm-label-right { font-size: 14px; font-weight: $font-weight-semibold; color: $theme-ink; white-space: nowrap; }
 .pm-hex-right { font-size: 11px; color: $theme-placeholder; font-family: monospace; margin-top: 2px; }
 .pm-swatch-wrap {
-  display: flex; align-items: stretch; flex: 1;
+  display: flex; align-items: center; gap: 6px; flex: 1;
 }
+.pm-swatch-wrap.connected { gap: 0; }
 .pm-main-swatch, .pm-pair-swatch {
-  flex: 1; height: 60px;
+  flex: 1; height: 60px; border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
-.pm-main-swatch { border-radius: 6px 0 0 6px; }
-.pm-pair-swatch { border-radius: 0 6px 6px 0; }
+.pm-swatch-wrap.connected .pm-main-swatch { border-radius: 6px 0 0 6px; }
+.pm-swatch-wrap.connected .pm-pair-swatch { border-radius: 0 6px 6px 0; }
+.pm-arrow { font-size: 16px; color: $theme-border; flex-shrink: 0; }
 .pm-footer {
-  padding: 14px 24px 18px; display: flex; justify-content: center; flex-shrink: 0;
+  padding: 14px 24px 18px; display: flex; justify-content: center; gap: 10px; flex-shrink: 0;
 }
 .pm-btn {
-  padding: 8px 28px; border-radius: 6px; font-size: 14px; font-weight: 600;
-  background: $theme-red; color: #fff; cursor: pointer;
+  padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  background: $theme-red; color: #fff; cursor: pointer; border: none;
   &:active { opacity: 0.85; }
 }
+.pm-btn-secondary { background: $theme-white; color: $theme-ink; border: 1px solid $theme-border; }
 
 .drawer-section { margin-bottom: 20px; }
 .ds-title {
