@@ -761,7 +761,6 @@ function topBottom(item) {
 /* 图片默认透明（露出父容器骨架），加载后淡入覆盖 */
 .gallery-img, .card-img, .page-img, .stack-img, .stack-modal-img {
   opacity: 0; transition: opacity 0.35s ease;
-  position: relative; z-index: 1;
 }
 .img-loaded { opacity: 1; }
 
