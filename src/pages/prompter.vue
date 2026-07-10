@@ -864,7 +864,7 @@ function toggleFavPrompt() {
   display: flex; align-items: center; justify-content: center;
   padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
   background: $theme-white; color: $theme-gray; border: 1px solid $theme-border;
-  transition: all 0.2s;
+  transition: all 0.2s; white-space: nowrap;
   &.active { background: #FFF0F0; color: $theme-red; border-color: $theme-red; }
 }
 
