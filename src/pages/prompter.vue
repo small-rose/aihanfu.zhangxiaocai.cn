@@ -548,15 +548,19 @@ const promptEN = computed(() => {
   return r.promptEN
 })
 
+function showCopyToast() {
+  uni.showToast({ title: '已复制', icon: 'none', duration: 1200 })
+}
+
 function copyPrompt() {
   const txt = promptEN.value || promptCN.value
   if (!txt) return
-  uni.setClipboardData({ data: txt })
+  uni.setClipboardData({ data: txt, success: showCopyToast })
 }
 
 function copyText(txt) {
   if (!txt) return
-  uni.setClipboardData({ data: txt })
+  uni.setClipboardData({ data: txt, success: showCopyToast })
 }
 
 function resetAll() {
