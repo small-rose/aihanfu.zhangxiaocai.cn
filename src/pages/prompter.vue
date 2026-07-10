@@ -98,7 +98,7 @@
 
           <view class="action-row">
             <Button variant="primary" @tap="generatePrompt">生成提示词</Button>
-            <view class="fav-btn" :style="{ color: isPromptFav ? '#C41E3A' : '', borderColor: isPromptFav ? '#C41E3A' : '' }" @tap="toggleFavPrompt">★ 收藏</view>
+            <view class="fav-btn" :class="{ active: isPromptFav }" @tap="toggleFavPrompt"><text style="color:#C41E3A">★</text> 收藏</view>
             <Button variant="secondary" @tap="randomPick">随机搭配</Button>
             <Button variant="ghost" @tap="resetAll">重置</Button>
           </view>

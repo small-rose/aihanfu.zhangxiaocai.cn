@@ -8,7 +8,7 @@ export function showToast(msg = '已复制') {
   toastEl = document.createElement('div')
   toastEl.textContent = '✓ ' + msg
   Object.assign(toastEl.style, {
-    position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
+    position: 'fixed', bottom: '25%', left: '50%', transform: 'translateX(-50%)',
     zIndex: '9999', background: '#2C2C2C', color: '#F5F0E8',
     padding: '10px 24px 10px 20px', borderRadius: '8px', fontSize: '14px',
     opacity: '0', transition: 'opacity 0.25s ease',
