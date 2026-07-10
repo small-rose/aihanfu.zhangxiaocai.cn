@@ -39,9 +39,9 @@
     <!-- detail drawer -->
     <!-- 配色搭配弹窗 -->
     <view v-if="pairModal" class="pair-overlay" @tap="closePairModal"></view>
-    <view class="pair-modal" :class="{ open: !!pairModal }" v-if="pairModal">
-      <view class="pm-header" :style="{ background: pairModal.hex, color: '#fff' }">
-        <text class="pm-title">{{ pairModal.name }} 配色</text>
+    <view class="pair-modal" :class="{ open: !!pairModal }" v-if="pairModal" :style="{ border: '2px solid ' + pairModal.hex }">
+      <view class="pm-header">
+        <text class="pm-title" :style="{ borderBottom: '2px solid ' + pairModal.hex }">{{ pairModal.name }} 配色</text>
         <text class="pm-close" @tap="closePairModal">✕</text>
       </view>
       <view class="pm-body" ref="pairBodyRef">
@@ -459,9 +459,10 @@ function exportPairs() {
 .pm-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 24px; flex-shrink: 0;
+  border-bottom: 1px solid $theme-light-gray;
 }
-.pm-title { font-size: 16px; font-weight: $font-weight-bold; }
-.pm-close { font-size: 20px; cursor: pointer; padding: 4px; line-height: 1; opacity: 0.85; }
+.pm-title { font-size: 16px; font-weight: $font-weight-bold; color: $theme-ink; padding-bottom: 4px; display: inline-block; }
+.pm-close { font-size: 20px; cursor: pointer; padding: 4px; line-height: 1; opacity: 0.85; color: $theme-gray; }
 .pm-body {
   padding: 20px 24px; overflow-y: auto; flex: 1;
   display: flex; flex-direction: column; gap: 16px;
