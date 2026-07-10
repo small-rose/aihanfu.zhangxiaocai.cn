@@ -76,7 +76,12 @@
         </view>
 
           <text class="dc-meta">{{ img.model }} · {{ img.size }} · {{ img.date }}</text>
-        <view class="dc-fav-btn" @tap="toggleFav">{{ isFav ? '★' : '☆' }} 收藏</view>
+        <view class="dc-fav-wrap">
+          <view class="dc-fav-btn" @tap="toggleFav">
+            <view class="dc-fav-icon">{{ isFav ? '★' : '☆' }}</view>
+            <text class="dc-fav-text">{{ isFav ? '已收藏' : '收藏图片' }}</text>
+          </view>
+        </view>
       </view>
     </view>
     <view v-if="!img" class="empty-state">
@@ -96,7 +101,7 @@ export default {
   components: { TopNav, Footer },
   data() { return { img: null, favId: null, favRefreshKey: 0, promptFavRefreshKey: 0 } },
   computed: {
-    isFav() { this.favRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
+    isFav() { const k = this.favRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite(this.favId) : false },
     isPromptFav() { this.promptFavRefreshKey; return this.favId ? require('../utils/useFavorites.js').isFavorite('prompt_' + this.favId) : false },
     analysis() { return this.img?.analysis || {} },
     enPrompt() {
@@ -173,7 +178,10 @@ export default {
 
 .dc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
 .dc-header-text { flex: 1; }
-.dc-fav-btn { display: block; text-align: center; margin-top: 24px; padding: 10px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; background: #c41e3a; color: #fff; &:active { opacity: 0.85; } }
+.dc-fav-wrap { display: flex; justify-content: center; margin-top: 24px; }
+.dc-fav-btn { display: flex; align-items: center; gap: 8px; padding: 8px 24px; border-radius: 24px; cursor: pointer; background: #c41e3a; color: #fff; border: none; transition: opacity 0.2s; &:active { opacity: 0.8; } }
+.dc-fav-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.dc-fav-text { font-size: 14px; font-weight: 600; line-height: 1; }
 
 .dc-title { font-size: 24px; font-weight: $font-weight-bold; color: $theme-ink; }
 
