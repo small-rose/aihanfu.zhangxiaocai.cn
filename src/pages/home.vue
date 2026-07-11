@@ -318,7 +318,6 @@ function showToast() {
   font-size: 20px;
   font-weight: $font-weight-bold;
   color: $theme-red;
-  font-family: $font-cn;
   letter-spacing: $letter-spacing-normal;
 }
 
