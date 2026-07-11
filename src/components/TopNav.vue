@@ -157,6 +157,11 @@ function doSearch() {
   color: $theme-white;
   flex-shrink: 0;
 }
+.drawer-logo {
+  width: 34px; height: 34px; background: $theme-red; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; color: $theme-cream; font-weight: $font-weight-bold;
+}
 
 .brand-texts {
   display: flex;
