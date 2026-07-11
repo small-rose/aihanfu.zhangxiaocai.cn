@@ -211,6 +211,7 @@ function showToast() {
 .section-label {
   font-size: 26px; color: $theme-ink; letter-spacing: $letter-spacing-wide; text-transform: uppercase;
   display: block; margin-bottom: 20px; font-weight: $font-weight-semibold; text-align: center;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
 }
 
 .tl-row {
