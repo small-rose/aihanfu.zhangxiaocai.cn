@@ -7,7 +7,10 @@
     {"path": "pages/gallery", "style": {"navigationBarTitleText": "图库"}},
     {"path": "pages/detail", "style": {"navigationBarTitleText": "图片详情"}},
     {"path": "pages/color", "style": {"navigationBarTitleText": "传统色彩"}},
-    {"path": "pages/search", "style": {"navigationBarTitleText": "全局搜索"}}
+    {"path": "pages/search", "style": {"navigationBarTitleText": "全局搜索"}},
+    {"path": "pages/disclaimer", "style": {"navigationBarTitleText": "网站声明"}},
+    {"path": "pages/privacy", "style": {"navigationBarTitleText": "隐私政策"}},
+    {"path": "pages/changelog", "style": {"navigationBarTitleText": "更新日志"}}
   ],
   "globalStyle": {
     "navigationBarBackgroundColor": "#F5F0E8",
