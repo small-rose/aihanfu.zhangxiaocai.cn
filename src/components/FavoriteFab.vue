@@ -531,6 +531,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   .fd-palette-card { flex-wrap: wrap; justify-content: center; padding: 6px 8px; gap: 6px; }
   .fd-palette-main-swatch, .fd-palette-pair-swatch { width: calc(50vw - 120px); height: 36px; }
   .fd-palette-left, .fd-palette-right { width: auto; flex: 1; min-width: 0; }
+  .fd-palette-label { font-size: 12px; }
+  .fd-palette-hex-text { font-size: 10px; }
   .fd-lexicon-term { font-size: 18px; }
   .fd-lexicon-header { padding-bottom: 8px; margin-bottom: 8px; }
   .fd-footer { padding: 10px 14px 12px; gap: 6px; }
