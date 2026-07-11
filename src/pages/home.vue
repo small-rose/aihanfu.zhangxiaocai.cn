@@ -167,6 +167,7 @@ function showToast() {
   .brand {
     font-size: $font-size-small; color: $theme-red; letter-spacing: $letter-spacing-wide; text-transform: uppercase;
     display: block; margin-bottom: 24px; font-weight: $font-weight-semibold;
+    font-family: $font-cn;
   }
 
   .brand-en {
