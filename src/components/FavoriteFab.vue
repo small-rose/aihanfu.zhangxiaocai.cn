@@ -520,7 +520,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 
 @media (max-width: 768px) {
   .fab-panel { width: 75vw; min-width: 280px; }
-  .fp-header { padding: 16px 16px 0; }
+  .fp-header { padding: calc(48px + 8px) 16px 0; }
   .fd-modal { width: min(480px, 94vw); }
   .fd-body { padding: 14px 16px 12px; }
   .fd-header { padding: 14px 16px; }
