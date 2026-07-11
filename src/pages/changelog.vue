@@ -226,7 +226,7 @@ onLoad(() => {
 .content { padding: clamp(20px, 3vw, 32px) clamp(16px, 4vw, 48px); }
 @media (min-width: 1200px) { .content { width: 90%; max-width: 960px; margin: 0 auto; } }
 .page-header { margin-bottom: 16px; }
-.page-title { font-size: $font-size-page-title; font-weight: $font-weight-bold; color: $theme-ink; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif; }
+.page-title { font-size: $font-size-page-title; font-weight: $font-weight-bold; color: $theme-ink; }
 .page-divider { width: 60px; height: 3px; background: $theme-red; margin-bottom: 28px; border-radius: 2px; }
 
 .timeline { position: relative; padding-left: 32px; }
@@ -250,15 +250,15 @@ onLoad(() => {
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .tl-date { font-size: 12px; color: $theme-placeholder; display: block; margin-bottom: 4px; font-family: monospace; }
-.tl-title { font-size: 18px; font-weight: $font-weight-bold; color: $theme-ink; display: block; margin-bottom: 12px; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif; }
+.tl-title { font-size: 18px; font-weight: $font-weight-bold; color: $theme-ink; display: block; margin-bottom: 12px; }
 .tl-list { display: flex; flex-direction: column; gap: 6px; }
 .tl-item-text {
   font-size: 14px; color: $theme-text-body; line-height: 1.7; display: block;
-  padding-left: 4px; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
+  padding-left: 4px;
 }
 .tl-tag {
   display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
-  border-radius: 4px; margin-right: 6px; vertical-align: middle; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
+  border-radius: 4px; margin-right: 6px; vertical-align: middle;
   &.feat { background: rgba($theme-red, 0.12); color: $theme-red; }
   &.add { background: rgba($theme-gold, 0.15); color: #8B6B2A; }
   &.fix { background: $theme-bg; color: $theme-text-secondary; }
