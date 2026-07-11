@@ -17,7 +17,7 @@
             <view class="tl-date">{{ entry.date }}</view>
             <text class="tl-title">{{ entry.title }}</text>
             <view class="tl-list">
-              <text v-for="(item, j) in entry.items" :key="j" class="tl-item-text" :class="item.type"><text class="tl-tag" :class="item.type">{{ item.type === 'feat' ? '功能' : item.type === 'add' ? '新增' : '修复' }}</text> {{ item.text }}</text>
+              <text v-for="(item, j) in entry.items" :key="j" class="tl-item-text" :class="item.type"><text class="tl-tag" :class="item.type">{{ item.type === 'feat' ? '★ 功能' : item.type === 'add' ? '+ 新增' : '! 修复' }}</text> {{ item.text }}</text>
             </view>
           </view>
         </view>
