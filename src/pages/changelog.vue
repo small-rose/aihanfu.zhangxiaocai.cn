@@ -108,7 +108,7 @@ const entries = [
     ]
   },
   {
-    date: '2026-07-07', type: 'feat',
+    date: '2026-07-05', type: 'feat',
     title: '项目创建 + 首页 + 朝代页面',
     items: [
       { type: 'add', text: '项目搭建（uni-app + Vue3 + Vite）' },
