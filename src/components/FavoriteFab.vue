@@ -519,6 +519,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-btn-del { background: #fff; color: #333; border: 1px solid #ddd; }
 
 @media (max-width: 768px) {
+  .fab-btn { width: 40px; height: 40px; bottom: 24px; right: 12px; font-size: 20px; }
+  .fab-badge { font-size: 9px; min-width: 16px; height: 16px; }
   .fab-panel { width: 75vw; min-width: 280px; z-index: 111; }
   .fab-overlay { z-index: 110; }
   .fp-header { padding: 16px 16px 0; }
