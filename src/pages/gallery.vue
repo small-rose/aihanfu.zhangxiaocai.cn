@@ -839,7 +839,7 @@ function topBottom(item) {
   font-size: 24px; font-weight: 700;
   color: #C41E3A; letter-spacing: 6px;
   background: rgba(196,30,58,0.06); padding: 4px 20px;
-  border-radius: 4px;
+  border-radius: 4px; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
 }
 
 /* Scroll track wrapper - the whole handscroll */
@@ -985,7 +985,7 @@ function topBottom(item) {
   font-size: 42px; font-weight: 700;
   color: #2C2C2C; writing-mode: vertical-rl;
   letter-spacing: 14px; line-height: 2;
-  z-index: 1;
+  z-index: 1; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
 }
 $seal-color: #B8442A;
 
@@ -1159,7 +1159,7 @@ $seal-color: #B8442A;
 .title-chinese {
   font-size: 48px; font-weight: 700; color: $theme-ink;
   writing-mode: vertical-rl; letter-spacing: 0.4em;
-  line-height: 1.6;
+  line-height: 1.6; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
 }
 .album-title-seal {
   border: 3px solid $seal-color;
