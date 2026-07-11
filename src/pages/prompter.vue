@@ -893,8 +893,7 @@ function toggleFavPrompt() {
   .tag-btn { padding: 4px 10px; }
 
   .action-row { flex-wrap: wrap; gap: 4px; }
-  .action-row .btn { flex: 1 0 calc(50% - 2px); min-width: 0; font-size: 12px; padding: 7px 12px; }
-  .action-row .fav-btn { font-size: 12px; padding: 7px 12px; }
+  .action-row .btn, .action-row .fav-btn { flex: none; font-size: 12px; padding: 6px 10px; }
   .panel-section { padding: 10px; }
   .preview-text { min-height: 120px; padding: 8px 8px 28px; resize: vertical; }
 }
