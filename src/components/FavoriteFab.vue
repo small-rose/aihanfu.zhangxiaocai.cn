@@ -1,7 +1,7 @@
 <template>
   <view>
     <!-- 悬浮按钮 -->
-    <view class="fab-btn" @tap="togglePanel">
+    <view class="fab-btn" @tap="togglePanel" v-show="totalCount > 0">
       <text class="fab-icon">{{ panelOpen ? '✕' : '★' }}</text>
       <text v-if="totalCount > 0 && !panelOpen" class="fab-badge">{{ totalCount > 99 ? '99+' : totalCount }}</text>
     </view>
