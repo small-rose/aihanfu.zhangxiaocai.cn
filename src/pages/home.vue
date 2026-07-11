@@ -187,7 +187,7 @@ function showToast() {
   .hero-subtitle {
     font-size: $font-size-subtitle; color: $theme-gray;
     margin-top: 16px; letter-spacing: 3px; display: block;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Serif SC', serif;
+    font-family: $font-cn;
   }
 
   /* 移动端：标题分两行，去掉中点"·" */
