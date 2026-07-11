@@ -192,6 +192,15 @@ const entries = [
   },
   {
     date: '2026-07-06', type: 'feat',
+    title: '词库数据整理 + 布局优化',
+    items: [
+      { type: 'add', text: '收集整理词库数据（形制/面料/配饰/发髻等分类）' },
+      { type: 'feat', text: '词库页面布局优化' },
+      { type: 'fix', text: '词库选择/组合效果调试' },
+    ]
+  },
+  {
+    date: '2026-07-05', type: 'feat',
     title: '项目创建',
     items: [
       { type: 'add', text: '项目搭建（uni-app + Vue3 + Vite）' },
