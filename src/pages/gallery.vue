@@ -353,7 +353,7 @@ function disconnectObserver() {
   if (lazyObserver) { lazyObserver.disconnect(); lazyObserver = null }
 }
 
-const layoutMode = ref('scroll')
+const layoutMode = ref(window.innerWidth <= 768 ? 'grid' : 'scroll')
 const activeFilter = ref('all')
 const searchKeyword = ref('')
 const albumIdx = ref(0)
