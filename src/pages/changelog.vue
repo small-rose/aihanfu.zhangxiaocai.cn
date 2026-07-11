@@ -250,10 +250,10 @@ onLoad(() => {
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .tl-date { font-size: 12px; color: $theme-placeholder; display: block; margin-bottom: 4px; font-family: monospace; }
-.tl-title { font-size: 17px; font-weight: $font-weight-bold; color: $theme-ink; display: block; margin-bottom: 10px; }
-.tl-list { display: flex; flex-direction: column; gap: 4px; }
+.tl-title { font-size: 18px; font-weight: $font-weight-bold; color: $theme-ink; display: block; margin-bottom: 12px; }
+.tl-list { display: flex; flex-direction: column; gap: 6px; }
 .tl-item-text {
-  font-size: 13px; color: $theme-text-body; line-height: 1.6; display: block;
+  font-size: 14px; color: $theme-text-body; line-height: 1.7; display: block;
   padding-left: 4px;
 }
 .tl-tag {
