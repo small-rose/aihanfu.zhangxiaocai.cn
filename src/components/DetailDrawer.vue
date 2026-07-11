@@ -285,7 +285,7 @@ const hasMeta = computed(() => {
 }
 
 @media (max-width: 768px) {
-  .detail-drawer { width: 85vw; min-width: 0; }
+  .detail-drawer { width: 75vw; min-width: 280px; }
   .drawer-term { font-size: 20px; }
   .drawer-deco { height: 70px; }
   .drawer-content { padding: 12px 14px 24px; }

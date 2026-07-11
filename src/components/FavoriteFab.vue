@@ -519,7 +519,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-btn-del { background: #fff; color: #333; border: 1px solid #ddd; }
 
 @media (max-width: 768px) {
-  .fab-panel { width: 85vw; min-width: 0; }
+  .fab-panel { width: 75vw; min-width: 280px; }
   .fd-modal { width: min(480px, 94vw); }
   .fd-body { padding: 14px 16px 12px; }
   .fd-header { padding: 14px 16px; }

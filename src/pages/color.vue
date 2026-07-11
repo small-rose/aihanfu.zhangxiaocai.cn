@@ -647,17 +647,18 @@ function exportPairs() {
 
 @media (max-width: 768px) {
   .page-layout { overflow-x: hidden; }
-  .detail-drawer { width: 85vw; min-width: 0; }
+  .detail-drawer { width: 75vw; min-width: 280px; }
   .color-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
   .color-card { padding: 8px; }
   .color-name { font-size: 12px; }
   .color-hex { font-size: 10px; }
   .drawer-swatch { width: 60px; height: 60px; }
   .pair-modal { width: min(400px, 92vw); }
-  .pm-card { flex-direction: column; align-items: center; gap: 6px; padding: 10px; }
-  .pm-left-info, .pm-right-info { width: auto; text-align: center; min-width: 0; }
-  .pm-swatch-wrap { flex: none; width: 100%; justify-content: center; }
-  .pm-main-swatch, .pm-pair-swatch { width: min(160px, 38vw); height: 100px; }
+  .pm-card { flex-direction: row; gap: 6px; padding: 8px; }
+  .pm-left-info, .pm-right-info { width: auto; min-width: 0; text-align: inherit; }
+  .pm-label-left, .pm-label-right { font-size: 12px; }
+  .pm-hex-left, .pm-hex-right { font-size: 10px; }
+  .pm-main-swatch, .pm-pair-swatch { width: min(120px, 28vw); height: 70px; }
   .pair-modal .pm-footer { gap: 6px; }
 }
 </style>
