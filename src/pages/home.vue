@@ -177,6 +177,7 @@ function showToast() {
   .hero-title {
     font-size: $font-size-hero; font-weight: $font-weight-bold; color: $theme-ink;
     letter-spacing: $letter-spacing-wide; display: block;
+    font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
   }
   /* PC 显示含中点单行，移动端显示两行无中点（由 media query 切换） */
   .hero-title-pc { display: block; }
