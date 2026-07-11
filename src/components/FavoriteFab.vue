@@ -204,7 +204,7 @@
       </view>
       <view class="fd-footer">
         <text class="fd-btn" @tap="goItem(detailItem)">前往查看</text>
-        <text class="fd-btn fd-btn-del" @tap="removeWithRefresh(detailItem.id)">删除</text>
+        <text class="fd-btn fd-btn-del" @tap="removeWithRefresh(detailItem.id)">移除收藏</text>
       </view>
     </view>
   </view>
@@ -533,6 +533,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   .fd-palette-left, .fd-palette-right { width: auto; flex: 1; min-width: 0; }
   .fd-lexicon-term { font-size: 18px; }
   .fd-lexicon-header { padding-bottom: 8px; margin-bottom: 8px; }
+  .fd-footer { padding: 10px 14px 12px; gap: 6px; }
+  .fd-btn { padding: 8px 12px; font-size: 12px; }
 }
 </style>
 }
