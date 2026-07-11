@@ -17,7 +17,7 @@
             <view class="tl-date">{{ entry.date }}</view>
             <text class="tl-title">{{ entry.title }}</text>
             <view class="tl-list">
-              <text v-for="(item, j) in entry.items" :key="j" class="tl-item-text" :class="item.type">{{ item.type === 'add' ? '+' : item.type === 'fix' ? '!' : item.type === 'feat' ? '★' : '' }} {{ item.text }}</text>
+              <text v-for="(item, j) in entry.items" :key="j" class="tl-item-text" :class="item.type"><text class="tl-tag" :class="item.type">{{ item.type === 'feat' ? '功能' : item.type === 'add' ? '新增' : '修复' }}</text> {{ item.text }}</text>
             </view>
           </view>
         </view>
@@ -246,6 +246,13 @@ onLoad(() => {
 .tl-item-text {
   font-size: 13px; color: $theme-text-body; line-height: 1.6; display: block;
   padding-left: 4px;
+}
+.tl-tag {
+  display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px;
+  border-radius: 3px; margin-right: 4px; vertical-align: middle;
+  &.feat { background: rgba($theme-red, 0.12); color: $theme-red; }
+  &.add { background: rgba($theme-gold, 0.15); color: #8B6B2A; }
+  &.fix { background: $theme-bg; color: $theme-text-secondary; }
 }
 
 @media (max-width: 768px) {
