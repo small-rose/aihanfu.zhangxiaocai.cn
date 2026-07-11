@@ -279,8 +279,17 @@ const hasMeta = computed(() => {
   font-size: 10px; font-weight: 600; color: $theme-placeholder;
   letter-spacing: 0.5px; display: block; margin-bottom: 4px;
 }
-.drawer-ai-prompt-text {
+  .drawer-ai-prompt-text {
   font-size: 11px; color: $theme-text-secondary; display: block;
   line-height: 1.6; text-align: justify; word-break: break-all;
+}
+
+@media (max-width: 768px) {
+  .detail-drawer { width: 85vw; min-width: 0; }
+  .drawer-term { font-size: 20px; }
+  .drawer-deco { height: 70px; }
+  .drawer-content { padding: 12px 14px 24px; }
+  .drawer-header { padding: 12px 14px; }
+  .drawer-deco-image { max-width: 200px; }
 }
 </style>

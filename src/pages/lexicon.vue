@@ -373,6 +373,7 @@ const drawerCategoryLabel = computed(() => {
 
 /* 移动端：侧栏变顶部横滚 + 2 列卡片 */
 @media (max-width: 768px) {
+  .page-layout { overflow-x: hidden; }
   .lexicon-body { flex-direction: column; }
   .cat-sidebar { display: flex; overflow-x: auto; gap: 4px; min-width: 0; width: 100%; padding-bottom: 8px; position: static; } // 移动端取消吸顶，变水平滚动
   .cat-sidebar::-webkit-scrollbar { display: none; }

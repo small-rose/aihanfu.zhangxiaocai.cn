@@ -401,6 +401,7 @@ function showToast() {
 }
 
 @media (max-width: 768px) {
+  .page-layout { overflow-x: hidden; }
   .tl-row {
     grid-template-columns: none;
     display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px;

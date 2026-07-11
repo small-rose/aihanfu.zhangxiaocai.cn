@@ -250,4 +250,11 @@ onLoad((query) => {
   .empty-icon { font-size: 64px; display: block; margin-bottom: 20px; opacity: 0.6; }
   .empty-text { font-size: $font-size-subtitle; color: $theme-gray; display: block; }
 }
+
+@media (max-width: 768px) {
+  .page-layout { overflow-x: hidden; }
+  .content { padding: 16px 12px; }
+  .result-card { padding: 10px 12px; }
+  .result-list { gap: 8px; }
+}
 </style>

@@ -1387,6 +1387,7 @@ $seal-color: #B8442A;
 
 /* ===== 移动端全模式适配 ===== */
 @media (max-width: 768px) {
+  .page-layout { overflow-x: hidden; }
   /* --- Grid（网格）：双栏 3:4 等比例 --- */
   .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .gallery-item { height: auto; aspect-ratio: 3/4; border-radius: 8px; }

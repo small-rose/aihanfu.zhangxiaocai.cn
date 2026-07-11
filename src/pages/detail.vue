@@ -176,7 +176,7 @@ export default {
 .main-img { width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); cursor: pointer; }
 
 .detail-right {
-  width: 420px; flex-shrink: 0;
+  width: min(420px, 40vw); flex-shrink: 0;
 }
 
 .dc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
@@ -232,9 +232,15 @@ export default {
 
 /* 移动端：详情页堆叠 + 图片撑满宽度 */
 @media (max-width: 768px) {
+  .page-layout { overflow-x: hidden; }
   .detail-body { flex-direction: column; }
   .detail-left { position: static; flex: none; width: 100%; }
   .detail-right { width: 100%; }
   .dc-title { font-size: 20px; }
+  .analysis-grid { grid-template-columns: 1fr; gap: 6px; }
+  .analysis-item { padding: 6px 10px; }
+  .prompt-box { height: 140px; font-size: 12px; }
+  .section-title { font-size: 14px; margin-bottom: 8px; }
+  .dc-fav-wrap { margin-top: 16px; }
 }
 </style>

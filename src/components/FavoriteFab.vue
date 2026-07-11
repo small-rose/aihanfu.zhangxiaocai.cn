@@ -517,4 +517,22 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   &:active { opacity: 0.85; }
 }
 .fd-btn-del { background: #fff; color: #333; border: 1px solid #ddd; }
+
+@media (max-width: 768px) {
+  .fab-panel { width: 85vw; min-width: 0; }
+  .fd-modal { width: min(480px, 94vw); }
+  .fd-body { padding: 14px 16px 12px; }
+  .fd-header { padding: 14px 16px; }
+  .fd-title { font-size: 15px; }
+  .fd-lexicon-body { flex-direction: column; }
+  .fd-lexicon-right { width: 100%; }
+  .fd-image-body { flex-direction: column; }
+  .fd-image-right { width: 100%; }
+  .fd-palette-card { flex-wrap: wrap; justify-content: center; }
+  .fd-palette-main-swatch, .fd-palette-pair-swatch { width: calc(50vw - 60px); height: 48px; }
+  .fd-palette-left, .fd-palette-right { width: auto; flex: 1; min-width: 0; }
+  .fd-lexicon-term { font-size: 18px; }
+  .fd-lexicon-header { padding-bottom: 8px; margin-bottom: 8px; }
+}
 </style>
+}
