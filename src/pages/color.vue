@@ -40,7 +40,7 @@
     <!-- detail drawer -->
     <!-- 配色搭配弹窗 -->
     <view v-if="pairModal" class="pair-overlay" @tap="closePairModal"></view>
-    <view class="pair-modal" :class="{ open: !!pairModal }" v-if="pairModal" :style="{ border: '2px solid ' + pairModal.hex }">
+    <view class="pair-modal" :class="{ open: !!pairModal }" v-if="pairModal">
       <view class="pm-header">
         <text class="pm-title" :style="{ borderBottom: '2px solid ' + pairModal.hex }">{{ pairModal.name }} 配色</text>
         <text class="pm-close" @tap="closePairModal">✕</text>
