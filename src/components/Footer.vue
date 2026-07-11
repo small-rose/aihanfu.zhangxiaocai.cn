@@ -2,6 +2,9 @@
 function goHome() {
   uni.reLaunch({ url: '/pages/home' })
 }
+function navigate(page) {
+  uni.navigateTo({ url: '/pages/' + page })
+}
 </script>
 
 <template>
@@ -17,6 +20,13 @@ function goHome() {
       </view>
       <text class="footer-desc">循衣冠之脉 · 览千年华章 — 汉服知识参考与 AI 提示词工具</text>
       <view class="footer-refs">
+        <view class="footer-links">
+          <text class="footer-link" @tap="navigate('disclaimer')">网站声明</text>
+          <text class="footer-dot">·</text>
+          <text class="footer-link" @tap="navigate('privacy')">隐私政策</text>
+          <text class="footer-dot">·</text>
+          <text class="footer-link" @tap="navigate('changelog')">更新日志</text>
+        </view>
         <view class="footer-ref-group">
           <text class="footer-ref-cat">典籍文献</text>
           <view class="footer-ref-items">
