@@ -53,6 +53,17 @@ function navigate(page) {
             <text class="footer-ref">Navos AI</text>
           </view>
         </view>
+        <view class="footer-ref-group">
+          <text class="footer-ref-cat">素材来源</text>
+          <view class="footer-ref-items">
+            <text class="footer-ref">中国传统色·故宫里的色彩美学（郭浩/李健明）</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">zhongguose.com 中国色</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">Agnes AI Image Series</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">历代壁画、陶俑、绘画复原图</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">Noto Serif SC（Google Fonts）</text><text class="footer-ref-dot">·</text>
+            <text class="footer-ref">uni-app（DCloud）</text>
+          </view>
+        </view>
       </view>
       <view class="footer-links">
         <text class="footer-link" @tap="navigate('disclaimer')">网站声明</text>
