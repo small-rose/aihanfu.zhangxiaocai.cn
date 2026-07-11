@@ -109,7 +109,7 @@ const entries = [
   },
   {
     date: '2026-07-07', type: 'feat',
-    title: '项目初始化 + 首页 + 朝代页面',
+    title: '项目创建 + 首页 + 朝代页面',
     items: [
       { type: 'add', text: '项目搭建（uni-app + Vue3 + Vite）' },
       { type: 'feat', text: '首页：品牌展示+朝代时间线+功能入口' },
