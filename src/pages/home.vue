@@ -167,7 +167,8 @@ function showToast() {
   .brand {
     font-size: $font-size-small; color: $theme-red; letter-spacing: $letter-spacing-wide; text-transform: uppercase;
     display: block; margin-bottom: 24px; font-weight: $font-weight-semibold;
-    font-family: $font-cn;
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
   .brand-en {
@@ -187,7 +188,8 @@ function showToast() {
   .hero-subtitle {
     font-size: $font-size-subtitle; color: $theme-gray;
     margin-top: 16px; letter-spacing: 3px; display: block;
-    font-family: $font-cn;
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* 移动端：标题分两行，去掉中点"·" */
