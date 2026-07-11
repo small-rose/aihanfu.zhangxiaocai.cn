@@ -146,24 +146,24 @@ function navigate(page) {
   justify-content: center;
   align-items: center;
   gap: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 
 .footer-link {
-  font-size: $font-size-small;
+  font-size: 12px;
   color: $theme-gray;
   cursor: pointer;
-  padding: 4px 4px;
+  padding: 2px 4px;
   transition: color 0.2s;
 
   &:hover { color: $theme-red; }
 }
 
 .footer-dot {
-  font-size: $font-size-xs;
+  font-size: 10px;
   color: $theme-border;
-  margin: 0 8px;
+  margin: 0 6px;
 }
 
 .footer-refs {
