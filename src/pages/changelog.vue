@@ -257,8 +257,8 @@ onLoad(() => {
   padding-left: 4px;
 }
 .tl-tag {
-  display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px;
-  border-radius: 3px; margin-right: 4px; vertical-align: middle;
+  display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
+  border-radius: 4px; margin-right: 6px; vertical-align: middle;
   &.feat { background: rgba($theme-red, 0.12); color: $theme-red; }
   &.add { background: rgba($theme-gold, 0.15); color: #8B6B2A; }
   &.fix { background: $theme-bg; color: $theme-text-secondary; }
