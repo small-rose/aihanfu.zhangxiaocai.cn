@@ -896,5 +896,12 @@ function toggleFavPrompt() {
   .action-row .btn, .action-row .fav-btn { flex: auto; font-size: 12px; padding: 6px 10px; }
   .panel-section { padding: 10px; }
   .preview-text { min-height: 120px; padding: 8px 8px 28px; resize: vertical; }
+  .pm-modal { width: min(480px, 94vw); max-height: 90vh; }
+  .pmm-body { padding: 12px 14px; }
+  .pmm-textarea { min-height: 100px; font-size: 12px; padding: 8px 10px; }
+  .pmm-footer { padding: 8px 14px 12px; gap: 6px; }
+  .pmm-btn { padding: 7px 16px; font-size: 12px; }
+  .pmm-header { padding: 12px 14px; }
+  .pmm-title { font-size: 13px; }
 }
 </style>
