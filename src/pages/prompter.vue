@@ -100,7 +100,7 @@
             <Button variant="primary" @tap="generatePrompt">生成提示词</Button>
             <view class="fav-btn" :class="{ active: isPromptFav }" @tap="toggleFavPrompt"><text style="color:#C41E3A">★</text> 收藏</view>
             <Button variant="secondary" @tap="randomPick">随机搭配</Button>
-            <Button variant="ghost" @tap="resetAll">重置</Button>
+            <Button variant="secondary" @tap="resetAll">重置</Button>
           </view>
 
           <view class="panel-section">
@@ -893,7 +893,8 @@ function toggleFavPrompt() {
   .tag-btn { padding: 4px 10px; }
 
   .action-row { flex-wrap: wrap; gap: 4px; }
-  .action-row .btn, .action-row .fav-btn { flex: none; font-size: 12px; padding: 6px 10px; }
+  .action-row .btn, .action-row .fav-btn { flex: 1; min-width: 0; font-size: 12px; padding: 6px 8px; }
+  .action-row .btn.sm { height: auto; padding: 6px 8px; }
   .panel-section { padding: 10px; }
   .preview-text { min-height: 120px; padding: 8px 8px 28px; resize: vertical; }
 }
