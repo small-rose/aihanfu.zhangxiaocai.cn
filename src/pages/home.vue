@@ -167,8 +167,6 @@ function showToast() {
   .brand {
     font-size: $font-size-small; color: $theme-red; letter-spacing: $letter-spacing-wide; text-transform: uppercase;
     display: block; margin-bottom: 24px; font-weight: $font-weight-semibold;
-    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
   }
 
   .brand-en {
@@ -179,7 +177,6 @@ function showToast() {
   .hero-title {
     font-size: $font-size-hero; font-weight: $font-weight-bold; color: $theme-ink;
     letter-spacing: $letter-spacing-wide; display: block;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Serif SC', serif;
   }
   /* PC 显示含中点单行，移动端显示两行无中点（由 media query 切换） */
   .hero-title-pc { display: block; }
@@ -188,8 +185,6 @@ function showToast() {
   .hero-subtitle {
     font-size: $font-size-subtitle; color: $theme-gray;
     margin-top: 16px; letter-spacing: 3px; display: block;
-    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
   }
 
   /* 移动端：标题分两行，去掉中点"·" */
