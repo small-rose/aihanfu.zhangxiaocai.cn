@@ -288,7 +288,6 @@ function showToast() {
   font-weight: $font-weight-bold;
   color: $theme-ink;
   transition: color 0.3s;
-  font-family: $font-cn;
 }
 
 .tl-name.active {
