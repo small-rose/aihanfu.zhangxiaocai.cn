@@ -272,6 +272,7 @@
           <view class="stack-modal" :style="cardFrameStyle(filtered[stackModal].dynasty)" @tap.stop>
           <image class="stack-modal-img" :class="{ skeleton: !loadedImgs.has(filtered[stackModal].id), 'img-loaded': loadedImgs.has(filtered[stackModal].id) }" :src="filtered[stackModal].src" mode="widthFix" @load="onImgLoad(filtered[stackModal].id)" />
           <view class="stack-modal-info">
+            <view class="stack-modal-fav" @tap.stop="toggleFavImg(filtered[stackModal], $event)"><text>{{ isImgFav(filtered[stackModal]) ? '★' : '☆' }}</text></view>
             <text class="stack-modal-dynasty">{{ filtered[stackModal].dynasty }}</text>
             <text class="stack-modal-title">{{ filtered[stackModal].title }}</text>
             <text class="stack-modal-tags">{{ filtered[stackModal].tags?.slice(0, 4).join(' · ') }}</text>
@@ -1416,6 +1417,8 @@ $seal-color: #B8442A;
   border-radius: 10px;
   display: flex; flex-direction: column; gap: 4px;
 }
+.stack-modal-fav { position: absolute; top: 6px; right: 6px; z-index: 1; }
+.stack-modal-fav text { font-size: 16px; cursor: pointer; color: #d4a84b; text-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; display: block; &:hover { transform: scale(1.2); } }
 .stack-modal-dynasty { font-size: $font-size-small; color: $theme-red; font-weight: 700; }
 .stack-modal-title { font-size: 18px; font-weight: 600; color: $theme-ink; }
 .stack-modal-tags { font-size: $font-size-body-sub; color: $theme-text-secondary; }
