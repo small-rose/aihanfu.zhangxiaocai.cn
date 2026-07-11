@@ -1294,7 +1294,7 @@ $seal-color: #B8442A;
 /* ===== STACK ===== */
 .stack-layout { }
 .stack-scene {
-  position: relative; height: 70vh; min-height: 500px; margin: 16px;
+  position: relative; height: 65vh; min-height: 420px; margin: 16px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
