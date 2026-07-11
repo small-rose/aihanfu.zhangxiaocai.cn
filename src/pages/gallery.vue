@@ -262,8 +262,8 @@
         <view class="stack-bar">
           <text class="stack-hint">桌面散落着{{ filtered.length }}张画片</text>
           <view class="stack-bar-actions">
-            <view class="stack-shuffle-btn" @tap="shuffleCards">洗卡</view>
-            <view class="stack-draw-btn" @tap="drawCard">抽卡</view>
+            <view class="stack-shuffle-btn" :class="{ disabled: drawing }" @tap="shuffleCards">洗卡</view>
+            <view class="stack-draw-btn" :class="{ disabled: drawing }" @tap="drawCard">抽卡</view>
           </view>
         </view>
       </view>
@@ -359,6 +359,8 @@ const albumIdx = ref(0)
 const albumDir = ref('next')
 const stackModal = ref(null)
 const stackPositions = ref([])
+const highlightIdx = ref(-1)
+const drawing = ref(false)
 const spreadIdx = ref(0)
 const isFlipping = ref(false)
 const flipDir = ref('next')
@@ -711,9 +713,39 @@ function cardFrameStyle(dynasty) {
 
 function drawCard() {
   const n = filtered.value.length
-  if (!n) return
-  const i = Math.floor(Math.random() * n)
-  openCard(i)
+  if (!n || drawing.value) return
+  const target = Math.floor(Math.random() * n)
+  let step = 0, totalSteps = 14
+  let interval = 200
+  let current = 0
+  drawing.value = true
+
+  function tick() {
+    if (step >= totalSteps) {
+      highlightIdx.value = target
+      setTimeout(() => {
+        highlightIdx.value = -1
+        drawing.value = false
+        openCard(target)
+      }, 600)
+      return
+    }
+    // 前半段随机跳，后半段逐渐靠近目标
+    step++
+    if (step < totalSteps * 0.6) {
+      current = Math.floor(Math.random() * n)
+    } else {
+      // 逐渐趋近目标
+      const remain = totalSteps - step
+      const nearBy = Math.max(0, target - remain * 2 + Math.floor(Math.random() * 3))
+      current = Math.min(n - 1, Math.max(0, nearBy))
+    }
+    highlightIdx.value = current
+    // 间隔逐渐变慢
+    if (step > totalSteps * 0.5) interval += 60
+    setTimeout(tick, interval)
+  }
+  tick()
 }
 function shuffleCards() {
   genStackPositions()
@@ -722,11 +754,13 @@ function shuffleCards() {
 function stackStyle(i) {
   const p = stackPositions.value[i]
   if (!p) return { display: 'none' }
+  const isHighlight = highlightIdx.value === i
   return {
     left: p.left + '%', top: p.top + '%',
     transform: `rotate(${p.rot}deg)`,
-    zIndex: filtered.value.length - i,
-    transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    zIndex: isHighlight ? filtered.value.length + 1 : filtered.value.length - i,
+    transition: 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    boxShadow: isHighlight ? '0 0 0 4px #D4A84B, 0 0 20px rgba(212,168,75,0.4)' : undefined,
   }
 }
 
@@ -1352,7 +1386,9 @@ $seal-color: #B8442A;
   color: $theme-ink; background: $theme-white;
   border: 1px solid $theme-border; cursor: pointer;
   &:active { opacity: 0.8; }
+  &.disabled { opacity: 0.4; cursor: default; }
 }
+.stack-draw-btn.disabled { opacity: 0.4; cursor: default; }
 .stack-draw-btn {
   padding: 10px 28px; border-radius: 8px;
   font-size: $font-size-body; font-weight: 600;
