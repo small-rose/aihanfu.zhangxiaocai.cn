@@ -261,7 +261,10 @@
         </view>
         <view class="stack-bar">
           <text class="stack-hint">桌面散落着{{ filtered.length }}张画片</text>
-          <view class="stack-draw-btn" @tap="drawCard">抽卡</view>
+          <view class="stack-bar-actions">
+            <view class="stack-shuffle-btn" @tap="shuffleCards">洗卡</view>
+            <view class="stack-draw-btn" @tap="drawCard">抽卡</view>
+          </view>
         </view>
       </view>
 
@@ -711,6 +714,9 @@ function drawCard() {
   if (!n) return
   const i = Math.floor(Math.random() * n)
   openCard(i)
+}
+function shuffleCards() {
+  genStackPositions()
 }
 
 function stackStyle(i) {
@@ -1335,9 +1341,17 @@ $seal-color: #B8442A;
   display: flex; align-items: center; justify-content: center; gap: 16px;
   padding: 16px 20px 24px;
 }
+.stack-bar-actions { display: flex; align-items: center; gap: 8px; }
 .stack-hint {
   font-size: $font-size-body-sub; color: $theme-text-secondary;
   flex: 1; text-align: center;
+}
+.stack-shuffle-btn {
+  padding: 10px 20px; border-radius: 8px;
+  font-size: $font-size-body-sub; font-weight: 600;
+  color: $theme-ink; background: $theme-white;
+  border: 1px solid $theme-border; cursor: pointer;
+  &:active { opacity: 0.8; }
 }
 .stack-draw-btn {
   padding: 10px 28px; border-radius: 8px;
