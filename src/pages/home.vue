@@ -371,7 +371,7 @@ function showToast() {
 .chip {
   padding: 5px 14px;
   background: $theme-bg;
-  border-radius: 12px;
+  border-radius: 4px;
   font-size: $font-size-small;
   color: $theme-ink;
 }
