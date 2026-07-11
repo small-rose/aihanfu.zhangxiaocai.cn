@@ -125,7 +125,7 @@ const data = computed(() => dynasties[current.value])
 
 .garment-grid { display: flex; flex-wrap: wrap; gap: 10px; }
 
-.garment-chip { padding: 8px 20px; background: $theme-white; border-radius: 16px; font-size: $font-size-body-sub; color: $theme-ink; border: 1px solid $theme-border; transition: all 0.2s; }
+.garment-chip { padding: 8px 20px; background: $theme-white; border-radius: 4px; font-size: $font-size-body-sub; color: $theme-ink; border: 1px solid $theme-border; transition: all 0.2s; }
 .garment-chip:hover { border-color: $theme-red; color: $theme-red; }
 
 .dynasty-img { width: 100%; border-radius: 12px; margin-top: 20px; }
