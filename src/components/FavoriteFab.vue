@@ -468,8 +468,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-lexicon-header { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid #c41e3a; position: relative; }
 .fd-lexicon-header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 50px; height: 2px; background: #d4a84b; }
 .fd-lexicon-header-bar { display: flex; align-items: baseline; gap: 8px; }
-.fd-lexicon-term { font-size: 24px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; }
-.fd-lexicon-pinyin { font-size: 13px; color: #aaa; font-weight: 400; margin-left: 6px; font-family: "Georgia", serif; }
+.fd-lexicon-term { font-size: 24px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+.fd-lexicon-pinyin { font-size: 13px; color: #aaa; font-weight: 400; margin-left: 6px; font-family: 'PingFang SC', 'Segoe UI', sans-serif; }
 .fd-lexicon-sub { font-size: 13px; color: #999; margin-top: 4px; display: block; }
 .fd-lexicon-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
 .fd-lexicon-tag { font-size: 11px; padding: 3px 12px; border-radius: 4px; font-weight: 500; display: inline-block; }

@@ -50,7 +50,7 @@ if (typeof window !== 'undefined') {
 page {
   background-color: $theme-bg;
   color: $theme-ink;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Serif SC', serif;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 }
 
 view, text, scroll-view {
