@@ -224,7 +224,7 @@ onLoad(() => {
 <style lang="scss" scoped>
 .page-layout { min-height: 100vh; background: $theme-bg; }
 .content { padding: clamp(20px, 3vw, 32px) clamp(16px, 4vw, 48px); }
-@media (min-width: 1200px) { .content { width: 80%; max-width: 800px; margin: 0 auto; } }
+@media (min-width: 1200px) { .content { width: 90%; max-width: 960px; margin: 0 auto; } }
 .page-header { margin-bottom: 16px; }
 .page-title { font-size: $font-size-page-title; font-weight: $font-weight-bold; color: $theme-ink; }
 .page-divider { width: 60px; height: 3px; background: $theme-red; margin-bottom: 28px; border-radius: 2px; }
