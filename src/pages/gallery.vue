@@ -683,8 +683,8 @@ function genStackPositions() {
   for (let i = 0; i < n; i++) {
     let left, top, tries = 0
     do {
-      left = 2 + Math.random() * 62
-      top = 2 + Math.random() * 50
+      left = 2 + Math.random() * 72
+      top = 2 + Math.random() * 60
       tries++
     } while (tries < 20 && positions.some(p =>
       Math.abs(p.left - left) < 14 && Math.abs(p.top - top) < 14
