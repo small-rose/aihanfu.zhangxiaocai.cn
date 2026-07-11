@@ -994,7 +994,7 @@ $seal-color: #B8442A;
   border: 3px solid $seal-color;
   display: flex; align-items: center; justify-content: center;
   color: $seal-color; border-radius: 4px;
-  z-index: 2; mix-blend-mode: multiply;
+  z-index: 2; mix-blend-mode: multiply; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
 }
 .seal-唐 .scroll-title-seal {
   border-style: double; border-width: 4px;
@@ -1168,6 +1168,7 @@ $seal-color: #B8442A;
   mix-blend-mode: multiply;
   width: 60px; height: 60px; font-size: 36px; font-weight: 900;
   background: rgba($seal-color, 0.12);
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
 }
 .seal-唐.album-title-seal {
   border-style: double; border-width: 4px;
