@@ -727,7 +727,7 @@ function drawCard() {
         highlightIdx.value = -1
         drawing.value = false
         openCard(target)
-      }, 600)
+      }, 300)
       return
     }
     // 前半段随机跳，后半段逐渐靠近目标
