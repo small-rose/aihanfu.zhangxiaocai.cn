@@ -476,8 +476,8 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
 .fd-lexicon-tag.dynasty-tag { background: #f5f3ef; color: #666; border: 1px solid #e8e4dc; }
 .fd-lexicon-tag.gender-tag { background: rgba(196,30,58,0.06); color: #c41e3a; border: 1px solid rgba(196,30,58,0.2); }
 .fd-lexicon-tag.identity-tag { background: rgba(212,168,75,0.08); color: #8b6b2a; border: 1px solid rgba(212,168,75,0.25); }
-.fd-lexicon-right { width: 200px; flex-shrink: 0; }
-.fd-lexicon-img-wrap { width: 100%; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f0ede8; }
+.fd-lexicon-right { width: 280px; flex-shrink: 0; }
+.fd-lexicon-img-wrap { width: 100%; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f0ede8; min-height: 200px; }
 .fd-lexicon-img { width: 100%; height: auto; display: block; }
 .fd-lexicon-hex-swatch { width: 100%; aspect-ratio: 1; border-radius: 10px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px 6px; }
 .fd-color-name-text { font-size: 20px; font-weight: 700; color: #1a1a1a; display: block; }
