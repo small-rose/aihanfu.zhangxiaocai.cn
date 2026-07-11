@@ -658,7 +658,7 @@ function exportPairs() {
   .pm-left-info, .pm-right-info { width: auto; min-width: 0; text-align: inherit; }
   .pm-label-left, .pm-label-right { font-size: 12px; }
   .pm-hex-left, .pm-hex-right { font-size: 10px; }
-  .pm-main-swatch, .pm-pair-swatch { width: min(120px, 28vw); height: 70px; }
+  .pm-main-swatch, .pm-pair-swatch { width: min(90px, 22vw); height: 54px; }
   .pair-modal .pm-footer { gap: 6px; }
 }
 </style>
