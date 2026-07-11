@@ -529,7 +529,7 @@ defineExpose({ addFavorite, isFavorite, removeFavorite })
   .fd-image-body { flex-direction: column; }
   .fd-image-right { width: 100%; }
   .fd-palette-card { flex-wrap: wrap; justify-content: center; padding: 6px 8px; gap: 6px; }
-  .fd-palette-main-swatch, .fd-palette-pair-swatch { width: calc(50vw - 100px); height: 38px; }
+  .fd-palette-main-swatch, .fd-palette-pair-swatch { width: calc(50vw - 120px); height: 36px; }
   .fd-palette-left, .fd-palette-right { width: auto; flex: 1; min-width: 0; }
   .fd-lexicon-term { font-size: 18px; }
   .fd-lexicon-header { padding-bottom: 8px; margin-bottom: 8px; }
