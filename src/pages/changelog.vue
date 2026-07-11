@@ -37,6 +37,26 @@ const icons = { add: '+', fix: '!', feat: '★' }
 const entries = [
   {
     date: '2026-07-11', type: 'feat',
+    title: '全站字体统一 + 层叠抽卡动画 + 其他优化',
+    items: [
+      { type: 'feat', text: '全站统一无衬线字体（苹方→微软雅黑→SimHei 优先），移除所有显式 font-family 继承 page 级字体' },
+      { type: 'feat', text: '层叠模式抽卡动画——随机轮选 14 步 + 金色高亮 + 减速停止效果' },
+      { type: 'feat', text: '层叠模式洗卡按钮，随机重新摆放所有卡片' },
+      { type: 'feat', text: '堆叠弹窗文字区域右上角收藏星标' },
+      { type: 'fix', text: '首页标题「循衣冠之脉·览千年华章」和「六大主题·遍览华服」改为衬线字体' },
+      { type: 'fix', text: '手卷标题、册页首卡标题改为衬线字体' },
+      { type: 'fix', text: '印章文字改为衬线字体（Noto Serif SC）' },
+      { type: 'fix', text: '首页朝代名称标签（chip）圆角 12px→4px，去掉胶囊形状' },
+      { type: 'fix', text: '朝代页面服饰标签圆角 16px→4px，去掉胶囊形状' },
+      { type: 'fix', text: '导航栏 LOGO「汉」改为无衬线字体' },
+      { type: 'fix', text: 'favicon.svg「汉」改为无衬线字体' },
+      { type: 'fix', text: '层叠卡片分布范围扩展到 2~82% × 2~64%，高度 65vh min-420px' },
+      { type: 'fix', text: '收藏详情·词库 右侧图片宽度 200→280px + min-height 200px' },
+      { type: 'fix', text: '移动端图库默认网格模式' },
+    ]
+  },
+  {
+    date: '2026-07-11', type: 'feat',
     title: '移动端适配 + 法律页面 + 收藏最终完善',
     items: [
       { type: 'add', text: '网站声明页面——免责声明/版权声明/侵权处理/素材来源说明' },
