@@ -157,7 +157,7 @@ const hasMeta = computed(() => {
 }
 .drawer-deco-char {
   font-size: 36px; color: rgba($theme-white, 0.9); font-weight: $font-weight-bold;
-  font-family: $font-cn; position: relative; z-index: 1;
+  position: relative; z-index: 1;
 }
 .drawer-deco-label {
   font-size: 11px; color: rgba($theme-white, 0.5); margin-top: 4px;
@@ -213,7 +213,7 @@ const hasMeta = computed(() => {
 
 .drawer-term {
   font-size: 26px; font-weight: $font-weight-bold; color: $theme-ink; display: block;
-  line-height: 1.3; font-family: $font-cn;
+  line-height: 1.3;
 }
 .drawer-pinyin {
   font-size: 13px; color: $theme-placeholder; font-weight: $font-weight-regular;

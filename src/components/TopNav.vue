@@ -155,7 +155,6 @@ function doSearch() {
   font-size: $font-size-brand;
   font-weight: $font-weight-bold;
   color: $theme-white;
-  font-family: $font-cn;
   flex-shrink: 0;
 }
 
@@ -283,11 +282,11 @@ function doSearch() {
 .drawer-logo {
   width: 34px; height: 34px; background: $theme-red; border-radius: 5px;
   display: flex; align-items: center; justify-content: center;
-  font-family: $font-cn; font-size: 17px; color: $theme-cream; font-weight: $font-weight-bold;
+  font-size: 17px; color: $theme-cream; font-weight: $font-weight-bold;
 }
 .drawer-texts { display: flex; flex-direction: column; }
 .drawer-title-cn {
-  font-family: $font-cn; font-size: 16px; color: $theme-ink;
+  font-size: 16px; color: $theme-ink;
   font-weight: $font-weight-bold; letter-spacing: 2px;
 }
 .drawer-title-en {
@@ -312,7 +311,7 @@ function doSearch() {
 .nav-link-icon { font-size: 16px; width: 22px; text-align: center; flex: none; }
 .nav-link-texts { display: flex; flex-direction: column; }
 .mobile-nav-label {
-  font-family: $font-cn; font-size: $font-size-body; color: inherit;
+  font-size: $font-size-body; color: inherit;
   font-weight: $font-weight-medium; letter-spacing: 1.5px;
 }
 .mobile-nav-label-en {

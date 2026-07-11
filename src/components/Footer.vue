@@ -125,14 +125,12 @@ function navigate(page) {
   font-size: $font-size-subtitle;
   font-weight: $font-weight-bold;
   color: $theme-white;
-  font-family: $font-cn;
 }
 
 .footer-brand-cn {
   font-size: $font-size-brand;
   font-weight: $font-weight-bold;
   color: $theme-ink;
-  font-family: $font-cn;
   letter-spacing: $letter-spacing-normal;
 }
 
